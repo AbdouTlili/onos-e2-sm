@@ -3,7 +3,7 @@ package encoder
 import (
 	"encoding/hex"
 
-	e2smrmet "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rmet/v1/e2sm-rmet-go"
+	e2smrmet "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_rmet/v1/e2sm-rmet-go"
 	"github.com/onosproject/onos-lib-go/pkg/asn1/aper"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"google.golang.org/appengine/log"
