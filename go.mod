@@ -1,4 +1,4 @@
-module github.com/onosproject/onos-e2-sm
+module github.com/AbdouTlili/onos-e2-sm
 
 go 1.16
 
