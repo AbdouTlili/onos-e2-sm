@@ -221,13 +221,11 @@ E2SM-RMET-IEs {
         ...
     }
     
-    MeasurementRecordItem ::= SEQUENCE{
-        value   CHOICE {
-                integer					INTEGER,
-                real					REAL,
-                noValue					NULL,
-                ...
-        }	
+    MeasurementRecordItem ::= CHOICE {
+        integer					INTEGER,
+        real					REAL,
+        noValue					NULL,
+        ...
     }
     	
     
