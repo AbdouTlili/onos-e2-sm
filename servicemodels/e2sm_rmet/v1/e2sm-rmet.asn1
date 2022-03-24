@@ -217,7 +217,7 @@ E2SM-RMET-IEs {
     MeasurementRecord ::= SEQUENCE {
         ueID					UEID,
         ueTag                   UETag,
-        measRecordItem  MeasurementRecordItem,
+        measRecordItem  SEQUENCE (SIZE(1..maxnoofMeasurementValue)) OF MeasurementRecordItem,
         ...
     }
     

@@ -343,27 +343,28 @@ message Ueitem {
 // sequence from e2sm-rmet.asn1:207
 // {UEList}
 message Uelist {
-    // @inject_tag: aper:""
+    // @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:65535"
     repeated Ueitem value = 1 [ json_name="value"];
 };
 
 // sequence from e2sm-rmet.asn1:209
 // {MeasurementInfoList}
 message MeasurementInfoList {
-    // @inject_tag: aper:""
+    // @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:65535"
     repeated MeasurementInfoItem value = 1 [ json_name="value"];
 };
 
 // sequence from e2sm-rmet.asn1:210
 // {MeasurementInfoItem}
 message MeasurementInfoItem {
+    // @inject_tag: aper:"choiceExt"
     MeasurementType meas_type = 1 [ json_name="measType"];
 };
 
 // sequence from e2sm-rmet.asn1:217
 // {MeasurementData}
 message MeasurementData {
-    // @inject_tag: aper:""
+    // @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:65535"
     repeated MeasurementRecord value = 1 [ json_name="value"];
 };
 
@@ -372,7 +373,8 @@ message MeasurementData {
 message MeasurementRecord {
     Ueid ue_id = 1 [ json_name="ueID"];
     Uetag ue_tag = 2 [ json_name="ueTag"];
-    MeasurementRecordItem meas_record_item = 3 [ json_name="measRecordItem"];
+    // @inject_tag: aper:"choiceExt,sizeLB:1,sizeUB:1024"
+    repeated MeasurementRecordItem meas_record_item = 3 [ json_name="measRecordItem"];
 };
 
 // sequence from e2sm-rmet.asn1:231
@@ -392,7 +394,7 @@ message MeasurementRecordItem {
 // sequence from e2sm-rmet.asn1:236
 // {MeasurementInfo-Action-List}
 message MeasurementInfoActionList {
-    // @inject_tag: aper:""
+    // @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:65535"
     repeated MeasurementInfoActionItem value = 1 [ json_name="value"];
 };
 
@@ -400,12 +402,14 @@ message MeasurementInfoActionList {
 // {MeasurementInfo-Action-Item}
 message MeasurementInfoActionItem {
     MeasurementTypeName meas_name = 1 [ json_name="measName"];
+    // @inject_tag: aper:"optional"
     optional MeasurementTypeId meas_id = 2 [ json_name="measID"];
 };
 
 // sequence from e2sm-rmet.asn1:254
 // {E2SM-RMET-EventTriggerDefinition}
 message E2SmRmetEventTriggerDefinition {
+    // @inject_tag: aper:"choiceExt"
     EventTriggerDefinitionFormats event_definition_formats = 1 [ json_name="eventDefinition-formats"];
 };
 
@@ -421,6 +425,7 @@ message EventTriggerDefinitionFormats {
 // sequence from e2sm-rmet.asn1:259
 // {E2SM-RMET-EventTriggerDefinition-Format1}
 message E2SmRmetEventTriggerDefinitionFormat1 {
+    // @inject_tag: aper:"valueLB:1,valueUB:4294967295"
     int64 reporting_period = 1 [json_name = "reportingPeriod"];
 };
 
@@ -431,6 +436,7 @@ message E2SmRmetEventTriggerDefinitionFormat1 {
 // {E2SM-RMET-ActionDefinition}
 message E2SmRmetActionDefinition {
     RicStyleType ric_style_type = 1 [ json_name="ric-Style-Type"];
+    // @inject_tag: aper:"choiceExt"
     ActionDefinitionFormats action_definition_formats = 2 [json_name = "actionDefinition-formats"];
 };
 
@@ -454,11 +460,13 @@ message E2SmRmetActionDefinitionFormat1 {
 // sequence from e2sm-rmet.asn1:292
 // {E2SM-RMET-IndicationHeader}
 message E2SmRmetIndicationHeader {
+    // @inject_tag: aper:"choiceExt"
     IndicationHeaderFormats indication_header_formats = 1 [json_name = "indicationHeader-formats"];
 };
 
 message IndicationHeaderFormats {
     oneof e2_sm_rmet_indication_header {
+        // @inject_tag: aper:"valueExt,choiceIdx:1"
         E2SmRmetIndicationHeaderFormat1 indication_header_format1 = 1 [json_name = "indicationHeader_Format1"];
     }
 }
@@ -468,16 +476,22 @@ message IndicationHeaderFormats {
 // {E2SM-RMET-IndicationHeader-Format1}
 message E2SmRmetIndicationHeaderFormat1 {
     TimeStamp collet_start_time = 1 [ json_name="colletStartTime"];
+    // @inject_tag: aper:"optional,sizeExt,sizeLB:0,sizeUB:15"
     optional string file_formatversion = 2 [(validate.v1.rules).string = {min_len: 0, max_len: 15}, json_name="fileFormatversion"];
+    // @inject_tag: aper:"optional,sizeExt,sizeLB:0,sizeUB:400"
     optional string sender_name = 3 [(validate.v1.rules).string = {min_len: 0, max_len: 400}, json_name="senderName"];
+    // @inject_tag: aper:"optional,sizeExt,sizeLB:0,sizeUB:8"
     optional string sender_type = 4 [(validate.v1.rules).string = {min_len: 0, max_len: 8}, json_name="senderType"];
+    // @inject_tag: aper:"optional,sizeExt,sizeLB:0,sizeUB:32"
     optional string vendor_name = 5 [(validate.v1.rules).string = {min_len: 0, max_len: 32}, json_name="vendorName"];
+    // @inject_tag: aper:"optional,choiceExt"
     optional GlobalRmetnodeId rmet_node_id = 6 [ json_name="rmetNodeID"];
 };
 
 // sequence from e2sm-rmet.asn1:314
 // {E2SM-RMET-IndicationMessage}
 message E2SmRmetIndicationMessage {
+    // @inject_tag: aper:"choiceExt"
     IndicationMessageFormats indication_message_formats = 1 [json_name = "indicationMessage-formats"];
 };
 
@@ -492,8 +506,11 @@ message IndicationMessageFormats {
 // {E2SM-RMET-IndicationMessage-Format1}
 message E2SmRmetIndicationMessageFormat1 {
     SubscriptionId subscript_id = 1 [ json_name="subscriptID"];
+    // @inject_tag: aper:"optional"
     optional CellObjectId cell_obj_id = 2 [ json_name="cellObjID"];
+    // @inject_tag: aper:"optional"
     optional GranularityPeriod granul_period = 3 [ json_name="granulPeriod"];
+    // @inject_tag: aper:"optional"
     optional MeasurementInfoList meas_info_list = 4 [ json_name="measInfoList"];
     MeasurementData meas_data = 5 [ json_name="measData"];
 };
@@ -501,20 +518,22 @@ message E2SmRmetIndicationMessageFormat1 {
 // sequence from e2sm-rmet.asn1:332
 // {E2SM-RMET-RANfunction-Description}
 message E2SmRmetRanfunctionDescription {
+    // @inject_tag: aper:"valueExt"
     RanfunctionName ran_function_name = 1 [ json_name="ranFunction-Name"];
-    // @inject_tag: aper:""
+    // @inject_tag: aper:"optional,valueExt,sizeLB:1,sizeUB:1024"
     repeated RicRmetnodeItem ric_rmet_node_list = 2 [(validate.v1.rules).repeated = {min_items: 1, max_items: 1024}, json_name="ric-RMET-Node-List"];
-    // @inject_tag: aper:""
+    // @inject_tag: aper:"optional,valueExt,sizeLB:1,sizeUB:63"
     repeated RicEventTriggerStyleItem ric_event_trigger_style_list = 3 [(validate.v1.rules).repeated = {min_items: 1, max_items: 63}, json_name="ric-EventTriggerStyle-List"];
-    // @inject_tag: aper:""
+    // @inject_tag: aper:"optional,valueExt,sizeLB:1,sizeUB:63"
     repeated RicReportStyleItem ric_report_style_list = 4 [(validate.v1.rules).repeated = {min_items: 1, max_items: 63}, json_name="ric-ReportStyle-List"];
 };
 
 // sequence from e2sm-rmet.asn1:340
 // {RIC-RMETNode-Item}
 message RicRmetnodeItem {
+    // @inject_tag: aper:"choiceExt"
     GlobalRmetnodeId ric_rmetnode_type = 1 [ json_name="ric-RMETNode-Type"];
-    // @inject_tag: aper:""
+    // @inject_tag: aper:"optional,valueExt,sizeLB:1,sizeUB:16384"
     repeated CellMeasurementObjectItem cell_measurement_object_list = 2 [(validate.v1.rules).repeated = {min_items: 1, max_items: 16384}, json_name="cell-Measurement-Object-List"];
 };
 
@@ -522,6 +541,7 @@ message RicRmetnodeItem {
 // {Cell-Measurement-Object-Item}
 message CellMeasurementObjectItem {
     CellObjectId cell_object_id = 1 [ json_name="cell-object-ID"];
+    // @inject_tag: aper:"choiceExt"
     CellGlobalId cell_global_id = 2 [ json_name="cell-global-ID"];
 };
 
