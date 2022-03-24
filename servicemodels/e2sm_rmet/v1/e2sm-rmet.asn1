@@ -183,7 +183,7 @@ E2SM-RMET-IEs {
     maxnoofRICStyles			INTEGER ::= 63
     maxnoofMeasurementInfo		INTEGER ::= 65536
     maxnoofMeasurementRecord	INTEGER ::= 65536
-    maxnoofMeasurementValue		INTEGER ::= 2147483647
+    maxnoofMeasurementValue		INTEGER ::= 1024
 
 
     -- ****************** 

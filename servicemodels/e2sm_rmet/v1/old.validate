@@ -4077,16 +4077,7 @@ func (m *RicStyleType) validate(all bool) error {
 
 	var errors []error
 
-	if val := m.GetValue(); val < 0 || val > 255 {
-		err := RicStyleTypeValidationError{
-			field:  "Value",
-			reason: "value must be inside range [0, 255]",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Value
 
 	if len(errors) > 0 {
 		return RicStyleTypeMultiError(errors)
@@ -4187,16 +4178,7 @@ func (m *RicFormatType) validate(all bool) error {
 
 	var errors []error
 
-	if val := m.GetValue(); val < 0 || val > 255 {
-		err := RicFormatTypeValidationError{
-			field:  "Value",
-			reason: "value must be inside range [0, 255]",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Value
 
 	if len(errors) > 0 {
 		return RicFormatTypeMultiError(errors)
@@ -5077,10 +5059,10 @@ func (m *Ueid) validate(all bool) error {
 
 	var errors []error
 
-	if val := m.GetValue(); val < 1 || val > 4294967295 {
+	if val := m.GetValue(); val < 1 || val > 4294967296 {
 		err := UeidValidationError{
 			field:  "Value",
-			reason: "value must be inside range [1, 4294967295]",
+			reason: "value must be inside range [1, 4294967296]",
 		}
 		if !all {
 			return err
@@ -5938,38 +5920,33 @@ func (m *MeasurementRecord) validate(all bool) error {
 		}
 	}
 
-	for idx, item := range m.GetMeasRecordItem() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, MeasurementRecordValidationError{
-						field:  fmt.Sprintf("MeasRecordItem[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, MeasurementRecordValidationError{
-						field:  fmt.Sprintf("MeasRecordItem[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return MeasurementRecordValidationError{
-					field:  fmt.Sprintf("MeasRecordItem[%v]", idx),
+	if all {
+		switch v := interface{}(m.GetMeasRecordItem()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MeasurementRecordValidationError{
+					field:  "MeasRecordItem",
 					reason: "embedded message failed validation",
 					cause:  err,
-				}
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MeasurementRecordValidationError{
+					field:  "MeasRecordItem",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
 			}
 		}
-
+	} else if v, ok := interface{}(m.GetMeasRecordItem()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MeasurementRecordValidationError{
+				field:  "MeasRecordItem",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	if len(errors) > 0 {
