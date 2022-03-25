@@ -15,7 +15,7 @@ func PerEncodeE2SmRmetIndicationMessage(im *e2smrmet.E2SmRmetIndicationMessage) 
 		return nil, errors.NewInvalid("error validating E2SM-RMET-IndicationMessage PDU %s", err.Error())
 	}
 
-	per, err := aper.MarshalWithParams(im, "valueExt", e2smrmet.Choicemape2smRmet, nil)
+	per, err := aper.MarshalWithParams(im, "valueExt", e2smrmet.E2smRmetChoicemap, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -29,7 +29,7 @@ func PerDecodeE2SmRmetIndicationMessage(per []byte) (*e2smrmet.E2SmRmetIndicatio
 	log.Debugf("Obtained E2SM-RMET-IndicationMessage PER bytes are\n%v", hex.Dump(per))
 
 	result := e2smrmet.E2SmRmetIndicationMessage{}
-	err := aper.UnmarshalWithParams(per, &result, "valueExt", e2smrmet.Choicemape2smRmet, nil)
+	err := aper.UnmarshalWithParams(per, &result, "valueExt", e2smrmet.E2smRmetChoicemap, nil)
 	if err != nil {
 		return nil, err
 	}

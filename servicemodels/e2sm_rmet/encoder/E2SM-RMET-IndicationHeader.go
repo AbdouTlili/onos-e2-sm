@@ -15,7 +15,7 @@ func PerEncodeE2SmRmetIndicationHeader(ih *e2smrmet.E2SmRmetIndicationHeader) ([
 		return nil, errors.NewInvalid("error validating E2SM-RMET-IndicationHeader PDU %s", err.Error())
 	}
 
-	per, err := aper.MarshalWithParams(ih, "valueExt", e2smrmet.Choicemape2smRmet, nil)
+	per, err := aper.MarshalWithParams(ih, "valueExt", e2smrmet.E2smRmetChoicemap, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -29,7 +29,7 @@ func PerDecodeE2SmRmetIndicationHeader(per []byte) (*e2smrmet.E2SmRmetIndication
 	log.Debugf("Obtained E2SM-RMET-IndicationHeader PER bytes are\n%v", hex.Dump(per))
 
 	result := e2smrmet.E2SmRmetIndicationHeader{}
-	err := aper.UnmarshalWithParams(per, &result, "valueExt", e2smrmet.Choicemape2smRmet, nil)
+	err := aper.UnmarshalWithParams(per, &result, "valueExt", e2smrmet.E2smRmetChoicemap, nil)
 	if err != nil {
 		return nil, err
 	}

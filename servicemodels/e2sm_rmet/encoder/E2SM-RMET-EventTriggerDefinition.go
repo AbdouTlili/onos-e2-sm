@@ -15,7 +15,7 @@ func PerEncodeE2SmRmetEventTriggerDefinition(etd *e2smrmet.E2SmRmetEventTriggerD
 		return nil, errors.NewInvalid("error validating E2SM-RMET-EventTriggerDefinition PDU %s", err.Error())
 	}
 
-	per, err := aper.MarshalWithParams(etd, "valueExt", e2smrmet.Choicemape2smRmet, nil)
+	per, err := aper.MarshalWithParams(etd, "valueExt", e2smrmet.E2smRmetChoicemap, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -29,7 +29,7 @@ func PerDecodeE2SmRmetEventTriggerDefinition(per []byte) (*e2smrmet.E2SmRmetEven
 	log.Debugf("Obtained E2SM-RMET-EventTriggerDefinition PER bytes are\n%v", hex.Dump(per))
 
 	result := e2smrmet.E2SmRmetEventTriggerDefinition{}
-	err := aper.UnmarshalWithParams(per, &result, "valueExt", e2smrmet.Choicemape2smRmet, nil)
+	err := aper.UnmarshalWithParams(per, &result, "valueExt", e2smrmet.E2smRmetChoicemap, nil)
 	if err != nil {
 		return nil, err
 	}

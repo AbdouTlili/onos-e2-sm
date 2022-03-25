@@ -18,7 +18,7 @@ func PerEncodeE2SmRmetActionDefinition(ad *e2smrmet.E2SmRmetActionDefinition) ([
 		return nil, errors.NewInvalid("error validating E2SM-RMET-ActionDefinition PDU %s", err.Error())
 	}
 
-	per, err := aper.MarshalWithParams(ad, "valueExt", e2smrmet.Choicemape2smRmet, nil)
+	per, err := aper.MarshalWithParams(ad, "valueExt", e2smrmet.E2smRmetChoicemap, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -32,7 +32,7 @@ func PerDecodeE2SmRmetActionDefinition(per []byte) (*e2smrmet.E2SmRmetActionDefi
 	log.Debugf("Obtained E2SM-RMET-ActionDefinition PER bytes are\n%v", hex.Dump(per))
 
 	result := e2smrmet.E2SmRmetActionDefinition{}
-	err := aper.UnmarshalWithParams(per, &result, "valueExt", e2smrmet.Choicemape2smRmet, nil)
+	err := aper.UnmarshalWithParams(per, &result, "valueExt", e2smrmet.E2smRmetChoicemap, nil)
 	if err != nil {
 		return nil, err
 	}
