@@ -8,9 +8,9 @@
 package main
 
 import (
+	"github.com/AbdouTlili/onos-e2-sm/protoc-gen-choice/generic"
 	pgs "github.com/lyft/protoc-gen-star"
 	pgsgo "github.com/lyft/protoc-gen-star/lang/go"
-	"github.com/onosproject/onos-e2-sm/protoc-gen-choice/generic"
 )
 
 func main() {
