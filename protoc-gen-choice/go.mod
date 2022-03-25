@@ -1,4 +1,4 @@
-module github.com/onosproject/onos-e2-sm/protoc-gen-choice
+module github.com/AbdouTlili/onos-e2-sm/protoc-gen-choice
 
 go 1.16
 
