@@ -1,4 +1,4 @@
-package e2smrmet
+package e2sm_rmet_go
 
 import (
 	"reflect"
