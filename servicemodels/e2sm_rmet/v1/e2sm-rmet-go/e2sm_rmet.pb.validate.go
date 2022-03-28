@@ -8434,10 +8434,10 @@ func (m *E2SmRmetRanfunctionDescription) validate(all bool) error {
 		}
 	}
 
-	if l := len(m.GetRicRmetNodeList()); l < 1 || l > 1024 {
+	if len(m.GetRicRmetNodeList()) > 1024 {
 		err := E2SmRmetRanfunctionDescriptionValidationError{
 			field:  "RicRmetNodeList",
-			reason: "value must contain between 1 and 1024 items, inclusive",
+			reason: "value must contain no more than 1024 item(s)",
 		}
 		if !all {
 			return err
@@ -8479,10 +8479,10 @@ func (m *E2SmRmetRanfunctionDescription) validate(all bool) error {
 
 	}
 
-	if l := len(m.GetRicEventTriggerStyleList()); l < 1 || l > 63 {
+	if len(m.GetRicEventTriggerStyleList()) > 63 {
 		err := E2SmRmetRanfunctionDescriptionValidationError{
 			field:  "RicEventTriggerStyleList",
-			reason: "value must contain between 1 and 63 items, inclusive",
+			reason: "value must contain no more than 63 item(s)",
 		}
 		if !all {
 			return err
@@ -8524,10 +8524,10 @@ func (m *E2SmRmetRanfunctionDescription) validate(all bool) error {
 
 	}
 
-	if l := len(m.GetRicReportStyleList()); l < 1 || l > 63 {
+	if len(m.GetRicReportStyleList()) > 63 {
 		err := E2SmRmetRanfunctionDescriptionValidationError{
 			field:  "RicReportStyleList",
-			reason: "value must contain between 1 and 63 items, inclusive",
+			reason: "value must contain no more than 63 item(s)",
 		}
 		if !all {
 			return err
