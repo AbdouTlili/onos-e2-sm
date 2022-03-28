@@ -163,15 +163,15 @@ E2SM-RMET-IEs {
         ranFunction-ShortName		PrintableString(SIZE(1..150,...)),
         ranFunction-E2SM-OID		PrintableString(SIZE(1..1000,...)),
         ranFunction-Description		PrintableString(SIZE(1..150,...)),
-        ranFunction-Instance		INTEGER 					OPTIONAL,
+        ranFunction-Instance		INTEGER (0.. 255, ...) 					OPTIONAL,
         ...
     }
     
-    RIC-Style-Type ::= INTEGER
+    RIC-Style-Type ::= INTEGER (0.. 255, ...)
     
     RIC-Style-Name ::= PrintableString(SIZE(1.. 150, ...))
     
-    RIC-Format-Type ::= INTEGER
+    RIC-Format-Type ::= INTEGER (0.. 255, ...)
     
     -- **************************************************************
     --   Lists

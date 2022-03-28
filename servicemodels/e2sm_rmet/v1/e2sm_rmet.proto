@@ -314,8 +314,8 @@ message MaxnoofMeasurementRecord {
 // constant Integer from e2sm-rmet.asn1:186
 // {-}
 message MaxnoofMeasurementValue {
-    // @inject_tag: aper:"valueLB:2147483647,valueUB:2147483647,"
-    int32 value = 1 [(validate.v1.rules).int32.const = 2147483647, json_name="value"];
+    // @inject_tag: aper:"valueLB:65536,valueUB:65536,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65536, json_name="value"];
 };
 
 // constant Integer from e2sm-rmet.asn1:191
@@ -534,7 +534,7 @@ message RicRmetnodeItem {
     // @inject_tag: aper:"choiceExt"
     GlobalRmetnodeId ric_rmetnode_type = 1 [ json_name="ric-RMETNode-Type"];
     // @inject_tag: aper:"optional,valueExt,sizeLB:1,sizeUB:16384"
-    repeated CellMeasurementObjectItem cell_measurement_object_list = 2 [(validate.v1.rules).repeated = {min_items: 1, max_items: 16384}, json_name="cell-Measurement-Object-List"];
+    repeated CellMeasurementObjectItem cell_measurement_object_list = 2 [(validate.v1.rules).repeated = {min_items: 0, max_items: 16384}, json_name="cell-Measurement-Object-List"];
 };
 
 // sequence from e2sm-rmet.asn1:346
@@ -616,5 +616,5 @@ message NrcellIdentity {
 //{MeasurementTypeName}
 message Uetag {
     // @inject_tag: aper:"sizeExt,sizeLB:1,sizeUB:150"
-    string value = 1 [(validate.v1.rules).string = {min_len: 1, max_len: 150}, json_name = "value"];
+    string value = 1 [(validate.v1.rules).string = {min_len: 0, max_len: 150}, json_name = "value"];
 }

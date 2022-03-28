@@ -2,12 +2,14 @@ package pdubuilder
 
 import (
 	"encoding/hex"
+
 	"fmt"
+	"testing"
+
 	"github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_rmet/encoder"
 	e2smrmet "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_rmet/v1/e2sm-rmet-go"
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 	"gotest.tools/assert"
-	"testing"
 )
 
 func TestE2SmRmetRanfunctionDescription(t *testing.T) {
@@ -74,7 +76,6 @@ func TestE2SmRmetRanfunctionDescription(t *testing.T) {
 	rrsl = append(rrsl, rrsi)
 
 	newE2SmRmetPdu, err := CreateE2SmRmetRanfunctionDescription(rfSn, rfE2SMoid, rfd)
-	fmt.Printf("%#v", t)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2SmRmetPdu != nil)
 	newE2SmRmetPdu.SetRanFunctionInstance(rfi).SetRicEventTriggerStyleList(retsl).SetRicRmetNodeList(rknl).SetRicReportStyleList(rrsl)
@@ -82,6 +83,7 @@ func TestE2SmRmetRanfunctionDescription(t *testing.T) {
 	per, err := encoder.PerEncodeE2SmRmetRanFunctionDescription(newE2SmRmetPdu)
 	assert.NilError(t, err)
 	t.Logf("E2SM-RANfunctionDescription PER is \n%v", hex.Dump(per))
+	fmt.Printf("\n\n%#v\n", per)
 
 	result, err := encoder.PerDecodeE2SmRmetRanFunctionDescription(per)
 	assert.NilError(t, err)

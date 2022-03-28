@@ -4856,10 +4856,10 @@ func (m *MaxnoofMeasurementValue) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetValue() != 2147483647 {
+	if m.GetValue() != 65536 {
 		err := MaxnoofMeasurementValueValidationError{
 			field:  "Value",
-			reason: "value must equal 2147483647",
+			reason: "value must equal 65536",
 		}
 		if !all {
 			return err
@@ -8701,10 +8701,10 @@ func (m *RicRmetnodeItem) validate(all bool) error {
 		}
 	}
 
-	if l := len(m.GetCellMeasurementObjectList()); l < 1 || l > 16384 {
+	if len(m.GetCellMeasurementObjectList()) > 16384 {
 		err := RicRmetnodeItemValidationError{
 			field:  "CellMeasurementObjectList",
-			reason: "value must contain between 1 and 16384 items, inclusive",
+			reason: "value must contain no more than 16384 item(s)",
 		}
 		if !all {
 			return err
@@ -10384,10 +10384,10 @@ func (m *Uetag) validate(all bool) error {
 
 	var errors []error
 
-	if l := utf8.RuneCountInString(m.GetValue()); l < 1 || l > 150 {
+	if l := utf8.RuneCountInString(m.GetValue()); l < 0 || l > 150 {
 		err := UetagValidationError{
 			field:  "Value",
-			reason: "value length must be between 1 and 150 runes, inclusive",
+			reason: "value length must be between 0 and 150 runes, inclusive",
 		}
 		if !all {
 			return err
