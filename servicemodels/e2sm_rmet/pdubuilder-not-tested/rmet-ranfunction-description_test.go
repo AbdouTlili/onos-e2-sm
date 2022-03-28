@@ -23,9 +23,13 @@ func TestE2SmRmetRanfunctionDescription(t *testing.T) {
 		Value: []byte{0xd4, 0xbc, 0x08},
 		Len:   22,
 	}
+
 	cellIDbits := []byte{0x12, 0xF0, 0xDE, 0xBC, 0xF0}
+
 	cellGlobalID, err := CreateCellGlobalIDNRCGI(plmnID, cellIDbits) // 36 bit
+
 	assert.NilError(t, err)
+
 	var cellObjID = "ONF"
 	cellMeasObjItem := CreateCellMeasurementObjectItem(cellObjID, cellGlobalID)
 
@@ -33,6 +37,7 @@ func TestE2SmRmetRanfunctionDescription(t *testing.T) {
 	var gnbDuID int64 = 6789
 	globalRmetnodeID, err := CreateGlobalRmetnodeIDgNBID(&bs, plmnID)
 	assert.NilError(t, err)
+
 	globalRmetnodeID.GetGNb().GNbCuUpId = &e2smrmet.GnbCuUpId{
 		Value: gnbCuUpID,
 	}
