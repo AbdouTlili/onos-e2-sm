@@ -1,0 +1,174 @@
+////////////////////// e2sm-met-ies.proto //////////////////////
+// Protobuf generated from /e2sm_met.asn1 by asn1c-0.9.29
+// E2SM-MET-IEs { iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1) oran(53148) e2(1) version2(2) e2sm(2) e2sm-METMON-IEs(97) }
+
+syntax = "proto3";
+
+package e2sm_met_asn1.v1;
+option go_package = "e2sm_met_asn1/v1/e2sm-met-ies";
+
+import "validate/v1/validate.proto";
+import "asn1/v1/asn1.proto";
+
+// range of Integer from e2sm_met.asn1:16
+// {CellObjectID}
+message CellObjectId {
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 255}, json_name="value"];
+};
+
+// range of Integer from e2sm_met.asn1:20
+// {GranularityPeriod}
+message GranularityPeriod {
+    int32 value = 1 [ json_name="value"];
+};
+
+// range of Integer from e2sm_met.asn1:20
+// {SubscriptionID}
+message SubscriptionId {
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 1, lte: 4294967296}, json_name="value"];
+};
+
+// range of Integer from e2sm_met.asn1:24
+// {GlobalMETnode-ID}
+message GlobalMetnodeId {
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 1, lte: 4294967296}, json_name="value"];
+};
+
+// sequence from e2sm_met.asn1:29
+// {RANfunction-Name}
+message RanfunctionName {
+    string ran_function_short_name = 1 [(validate.v1.rules).string = {min_len: 1, max_len: 150}, json_name="ranFunction-ShortName"];
+    string ran_function_e2_sm_oid = 2 [(validate.v1.rules).string = {min_len: 1, max_len: 1000}, json_name="ranFunction-E2SM-OID"];
+    string ran_function_description = 3 [(validate.v1.rules).string = {min_len: 1, max_len: 150}, json_name="ranFunction-Description"];
+};
+
+// constant Integer from e2sm_met.asn1:39
+// {-}
+message MaxnoofMeasurementInfo {
+    // @inject_tag: aper:"valueLB:65536,valueUB:65536,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65536, json_name="value"];
+};
+
+// constant Integer from e2sm_met.asn1:40
+// {-}
+message MaxnoofMeasurementRecord {
+    // @inject_tag: aper:"valueLB:65536,valueUB:65536,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65536, json_name="value"];
+};
+
+// constant Integer from e2sm_met.asn1:41
+// {-}
+message MaxnoofMeasurementValue {
+    // @inject_tag: aper:"valueLB:65536,valueUB:65536,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65536, json_name="value"];
+};
+
+// constant Integer from e2sm_met.asn1:45
+// {-}
+message MaxofUe {
+    // @inject_tag: aper:"valueLB:65536,valueUB:65536,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65536, json_name="value"];
+};
+
+// range of Integer from e2sm_met.asn1:47
+// {UEID}
+message Ueid {
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 1, lte: 4294967296}, json_name="value"];
+};
+
+// sequence from e2sm_met.asn1:52
+// {UEItem}
+message Ueitem {
+    Ueid ue_id = 1 [ json_name="ueID"];
+    optional Uetag ue_tag = 2 [ json_name="ueTag"];
+};
+
+// sequence from e2sm_met.asn1:61
+// {MeasurementInfoList}
+message MeasurementInfoList {
+    // @inject_tag: aper:""
+    repeated MeasurementInfoItem value = 1 [ json_name="value"];
+};
+
+// sequence from e2sm_met.asn1:62
+// {MeasurementInfoItem}
+message MeasurementInfoItem {
+    string meas_type = 1 [(validate.v1.rules).string = {min_len: 0, max_len: 15}, json_name="measType"];
+};
+
+// sequence from e2sm_met.asn1:68
+// {MeasurementData}
+message MeasurementData {
+    // @inject_tag: aper:""
+    repeated MeasurementRecord value = 1 [ json_name="value"];
+};
+
+// sequence from e2sm_met.asn1:69
+// {MeasurementRecord}
+message MeasurementRecord {
+    Ueid ue_id = 1 [ json_name="ueID"];
+    Uetag ue_tag = 2 [ json_name="ueTag"];
+    // @inject_tag: aper:""
+    repeated MeasurementRecordItem meas_record_item = 3 [(validate.v1.rules).repeated = {min_items: 1, max_items: 65536}, json_name="measRecordItem"];
+};
+
+// sequence from e2sm_met.asn1:76
+// {MeasurementRecordItem}
+message MeasurementRecordItem {
+    // choice from e2sm_met.asn1:76
+    oneof measurement_record_item {
+        int32 integer = 1 [ json_name="integer"];
+        int32 real = 2 [ json_name="real"];
+        int32 no_value = 3 [ json_name="noValue"];
+    }
+};
+
+// sequence from e2sm_met.asn1:94
+// {E2SM-MET-EventTriggerDefinition}
+message E2SmMetEventTriggerDefinition {
+    int32 event_definition_formats = 1 [ json_name="eventDefinition-formats"];
+};
+
+// sequence from e2sm_met.asn1:99
+// {E2SM-MET-EventTriggerDefinition-Format1}
+message E2SmMetEventTriggerDefinitionFormat1 {
+    int32 reporting_period = 1 [ json_name="reportingPeriod"];
+};
+
+// sequence from e2sm_met.asn1:115
+// {E2SM-MET-IndicationHeader}
+message E2SmMetIndicationHeader {
+    int32 indication_header_formats = 1 [ json_name="indicationHeader-formats"];
+};
+
+// sequence from e2sm_met.asn1:120
+// {E2SM-MET-IndicationHeader-Format1}
+message E2SmMetIndicationHeaderFormat1 {
+    TimeStamp collet_start_time = 1 [ json_name="colletStartTime"];
+    optional string file_formatversion = 2 [(validate.v1.rules).string = {min_len: 0, max_len: 15}, json_name="fileFormatversion"];
+    optional string sender_name = 3 [(validate.v1.rules).string = {min_len: 0, max_len: 400}, json_name="senderName"];
+    optional GlobalMetnodeId met_node_id = 4 [ json_name="metNodeID"];
+};
+
+// sequence from e2sm_met.asn1:135
+// {E2SM-MET-IndicationMessage}
+message E2SmMetIndicationMessage {
+    int32 indication_message_formats = 1 [ json_name="indicationMessage-formats"];
+};
+
+// sequence from e2sm_met.asn1:140
+// {E2SM-MET-IndicationMessage-Format1}
+message E2SmMetIndicationMessageFormat1 {
+    SubscriptionId subscript_id = 1 [ json_name="subscriptID"];
+    optional CellObjectId cell_obj_id = 2 [ json_name="cellObjID"];
+    optional GranularityPeriod granul_period = 3 [ json_name="granulPeriod"];
+    optional MeasurementInfoList meas_info_list = 4 [ json_name="measInfoList"];
+    MeasurementData meas_data = 5 [ json_name="measData"];
+};
+
+// sequence from e2sm_met.asn1:153
+// {E2SM-MET-RANfunction-Description}
+message E2SmMetRanfunctionDescription {
+    RanfunctionName ran_function_name = 1 [ json_name="ranFunction-Name"];
+};
+
