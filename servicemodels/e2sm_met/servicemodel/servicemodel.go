@@ -23,7 +23,7 @@ type MetServiceModel string
 const smName = "e2sm_met"
 const smVersion = "v1_go"
 const moduleName = "e2smmet.so.2.0"
-const smOIDMet = "1.3.6.1.4.1.53148.1.2.2.2"
+const smOIDMet = "1.3.6.1.4.1.53148.1.2.2.97"
 
 func (sm MetServiceModel) ServiceModelData() types.ServiceModelData {
 	smData := types.ServiceModelData{
@@ -147,32 +147,40 @@ func (sm MetServiceModel) EventTriggerDefinitionProtoToASN1(protoBytes []byte) (
 	return perBytes, nil
 }
 
+// func (sm MetServiceModel) ActionDefinitionASN1toProto(asn1Bytes []byte) ([]byte, error) {
+// 	perBytes, err := encoder.PerDecodeE2SmMetActionDefinition(asn1Bytes)
+// 	if err != nil {
+// 		return nil, errors.NewInvalid("error decoding E2SmMetActionDefinitio to PER %s\n%v", err, hex.Dump(asn1Bytes))
+// 	}
+
+// 	protoBytes, err := proto.Marshal(perBytes)
+// 	if err != nil {
+// 		return nil, errors.NewInvalid("error marshalling asn1Bytes to E2SmMetActionDefinition %s", err)
+// 	}
+
+// 	return protoBytes, nil
+// }
+
+// func (sm MetServiceModel) ActionDefinitionProtoToASN1(protoBytes []byte) ([]byte, error) {
+// 	protoObj := new(e2smmet.E2SmMetActionDefinition)
+// 	if err := proto.Unmarshal(protoBytes, protoObj); err != nil {
+// 		return nil, errors.NewInvalid("error unmarshalling protoBytes to E2SmMetActionDefinition %s", err)
+// 	}
+
+// 	perBytes, err := encoder.PerEncodeE2SmMetActionDefinition(protoObj)
+// 	if err != nil {
+// 		return nil, errors.NewInvalid("error encoding E2SmMetActionDefinition to PER %s", err)
+// 	}
+
+// 	return perBytes, nil
+// }
+
 func (sm MetServiceModel) ActionDefinitionASN1toProto(asn1Bytes []byte) ([]byte, error) {
-	perBytes, err := encoder.PerDecodeE2SmMetActionDefinition(asn1Bytes)
-	if err != nil {
-		return nil, errors.NewInvalid("error decoding E2SmMetActionDefinitio to PER %s\n%v", err, hex.Dump(asn1Bytes))
-	}
-
-	protoBytes, err := proto.Marshal(perBytes)
-	if err != nil {
-		return nil, errors.NewInvalid("error marshalling asn1Bytes to E2SmMetActionDefinition %s", err)
-	}
-
-	return protoBytes, nil
+	return nil, errors.NewInvalid("not implemented on MET")
 }
 
 func (sm MetServiceModel) ActionDefinitionProtoToASN1(protoBytes []byte) ([]byte, error) {
-	protoObj := new(e2smmet.E2SmMetActionDefinition)
-	if err := proto.Unmarshal(protoBytes, protoObj); err != nil {
-		return nil, errors.NewInvalid("error unmarshalling protoBytes to E2SmMetActionDefinition %s", err)
-	}
-
-	perBytes, err := encoder.PerEncodeE2SmMetActionDefinition(protoObj)
-	if err != nil {
-		return nil, errors.NewInvalid("error encoding E2SmMetActionDefinition to PER %s", err)
-	}
-
-	return perBytes, nil
+	return nil, errors.NewInvalid("not implemented on MET")
 }
 
 func (sm MetServiceModel) ControlHeaderASN1toProto(asn1Bytes []byte) ([]byte, error) {
