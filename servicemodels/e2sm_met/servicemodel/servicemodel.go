@@ -4,17 +4,16 @@
 
 package servicemodel
 
+//REVIEW This module "servicenodule" is  near finished, still the OnSet up function that is not fixed
+//
 import (
 	"encoding/hex"
-	"fmt"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
 	"github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/encoder"
 	e2smmet "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/v1/e2sm-met-go"
-	prototypes "github.com/gogo/protobuf/types"
 	types "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
-	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -207,73 +206,45 @@ func (sm MetServiceModel) ControlOutcomeProtoToASN1(protoBytes []byte) ([]byte, 
 	return nil, errors.NewInvalid("not implemented on MET")
 }
 
-func (sm MetServiceModel) OnSetup(request *types.OnSetupRequest) error {
-	protoBytes, err := sm.RanFuncDescriptionASN1toProto(request.RANFunctionDescription)
-	if err != nil {
-		return err
-	}
-	ranFunctionDescription := &e2smmet.E2SmMetRanfunctionDescription{}
-	err = proto.Unmarshal(protoBytes, ranFunctionDescription)
-	if err != nil {
-		return err
-	}
-	serviceModels := request.ServiceModels
-	e2Cells := request.E2Cells
-	serviceModel := serviceModels[smOIDMet]
-	serviceModel.Name = ranFunctionDescription.RanFunctionName.RanFunctionShortName
-	ranFunction := &topoapi.METRanFunction{}
+// func (sm MetServiceModel) OnSetup(request *types.OnSetupRequest) error {
+// 	protoBytes, err := sm.RanFuncDescriptionASN1toProto(request.RANFunctionDescription)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	ranFunctionDescription := &e2smmet.E2SmMetRanfunctionDescription{}
+// 	err = proto.Unmarshal(protoBytes, ranFunctionDescription)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	serviceModels := request.ServiceModels
+// 	serviceModel := serviceModels[smOIDMet]
+// 	serviceModel.Name = ranFunctionDescription.RanFunctionName.RanFunctionShortName
+// 	// reportStyleList := ranFunctionDescription.GetE2SmRcPreRanfunctionItem().GetRicReportStyleList()
 
-	for _, metNode := range ranFunctionDescription.RicMetNodeList {
-		for _, cell := range metNode.CellMeasurementObjectList {
-			cellObject := &topoapi.E2Cell{
-				CellObjectID: cell.GetCellObjectId().GetValue(),
-				CellGlobalID: &topoapi.CellGlobalID{},
-			}
-			switch cellGlobalID := cell.CellGlobalId.GetCellGlobalId().(type) {
-			case *e2smmet.CellGlobalId_NrCgi:
-				cellObject.CellGlobalID.Value = fmt.Sprintf("%x", bitStringToUint64(cellGlobalID.NrCgi.NRcellIdentity.Value.Value, int(cellGlobalID.NrCgi.NRcellIdentity.Value.Len)))
-				cellObject.CellGlobalID.Type = topoapi.CellGlobalIDType_NRCGI
-			case *e2smmet.CellGlobalId_EUtraCgi:
-				cellObject.CellGlobalID.Value = fmt.Sprintf("%x", bitStringToUint64(cellGlobalID.EUtraCgi.EUtracellIdentity.Value.Value, int(cellGlobalID.EUtraCgi.EUtracellIdentity.Value.Len)))
-				cellObject.CellGlobalID.Type = topoapi.CellGlobalIDType_ECGI
-			}
+// 	ranFunction := &topoapi.RCRanFunction{}
+// 	for _, reportStyle := range reportStyleList {
+// 		rcReportStyle := &topoapi.RCReportStyle{
+// 			Name: reportStyle.RicReportStyleName.Value,
+// 			Type: reportStyle.RicReportStyleType.Value,
+// 		}
+// 		ranFunction.ReportStyles = append(ranFunction.ReportStyles, rcReportStyle)
+// 	}
 
-			*e2Cells = append(*e2Cells, cellObject)
-		}
-	}
+// 	ranFunctionAny, err := prototypes.MarshalAny(ranFunction)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	serviceModel.RanFunctions = []*prototypes.Any{ranFunctionAny}
+// 	return nil
+// }
 
-	for _, reportStyle := range ranFunctionDescription.GetRicReportStyleList() {
-		metReportStyle := &topoapi.METReportStyle{
-			Name: reportStyle.RicReportStyleName.Value,
-			Type: reportStyle.RicReportStyleType.Value,
-		}
-		var measurements []*topoapi.METMeasurement
-		for _, meanInfoItem := range reportStyle.GetMeasInfoActionList().GetValue() {
-			measurements = append(measurements, &topoapi.METMeasurement{
-				ID:   meanInfoItem.GetMeasId().String(),
-				Name: meanInfoItem.GetMeasName().GetValue(),
-			})
-		}
-
-		metReportStyle.Measurements = measurements
-		ranFunction.ReportStyles = append(ranFunction.ReportStyles, kpmReportStyle)
-	}
-	ranFunctionAny, err := prototypes.MarshalAny(ranFunction)
-	if err != nil {
-		return err
-	}
-
-	serviceModel.RanFunctions = append(serviceModel.RanFunctions, ranFunctionAny)
-	return nil
-}
-
-func bitStringToUint64(bitString []byte, bitCount int) uint64 {
-	var result uint64
-	for i, b := range bitString {
-		result += uint64(b) << ((len(bitString) - i - 1) * 8)
-	}
-	if bitCount%8 != 0 {
-		return result >> (8 - bitCount%8)
-	}
-	return result
-}
+// func bitStringToUint64(bitString []byte, bitCount int) uint64 {
+// 	var result uint64
+// 	for i, b := range bitString {
+// 		result += uint64(b) << ((len(bitString) - i - 1) * 8)
+// 	}
+// 	if bitCount%8 != 0 {
+// 		return result >> (8 - bitCount%8)
+// 	}
+// 	return result
+// }

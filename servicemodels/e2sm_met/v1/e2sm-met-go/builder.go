@@ -4,11 +4,14 @@
 
 package e2sm_met_go
 
+import "fmt"
+
 func (ih *E2SmMetIndicationHeader) SetFileFormatVersion(ffv string) *E2SmMetIndicationHeader {
 	switch ih.GetIndicationHeaderFormats().E2SmMetIndicationHeader.(type) {
 	case *IndicationHeaderFormats_IndicationHeaderFormat1:
 		ih.GetIndicationHeaderFormats().GetIndicationHeaderFormat1().FileFormatversion = &ffv
 	default:
+		fmt.Println("\n\n\nerrorr seting format version")
 		return ih
 	}
 	return ih
@@ -19,7 +22,9 @@ func (ih *E2SmMetIndicationHeader) SetSenderName(sn string) *E2SmMetIndicationHe
 	case *IndicationHeaderFormats_IndicationHeaderFormat1:
 		ih.GetIndicationHeaderFormats().GetIndicationHeaderFormat1().SenderName = &sn
 	default:
+		fmt.Println("\n\n\nerrorr seting format version")
 		return ih
+
 	}
 	return ih
 }
@@ -29,6 +34,7 @@ func (ih *E2SmMetIndicationHeader) SetGlobalMETnodeID(gknID *GlobalMetnodeId) *E
 	case *IndicationHeaderFormats_IndicationHeaderFormat1:
 		ih.GetIndicationHeaderFormats().GetIndicationHeaderFormat1().MetNodeId = gknID
 	default:
+		fmt.Println("\n\n\nerrorr seting format version")
 		return ih
 	}
 	return ih
@@ -42,6 +48,7 @@ func (im *E2SmMetIndicationMessage) SetMeasInfoList(measInfoList *MeasurementInf
 	//case *IndicationMessageFormats_IndicationMessageFormat2:
 	//	im.GetIndicationMessageFormats().GetIndicationMessageFormat2().MeasInfoList = measInfoList
 	default:
+		fmt.Println("\n\n\nerrorr seting format version")
 		return im
 	}
 
@@ -55,6 +62,7 @@ func (im *E2SmMetIndicationMessage) SetGranularityPeriod(gp int64) *E2SmMetIndic
 			Value: gp,
 		}
 	default:
+		fmt.Println("\n\n\nerrorr seting format version")
 		return im
 	}
 
