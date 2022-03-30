@@ -22,9 +22,9 @@ func PerEncodeE2SmMetIndicationHeader(ih *e2smmet.E2SmMetIndicationHeader) ([]by
 	if err := ih.Validate(); err != nil {
 		return nil, errors.NewInvalid("error validating E2SM-MET-IndicationHeader PDU %s", err.Error())
 	}
-	fmt.Println("validation passed")
 	per, err := aper.MarshalWithParams(ih, "valueExt", e2smmet.E2smMetChoicemap, nil)
 	if err != nil {
+		//REVIEW
 		fmt.Println("error in aper.MarshalWithParams(ih, \"valueExt\", e2smmet.E2smMetChoicemap, nil)")
 		return nil, err
 	}
@@ -38,8 +38,10 @@ func PerDecodeE2SmMetIndicationHeader(per []byte) (*e2smmet.E2SmMetIndicationHea
 	log.Debugf("Obtained E2SM-MET-IndicationHeader PER bytes are\n%v", hex.Dump(per))
 
 	result := e2smmet.E2SmMetIndicationHeader{}
+	//REVIEW
 	err := aper.UnmarshalWithParams(per, &result, "valueExt", e2smmet.E2smMetChoicemap, nil)
 	if err != nil {
+		fmt.Println("aper.UnmarshalWithParams(per, &result, \"valueExt\", e2smmet.E2smMetChoicemap, nil)")
 		return nil, err
 	}
 

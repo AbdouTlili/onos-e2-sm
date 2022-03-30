@@ -6,7 +6,8 @@ package servicemodel
 
 import (
 	"encoding/hex"
-	"fmt"
+
+	// "fmt"
 	"testing"
 
 	e2smmet "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/v1/e2sm-met-go"
@@ -24,7 +25,7 @@ func TestServicemodel_IndicationHeaderProtoToASN1(t *testing.T) {
 	var fileFormatVersion = "txt"
 	var senderName = "ONF"
 
-	globalMetNodeID, err := pdubuilder.CreateGlobalMetnodeID(15)
+	globalMetNodeID, err := pdubuilder.CreateGlobalMetnodeID(5)
 	assert.NilError(t, err)
 
 	newE2SmMetPdu, err := pdubuilder.CreateE2SmMetIndicationHeader(timeStamp)
@@ -37,11 +38,12 @@ func TestServicemodel_IndicationHeaderProtoToASN1(t *testing.T) {
 
 	protoBytes, err := proto.Marshal(newE2SmMetPdu)
 	assert.NilError(t, err, "unexpected error marshalling E2SmMetIndicationHeader to bytes")
-	fmt.Printf("%#v", protoBytes)
+	//fmt.Printf("%#v", protoBytes)
 
 	// assert.Equal(t, 69, len(protoBytes))
 
 	asn1Bytes, err := metTestSm.IndicationHeaderProtoToASN1(protoBytes)
+	//fmt.Printf("%#v", asn1Bytes)
 	assert.NilError(t, err, "unexpected error converting protoBytes to asnBytes")
 	assert.Assert(t, asn1Bytes != nil)
 	t.Logf("E2SM-MET-IndicationHeader (gNB) asn1Bytes are \n%v", hex.Dump(asn1Bytes))
@@ -50,7 +52,7 @@ func TestServicemodel_IndicationHeaderProtoToASN1(t *testing.T) {
 func TestServicemodel_IndicationHeaderASN1toProto(t *testing.T) {
 	// This value is taken from Shad and passed as a byte array directly to the function
 	// It's the encoding of what's in the file ../test/E2SM-MET-Indication-Header-gNB.xml
-	indicationHeaderAsn1Bytes := []byte{0xa, 0x18, 0xa, 0x16, 0xa, 0x6, 0xa, 0x4, 0x21, 0x22, 0x23, 0x24, 0x12, 0x3, 0x74, 0x78, 0x74, 0x1a, 0x3, 0x4f, 0x4e, 0x46, 0x22, 0x2, 0x8, 0xf}
+	indicationHeaderAsn1Bytes := []byte{0x1c, 0x21, 0x22, 0x23, 0x24, 0x18, 0x74, 0x78, 0x74, 0x0, 0x0, 0x3, 0x4f, 0x4e, 0x46, 0x0, 0x4}
 
 	protoBytes, err := metTestSm.IndicationHeaderASN1toProto(indicationHeaderAsn1Bytes)
 	assert.NilError(t, err, "unexpected error converting asn1Bytes to protoBytes")
@@ -60,116 +62,145 @@ func TestServicemodel_IndicationHeaderASN1toProto(t *testing.T) {
 	assert.NilError(t, err)
 	t.Logf("Decoded message is \n%v", testIH)
 	assert.DeepEqual(t, []byte{0x21, 0x22, 0x23, 0x24}, testIH.GetIndicationHeaderFormats().GetIndicationHeaderFormat1().GetColletStartTime().GetValue())
-	assert.Equal(t, int64(15), testIH.GetIndicationHeaderFormats().GetIndicationHeaderFormat1().GetMetNodeId().GetValue())
+	assert.Equal(t, int64(5), testIH.GetIndicationHeaderFormats().GetIndicationHeaderFormat1().GetMetNodeId().GetValue())
 }
 
-// func TestServicemodel_IndicationMessageProtoToASN1(t *testing.T) {
-// 	var integer int64 = 12345
-// 	var rl float64 = 6789
-// 	var cellObjID int32 = 15
-// 	var granularity int64 = 21
-// 	var subscriptionID int64 = 12345
+func TestServicemodel_IndicationMessageProtoToASN1(t *testing.T) {
+	var integer int64 = 12345
+	// var rl float64 = 6789
+	var cellObjID int32 = 11
+	var granularity int64 = 12
+	var subscriptionID int64 = 13
 
-// 	measRecItemList := make([]*e2smmet.MeasurementRecordItem, 0)
+	measRecItemList := make([]*e2smmet.MeasurementRecordItem, 0)
 
-// 	/* the first ue measRecord */
+	/* the first ue measRecord */
 
-// 	measRecItemList = append(measRecItemList, pdubuilder.CreateMeasurementRecordItemInteger(integer))
-// 	measRecItemList = append(measRecItemList, pdubuilder.CreateMeasurementRecordItemNoValue())
-// 	measRecItemList = append(measRecItemList, pdubuilder.CreateMeasurementRecordItemReal(rl))
+	measRecItemList = append(measRecItemList, pdubuilder.CreateMeasurementRecordItemInteger(integer))
+	measRecItemList = append(measRecItemList, pdubuilder.CreateMeasurementRecordItemNoValue())
+	// measRecItemList = append(measRecItemList, pdubuilder.CreateMeasurementRecordItemReal(rl))
 
-// 	measRec1, err := pdubuilder.CreateMeasurementRecord(&e2smmet.Ueid{
-// 		Value: integer,
-// 	}, &e2smmet.Uetag{
-// 		Value: "eurecom",
-// 	}, measRecItemList)
-// 	assert.NilError(t, err)
+	measRec1, err := pdubuilder.CreateMeasurementRecord(&e2smmet.Ueid{
+		Value: integer,
+	}, &e2smmet.Uetag{
+		Value: "eurecom",
+	}, measRecItemList)
+	assert.NilError(t, err)
 
-// 	/* end of the first ue measRecord */
+	/* end of the first ue measRecord */
 
-// 	/* the second ue measRecord */
-// 	measRecItemList2 := make([]*e2smmet.MeasurementRecordItem, 0)
+	/* the second ue measRecord */
+	measRecItemList2 := make([]*e2smmet.MeasurementRecordItem, 0)
 
-// 	measRecItemList2 = append(measRecItemList2, pdubuilder.CreateMeasurementRecordItemInteger(integer))
-// 	measRecItemList2 = append(measRecItemList2, pdubuilder.CreateMeasurementRecordItemNoValue())
-// 	measRecItemList2 = append(measRecItemList2, pdubuilder.CreateMeasurementRecordItemReal(rl))
+	measRecItemList2 = append(measRecItemList2, pdubuilder.CreateMeasurementRecordItemInteger(integer))
+	measRecItemList2 = append(measRecItemList2, pdubuilder.CreateMeasurementRecordItemNoValue())
+	// measRecItemList2 = append(measRecItemList2, pdubuilder.CreateMeasurementRecordItemReal(rl))
 
-// 	measRec2, err := pdubuilder.CreateMeasurementRecord(&e2smmet.Ueid{
-// 		Value: integer,
-// 	}, &e2smmet.Uetag{
-// 		Value: "eurecom2",
-// 	}, measRecItemList2)
-// 	assert.NilError(t, err)
-// 	/* end of the second  ue measRecord */
+	measRec2, err := pdubuilder.CreateMeasurementRecord(&e2smmet.Ueid{
+		Value: integer,
+	}, &e2smmet.Uetag{
+		Value: "eurecom2",
+	}, measRecItemList2)
+	assert.NilError(t, err)
+	/* end of the second  ue measRecord */
 
-// 	measRecList := make([]*e2smmet.MeasurementRecord, 0)
+	measRecList := make([]*e2smmet.MeasurementRecord, 0)
 
-// 	measRecList = append(measRecList, measRec1, measRec2)
-// 	measData, err := pdubuilder.CreateMeasurementData(measRecList)
-// 	assert.NilError(t, err)
+	measRecList = append(measRecList, measRec1, measRec2)
+	measData, err := pdubuilder.CreateMeasurementData(measRecList)
+	assert.NilError(t, err)
 
-// 	///measInfoList
-// 	// this is a go slice and not a Type defined in pb.go it is used later to create
-// 	// the real MeasurmentInfoList object
-// 	measInfolist := make([]*e2smmet.MeasurementInfoItem, 0)
+	///measInfoList
+	// this is a go slice and not a Type defined in pb.go it is used later to create
+	// the real MeasurmentInfoList object
+	measInfolist := make([]*e2smmet.MeasurementInfoItem, 0)
 
-// 	mii1, err := pdubuilder.CreateMeasurementInfoItem("m1")
-// 	assert.NilError(t, err)
-// 	mii2, err := pdubuilder.CreateMeasurementInfoItem("m2")
-// 	assert.NilError(t, err)
-// 	mii3, err := pdubuilder.CreateMeasurementInfoItem("m2")
-// 	assert.NilError(t, err)
+	mii1, err := pdubuilder.CreateMeasurementInfoItem("m1")
+	assert.NilError(t, err)
+	mii2, err := pdubuilder.CreateMeasurementInfoItem("m2")
+	assert.NilError(t, err)
+	mii3, err := pdubuilder.CreateMeasurementInfoItem("m2")
+	assert.NilError(t, err)
 
-// 	measInfolist = append(measInfolist, mii1, mii2, mii3)
+	measInfolist = append(measInfolist, mii1, mii2, mii3)
 
-// 	measInfoList, err := pdubuilder.CreateMeasurementInfoList(measInfolist)
-// 	assert.NilError(t, err)
+	measInfoList, err := pdubuilder.CreateMeasurementInfoList(measInfolist)
+	assert.NilError(t, err)
 
-// 	/////
+	/////
 
-// 	newE2SmMetPdu, err := pdubuilder.CreateE2SmMetIndicationMessageFormat1(subscriptionID, measData)
-// 	assert.NilError(t, err)
-// 	assert.Assert(t, newE2SmMetPdu != nil)
-// 	newE2SmMetPdu.SetGranularityPeriod(granularity).SetCellObjectID(cellObjID).SetMeasInfoList(measInfoList)
+	newE2SmMetPdu, err := pdubuilder.CreateE2SmMetIndicationMessageFormat1(subscriptionID, measData)
+	assert.NilError(t, err)
+	assert.Assert(t, newE2SmMetPdu != nil)
+	newE2SmMetPdu.SetGranularityPeriod(granularity).SetCellObjectID(cellObjID).SetMeasInfoList(measInfoList)
 
-// 	err = newE2SmMetPdu.Validate()
-// 	assert.NilError(t, err, "error validating E2SmPDU")
+	err = newE2SmMetPdu.Validate()
+	assert.NilError(t, err, "error validating E2SmPDU")
 
-// 	assert.NilError(t, err)
-// 	protoBytes, err := proto.Marshal(newE2SmMetPdu)
-// 	assert.NilError(t, err, "unexpected error marshalling E2SmMetIndicationMessage (Format1) to bytes")
+	assert.NilError(t, err)
+	protoBytes, err := proto.Marshal(newE2SmMetPdu)
+	assert.NilError(t, err, "unexpected error marshalling E2SmMetIndicationMessage (Format1) to bytes")
 
-// 	asn1Bytes, err := metTestSm.IndicationMessageProtoToASN1(protoBytes)
-// 	assert.NilError(t, err, "unexpected error converting protoBytes to asnBytes")
-// 	assert.Assert(t, asn1Bytes != nil)
-// 	t.Logf("E2SM-MET-IndicationMessage (Format1)) asn1Bytes are \n%v", hex.Dump(asn1Bytes))
-// }
+	asn1Bytes, err := metTestSm.IndicationMessageProtoToASN1(protoBytes)
+	//fmt.Printf("%#v", asn1Bytes)
+	assert.NilError(t, err, "unexpected error converting protoBytes to asnBytes")
+	assert.Assert(t, asn1Bytes != nil)
+	t.Logf("E2SM-MET-IndicationMessage (Format1)) asn1Bytes are \n%v", hex.Dump(asn1Bytes))
+}
 
-// func TestServicemodel_IndicationMessageASN1toProto(t *testing.T) {
-// 	indicationMessageAsn1 := []byte{0x0e, 0x80, 0x30, 0x38, 0x00, 0x00, 0x03, 0x6f, 0x6e, 0x66, 0x00, 0x14, 0x00, 0x00, 0x40, 0x20,
-// 		0x74, 0x72, 0x69, 0x61, 0x6c, 0x01, 0x3f, 0xff, 0xe0, 0x21, 0x22, 0x23, 0x40, 0x40, 0x01, 0x02,
-// 		0x03, 0x00, 0x0a, 0x7c, 0x0f, 0x00, 0x0f, 0x00, 0x01, 0x72, 0x40, 0x00, 0xfa, 0x00, 0x00, 0x04,
-// 		0x00, 0x00, 0x7a, 0x00, 0x01, 0xc7, 0x00, 0x03, 0x14, 0x00, 0x00, 0x00, 0x40, 0x02, 0x08, 0x30,
-// 		0x39, 0x40}
+func TestServicemodel_IndicationMessageASN1toProto(t *testing.T) {
 
-// 	protoBytes, err := metTestSm.IndicationMessageASN1toProto(indicationMessageAsn1)
-// 	assert.NilError(t, err, "unexpected error converting protoBytes to asn1Bytes")
-// 	assert.Assert(t, protoBytes != nil)
-// 	assert.Equal(t, 124, len(protoBytes))
-// 	testIM := &e2smmet.E2SmMetIndicationMessage{}
-// 	err = proto.Unmarshal(protoBytes, testIM)
-// 	assert.NilError(t, err)
-// 	t.Logf("Decoded message is \n%v", testIM)
-// 	assert.Equal(t, int64(12345), testIM.GetIndicationMessageFormats().GetIndicationMessageFormat1().GetSubscriptId().GetValue())
-// 	assert.Equal(t, "onf", testIM.GetIndicationMessageFormats().GetIndicationMessageFormat1().GetCellObjId().GetValue())
-// 	md := testIM.GetIndicationMessageFormats().GetIndicationMessageFormat1().GetMeasData().GetValue()[0]
-// 	assert.Equal(t, 2, len(md.GetMeasRecord().GetValue()))
-// 	mil := testIM.GetIndicationMessageFormats().GetIndicationMessageFormat1().GetMeasInfoList().GetValue()[0]
-// 	assert.Equal(t, "trial", mil.GetMeasType().GetMeasName().GetValue())
-// 	lil := mil.GetLabelInfoList().GetValue()[0]
-// 	assert.Equal(t, int32(62), lil.GetMeasLabel().GetQFi().GetValue())
-// 	assert.Equal(t, int32(15), lil.GetMeasLabel().GetARpmax().GetValue())
-// }
+	//test data :
+	var integer int64 = 12345
+
+	/* the second ue measRecord from the encoded message*/
+	measRecItemList2 := make([]*e2smmet.MeasurementRecordItem, 0)
+
+	measRecItemList2 = append(measRecItemList2, pdubuilder.CreateMeasurementRecordItemInteger(integer))
+	measRecItemList2 = append(measRecItemList2, pdubuilder.CreateMeasurementRecordItemNoValue())
+	// measRecItemList2 = append(measRecItemList2, pdubuilder.CreateMeasurementRecordItemReal(rl))
+
+	measRec2, err := pdubuilder.CreateMeasurementRecord(&e2smmet.Ueid{
+		Value: integer,
+	}, &e2smmet.Uetag{
+		Value: "eurecom2",
+	}, measRecItemList2)
+	assert.NilError(t, err)
+	/* end of the second  ue measRecord from the encoded message*/
+
+	//  MeasurmentInfoList object used in the function before Aper and proto encoding
+	measInfolist := make([]*e2smmet.MeasurementInfoItem, 0)
+	mii1, _ := pdubuilder.CreateMeasurementInfoItem("m1")
+	mii2, _ := pdubuilder.CreateMeasurementInfoItem("m2")
+	mii3, _ := pdubuilder.CreateMeasurementInfoItem("m2")
+
+	measInfolist = append(measInfolist, mii1, mii2, mii3)
+	measInfoList, _ := pdubuilder.CreateMeasurementInfoList(measInfolist)
+	/////
+
+	indicationMessageAsn1 := []byte{0x1c, 0xc, 0x1, 0xb, 0x0, 0xb, 0x0, 0x2, 0x0, 0x2,
+		0x6d, 0x31, 0x0, 0x2, 0x6d, 0x32, 0x0, 0x2, 0x6d, 0x32, 0x0, 0x1, 0x20, 0x30,
+		0x38, 0x0, 0x0, 0x7, 0x65, 0x75, 0x72, 0x65, 0x63, 0x6f, 0x6d, 0x2, 0x8, 0x30,
+		0x39, 0x44, 0x30, 0x38, 0x0, 0x0, 0x8, 0x65, 0x75, 0x72, 0x65, 0x63, 0x6f, 0x6d,
+		0x32, 0x2, 0x8, 0x30, 0x39, 0x40}
+
+	protoBytes, err := metTestSm.IndicationMessageASN1toProto(indicationMessageAsn1)
+	assert.NilError(t, err, "unexpected error converting protoBytes to asn1Bytes")
+	assert.Assert(t, protoBytes != nil)
+	// assert.Equal(t, 124, len(protoBytes))
+	testIM := &e2smmet.E2SmMetIndicationMessage{}
+	err = proto.Unmarshal(protoBytes, testIM)
+	assert.NilError(t, err)
+	//t.Logf("Decoded message is \n%v", testIM)
+	assert.Equal(t, int64(13), testIM.GetIndicationMessageFormats().GetIndicationMessageFormat1().GetSubscriptId().GetValue())
+	assert.Equal(t, int32(11), testIM.GetIndicationMessageFormats().GetIndicationMessageFormat1().GetCellObjId().GetValue())
+	mr := testIM.GetIndicationMessageFormats().GetIndicationMessageFormat1().GetMeasData().GetValue()[1]
+	assert.Equal(t, mr.GetUeId().GetValue(), measRec2.GetUeId().GetValue())
+	assert.Equal(t, mr.GetUeTag().GetValue(), measRec2.GetUeTag().GetValue())
+	mil := testIM.GetIndicationMessageFormats().GetIndicationMessageFormat1().GetMeasInfoList().GetValue()
+	assert.Equal(t, mil[0].GetMeasType(), measInfoList.GetValue()[0].GetMeasType())
+
+}
 
 func TestServicemodel_RanFuncDescriptionProtoToASN1(t *testing.T) {
 	var rfSn = "onf"
@@ -185,35 +216,33 @@ func TestServicemodel_RanFuncDescriptionProtoToASN1(t *testing.T) {
 
 	assert.NilError(t, err)
 	protoBytes, err := proto.Marshal(newE2SmMetPdu)
+	// fmt.Printf("\n--- %d", len(protoBytes))
 	assert.NilError(t, err, "unexpected error marshalling E2SmMetRanfunctionDescription to bytes")
 
 	asn1Bytes, err := metTestSm.RanFuncDescriptionProtoToASN1(protoBytes)
+	//REVIEW the length is non the same ?
+	// fmt.Printf("%#v --- %d", asn1Bytes, len(asn1Bytes))
 	assert.NilError(t, err, "unexpected error converting protoBytes to asnBytes")
 	assert.Assert(t, asn1Bytes != nil)
 	t.Logf("E2SM-MET-RANfunctionDescription asn1Bytes are \n%v", hex.Dump(asn1Bytes))
 }
 
-// func TestServicemodel_RanFuncDescriptionASN1toProto(t *testing.T) {
-// 	// This message is taken as an output from the function above
-// 	ranFuncDescriptionAsn1 := []byte{0x74, 0x04, 0x6f, 0x6e, 0x66, 0x00, 0x00, 0x05, 0x6f, 0x69, 0x64, 0x31, 0x32, 0x33, 0x07, 0x00,
-// 		0x73, 0x6f, 0x6d, 0x65, 0x44, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x00,
-// 		0x15, 0x00, 0x00, 0x43, 0x00, 0x21, 0x22, 0x23, 0x00, 0xd4, 0xbc, 0x08, 0x80, 0x30, 0x39, 0x20,
-// 		0x1a, 0x85, 0x00, 0x00, 0x00, 0x00, 0x03, 0x4f, 0x4e, 0x46, 0x00, 0x21, 0x22, 0x23, 0x00, 0x00,
-// 		0x00, 0x20, 0x00, 0x00, 0x0b, 0x01, 0x00, 0x6f, 0x6e, 0x66, 0x00, 0x0f, 0x00, 0x0b, 0x01, 0x00,
-// 		0x6f, 0x6e, 0x66, 0x00, 0x0f, 0x00, 0x00, 0x41, 0xa0, 0x4f, 0x70, 0x65, 0x6e, 0x4e, 0x65, 0x74,
-// 		0x77, 0x6f, 0x72, 0x6b, 0x69, 0x6e, 0x67, 0x00, 0x00, 0x17, 0x00, 0x2f, 0x00, 0x18}
+func TestServicemodel_RanFuncDescriptionASN1toProto(t *testing.T) {
+	// This message is taken as an output from the function above
+	ranFuncDescriptionAsn1 := []byte{0x0, 0x80, 0x6f, 0x6e, 0x66, 0x0, 0x0, 0x5, 0x6f,
+		0x69, 0x64, 0x31, 0x32, 0x33, 0x7, 0x0, 0x73, 0x6f, 0x6d, 0x65, 0x44, 0x65,
+		0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e}
 
-// 	protoBytes, err := metTestSm.RanFuncDescriptionASN1toProto(ranFuncDescriptionAsn1)
-// 	assert.NilError(t, err, "unexpected error converting protoBytes to asn1Bytes")
-// 	assert.Assert(t, protoBytes != nil)
-// 	assert.Equal(t, 171, len(protoBytes))
-// 	testRFD := &e2smmet.E2SmMetRanfunctionDescription{}
-// 	err = proto.Unmarshal(protoBytes, testRFD)
-// 	t.Logf("Decoded message is \n%v", testRFD)
-// 	assert.NilError(t, err)
-// 	assert.Equal(t, "oid123", testRFD.GetRanFunctionName().GetRanFunctionE2SmOid())
-// 	assert.Equal(t, int32(21), testRFD.GetRanFunctionName().GetRanFunctionInstance())
-// }
+	protoBytes, err := metTestSm.RanFuncDescriptionASN1toProto(ranFuncDescriptionAsn1)
+	assert.NilError(t, err, "unexpected error converting protoBytes to asn1Bytes")
+	assert.Assert(t, protoBytes != nil)
+	assert.Equal(t, 32, len(protoBytes))
+	testRFD := &e2smmet.E2SmMetRanfunctionDescription{}
+	err = proto.Unmarshal(protoBytes, testRFD)
+	t.Logf("Decoded message is \n%v", testRFD)
+	assert.NilError(t, err)
+	assert.Equal(t, "oid123", testRFD.GetRanFunctionName().GetRanFunctionE2SmOid())
+}
 
 // func TestServicemodel_EventTriggerDefinitionProtoToASN1(t *testing.T) {
 // 	var rtPeriod int64 = 12

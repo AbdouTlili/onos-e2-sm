@@ -8,6 +8,7 @@ package servicemodel
 //
 import (
 	"encoding/hex"
+	"fmt"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
@@ -79,11 +80,13 @@ func (sm MetServiceModel) IndicationMessageASN1toProto(asn1Bytes []byte) ([]byte
 func (sm MetServiceModel) IndicationMessageProtoToASN1(protoBytes []byte) ([]byte, error) {
 	protoObj := new(e2smmet.E2SmMetIndicationMessage)
 	if err := proto.Unmarshal(protoBytes, protoObj); err != nil {
+		fmt.Println("error Unmarshalling ")
 		return nil, errors.NewInvalid("error unmarshalling protoBytes to E2SmMetIndicationMessage %s", err)
 	}
 
 	perBytes, err := encoder.PerEncodeE2SmMetIndicationMessage(protoObj)
 	if err != nil {
+		fmt.Println("error encoder.PerEncodeE2SmMetIndicationMessage(protoObj) ")
 		return nil, errors.NewInvalid("error encoding E2SmMetIndicationMessage to PER %s", err)
 	}
 

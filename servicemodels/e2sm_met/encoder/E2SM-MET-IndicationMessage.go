@@ -6,6 +6,7 @@ package encoder
 
 import (
 	"encoding/hex"
+	"fmt"
 
 	e2smmet "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/v1/e2sm-met-go"
 	"github.com/onosproject/onos-lib-go/pkg/asn1/aper"
@@ -21,6 +22,7 @@ func PerEncodeE2SmMetIndicationMessage(im *e2smmet.E2SmMetIndicationMessage) ([]
 
 	per, err := aper.MarshalWithParams(im, "valueExt", e2smmet.E2smMetChoicemap, nil)
 	if err != nil {
+		fmt.Println("error aper.MarshalWithParams(im, \"valueExt\", e2smmet.E2smMetChoicemap, nil)")
 		return nil, err
 	}
 	log.Debugf("Encoded E2SM-MET-IndicationMessage PER bytes are\n%v", hex.Dump(per))
