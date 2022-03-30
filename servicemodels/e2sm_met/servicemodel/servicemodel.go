@@ -209,6 +209,15 @@ func (sm MetServiceModel) ControlOutcomeProtoToASN1(protoBytes []byte) ([]byte, 
 	return nil, errors.NewInvalid("not implemented on MET")
 }
 
+//TODO check for OnSetup function,
+// weather it is required to exist or the function def is optional
+// the diffrence would be that this def  with an error message would break
+
+func (sm MetServiceModel) OnSetup(request *types.OnSetupRequest) error {
+	fmt.Println("The OnSetup function is not defined yet for this SM")
+	return nil
+}
+
 // func (sm MetServiceModel) OnSetup(request *types.OnSetupRequest) error {
 // 	protoBytes, err := sm.RanFuncDescriptionASN1toProto(request.RANFunctionDescription)
 // 	if err != nil {

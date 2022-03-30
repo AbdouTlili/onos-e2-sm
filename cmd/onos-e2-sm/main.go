@@ -7,15 +7,16 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/onosproject/onos-lib-go/pkg/errors"
-	"github.com/rogpeppe/go-internal/modfile"
-	"github.com/rogpeppe/go-internal/module"
-	"github.com/spf13/cobra"
 	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
+
+	"github.com/onosproject/onos-lib-go/pkg/errors"
+	"github.com/rogpeppe/go-internal/modfile"
+	"github.com/rogpeppe/go-internal/module"
+	"github.com/spf13/cobra"
 )
 
 const (

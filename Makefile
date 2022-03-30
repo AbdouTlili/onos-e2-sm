@@ -48,6 +48,10 @@ build/_output/e2sm_rc_pre.so.1.0.0: # @HELP build the e2sm_rc_pre.so.1.0.1
 build/_output/e2sm_mho.so.1.0.0: # @HELP build the e2sm_mho.so.1.0.1
 	cd servicemodels/e2sm_mho && CGO_ENABLED=1 go build -o build/_output/e2sm_mho.so.1.0.0 -buildmode=plugin .
 
+#MET SM build 
+build/_output/e2sm_met.so.1.0.0: # @HELP build the e2sm_kpm.so.1.0.0
+	cd servicemodels/met && CGO_ENABLED=1 go build -o build/_output/e2sm_met.so.1.0.0 -buildmode=plugin .
+
 build_protoc_gen_cgo:
 	cd protoc-gen-cgo/ && go build -v -o ./protoc-gen-cgo && cd ..
 
@@ -205,6 +209,14 @@ service-model-docker-e2sm_mho_go-1.0.0: # @HELP build e2sm_mho_go 1.0.0 plugin D
 			--build-arg PLUGIN_MAKE_TARGET="e2sm_mho_go" \
 			--build-arg PLUGIN_MAKE_VERSION="1.0.0" \
 			-t onosproject/service-model-docker-e2sm_mho_go-1.0.0:${ONOS_E2_SM_VERSION}
+
+PHONY: service-model-docker-e2sm_met-1.0.0
+service-model-docker-e2sm_met-1.0.0: # @HELP build e2sm_kpm_v2 1.0.0 plugin Docker image
+	./build/bin/build-deps e2sm_met ${E2T_MOD} AbdouTlili/service-model-docker-e2sm_met-1.0.0:latest
+	docker build . -f build/plugins/Dockerfile \
+			--build-arg PLUGIN_MAKE_TARGET="e2sm_met" \
+			--build-arg PLUGIN_MAKE_VERSION="1.0.0" \
+			-t AbdouTlili/service-model-docker-e2sm_met-1.0.0:latest
 
 images: # @HELP build all Docker images
 images: build service-model-docker-e2sm_kpm_v2_go-1.0.0 \
