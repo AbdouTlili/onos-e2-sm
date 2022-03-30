@@ -9,6 +9,8 @@ import (
 	"fmt"
 	"testing"
 
+	e2smmet "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/v1/e2sm-met-go"
+
 	"github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/pdubuilder"
 	"google.golang.org/protobuf/proto"
 	"gotest.tools/assert"
@@ -39,30 +41,27 @@ func TestServicemodel_IndicationHeaderProtoToASN1(t *testing.T) {
 
 	// assert.Equal(t, 69, len(protoBytes))
 
-	// asn1Bytes, err := metTestSm.IndicationHeaderProtoToASN1(protoBytes)
-	// assert.NilError(t, err, "unexpected error converting protoBytes to asnBytes")
-	// assert.Assert(t, asn1Bytes != nil)
-	// t.Logf("E2SM-MET-IndicationHeader (gNB) asn1Bytes are \n%v", hex.Dump(asn1Bytes))
+	asn1Bytes, err := metTestSm.IndicationHeaderProtoToASN1(protoBytes)
+	assert.NilError(t, err, "unexpected error converting protoBytes to asnBytes")
+	assert.Assert(t, asn1Bytes != nil)
+	t.Logf("E2SM-MET-IndicationHeader (gNB) asn1Bytes are \n%v", hex.Dump(asn1Bytes))
 }
 
-// func TestServicemodel_IndicationHeaderASN1toProto(t *testing.T) {
-// 	// This value is taken from Shad and passed as a byte array directly to the function
-// 	// It's the encoding of what's in the file ../test/E2SM-MET-Indication-Header-gNB.xml
-// 	indicationHeaderAsn1Bytes := []byte{0x1f, 0x21, 0x22, 0x23, 0x24, 0x18, 0x74, 0x78, 0x74, 0x00, 0x00, 0x03, 0x4f, 0x4e,
-// 		0x46, 0x40, 0x73, 0x6f, 0x6d, 0x65, 0x54, 0x79, 0x70, 0x65, 0x06, 0x6f, 0x6e, 0x66, 0x0c, 0x37, 0x34, 0x37, 0x00,
-// 		0xd4, 0xbc, 0x08, 0x80, 0x30, 0x39, 0x20, 0x1a, 0x85}
+func TestServicemodel_IndicationHeaderASN1toProto(t *testing.T) {
+	// This value is taken from Shad and passed as a byte array directly to the function
+	// It's the encoding of what's in the file ../test/E2SM-MET-Indication-Header-gNB.xml
+	indicationHeaderAsn1Bytes := []byte{0xa, 0x18, 0xa, 0x16, 0xa, 0x6, 0xa, 0x4, 0x21, 0x22, 0x23, 0x24, 0x12, 0x3, 0x74, 0x78, 0x74, 0x1a, 0x3, 0x4f, 0x4e, 0x46, 0x22, 0x2, 0x8, 0xf}
 
-// 	protoBytes, err := metTestSm.IndicationHeaderASN1toProto(indicationHeaderAsn1Bytes)
-// 	assert.NilError(t, err, "unexpected error converting asn1Bytes to protoBytes")
-// 	assert.Assert(t, protoBytes != nil)
-// 	testIH := &e2smmet.E2SmMetIndicationHeader{}
-// 	err = proto.Unmarshal(protoBytes, testIH)
-// 	assert.NilError(t, err)
-// 	t.Logf("Decoded message is \n%v", testIH)
-// 	assert.DeepEqual(t, []byte{0x21, 0x22, 0x23, 0x24}, testIH.GetIndicationHeaderFormats().GetIndicationHeaderFormat1().GetColletStartTime().GetValue())
-// 	assert.DeepEqual(t, []byte{0x37, 0x34, 0x37}, testIH.GetIndicationHeaderFormats().GetIndicationHeaderFormat1().GetMetNodeId().GetGNb().GetGlobalGNbId().GetPlmnId().GetValue())
-// 	assert.Equal(t, int64(12345), testIH.GetIndicationHeaderFormats().GetIndicationHeaderFormat1().GetMetNodeId().GetGNb().GetGNbCuUpId().GetValue())
-// }
+	protoBytes, err := metTestSm.IndicationHeaderASN1toProto(indicationHeaderAsn1Bytes)
+	assert.NilError(t, err, "unexpected error converting asn1Bytes to protoBytes")
+	assert.Assert(t, protoBytes != nil)
+	testIH := &e2smmet.E2SmMetIndicationHeader{}
+	err = proto.Unmarshal(protoBytes, testIH)
+	assert.NilError(t, err)
+	t.Logf("Decoded message is \n%v", testIH)
+	assert.DeepEqual(t, []byte{0x21, 0x22, 0x23, 0x24}, testIH.GetIndicationHeaderFormats().GetIndicationHeaderFormat1().GetColletStartTime().GetValue())
+	assert.Equal(t, int64(15), testIH.GetIndicationHeaderFormats().GetIndicationHeaderFormat1().GetMetNodeId().GetValue())
+}
 
 // func TestServicemodel_IndicationMessageProtoToASN1(t *testing.T) {
 // 	var integer int64 = 12345
