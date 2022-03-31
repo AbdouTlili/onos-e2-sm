@@ -220,7 +220,8 @@ func TestServicemodel_RanFuncDescriptionProtoToASN1(t *testing.T) {
 	assert.NilError(t, err, "unexpected error marshalling E2SmMetRanfunctionDescription to bytes")
 
 	asn1Bytes, err := metTestSm.RanFuncDescriptionProtoToASN1(protoBytes)
-	//REVIEW the length is non the same ?
+	//DONE the length is non the same ?
+	// the length of a message of the same nature is the same but the lenghth of proto and asn messsages is diffrent 
 	// fmt.Printf("%#v --- %d", asn1Bytes, len(asn1Bytes))
 	assert.NilError(t, err, "unexpected error converting protoBytes to asnBytes")
 	assert.Assert(t, asn1Bytes != nil)

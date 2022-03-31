@@ -212,11 +212,11 @@ service-model-docker-e2sm_mho_go-1.0.0: # @HELP build e2sm_mho_go 1.0.0 plugin D
 
 PHONY: service-model-docker-e2sm_met-1.0.0
 service-model-docker-e2sm_met-1.0.0: # @HELP build e2sm_kpm_v2 1.0.0 plugin Docker image
-	./build/bin/build-deps e2sm_met ${E2T_MOD} AbdouTlili/service-model-docker-e2sm_met-1.0.0:latest
+	./build/bin/build-deps e2sm_met ${E2T_MOD} abdoutlili/service-model-docker-e2sm_met-1.0.0:latest
 	docker build . -f build/plugins/Dockerfile \
 			--build-arg PLUGIN_MAKE_TARGET="e2sm_met" \
 			--build-arg PLUGIN_MAKE_VERSION="1.0.0" \
-			-t AbdouTlili/service-model-docker-e2sm_met-1.0.0:latest
+			-t abdoutlili/service-model-docker-e2sm_met-1.0.0:latest
 
 images: # @HELP build all Docker images
 images: build service-model-docker-e2sm_kpm_v2_go-1.0.0 \
