@@ -211,7 +211,7 @@ service-model-docker-e2sm_mho_go-1.0.0: # @HELP build e2sm_mho_go 1.0.0 plugin D
 			-t onosproject/service-model-docker-e2sm_mho_go-1.0.0:${ONOS_E2_SM_VERSION}
 
 PHONY: service-model-docker-e2sm_met-1.0.0
-service-model-docker-e2sm_met-1.0.0: # @HELP build e2sm_kpm_v2 1.0.0 plugin Docker image
+service-model-docker-e2sm_met-1.0.0: # @HELP build e2sm_met 1.0.0 plugin Docker image
 	./build/bin/build-deps e2sm_met ${E2T_MOD} abdoutlili/service-model-docker-e2sm_met-1.0.0:latest
 	docker build . -f build/plugins/Dockerfile \
 			--build-arg PLUGIN_MAKE_TARGET="e2sm_met" \

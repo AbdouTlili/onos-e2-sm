@@ -2,7 +2,7 @@ module github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met
 
 go 1.16
 
-replace github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met => ./
+// replace github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met => ./
 
 require (
 	github.com/envoyproxy/protoc-gen-validate v0.6.7
