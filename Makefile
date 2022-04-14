@@ -18,7 +18,7 @@ include ./build/build-tools/make/onf-common.mk
 
 PHONY:build
 build: # @HELP build all libraries
-build: build/_output/e2sm_kpm.so.1.0.0 build/_output/e2sm_kpm_v2.so.1.0.0 build/_output/e2sm_kpm_v2_go.so.1.0.0 build/_output/e2sm_ni.so.1.0.0 build/_output/e2sm_rc_pre.so.1.0.0 build/_output/e2sm_mho.so.1.0.0 build/_output/e2sm_rsm.so.1.0.0 build/_output/e2sm_rc_pre_go.so.1.0.0 build/_output/e2sm_mho_go.so.1.0.0 build/_output/e2sm_rc.so.1.0.0
+build: build/_output/e2sm_kpm.so.1.0.0 build/_output/e2sm_kpm_v2.so.1.0.0 build/_output/e2sm_kpm_v2_go.so.1.0.0 build/_output/e2sm_ni.so.1.0.0 build/_output/e2sm_rc_pre.so.1.0.0 build/_output/e2sm_mho.so.1.0.0 build/_output/e2sm_rsm.so.1.0.0 build/_output/e2sm_rc_pre_go.so.1.0.0 build/_output/e2sm_mho_go.so.1.0.0 build/_output/e2sm_rc.so.1.0.0 build/_output/e2sm_met.so.1.0.0
 
 build/_output/e2sm_kpm.so.1.0.0: # @HELP build the e2sm_kpm.so.1.0.0
 	cd servicemodels/e2sm_kpm && CGO_ENABLED=1 go build -o build/_output/e2sm_kpm.so.1.0.0 -buildmode=plugin .
@@ -50,6 +50,7 @@ build/_output/e2sm_mho.so.1.0.0: # @HELP build the e2sm_mho.so.1.0.1
 #MET SM build 
 build/_output/e2sm_met.so.1.0.0: # @HELP build the e2sm_kpm.so.1.0.0
 	cd servicemodels/met && CGO_ENABLED=1 go build -o build/_output/e2sm_met.so.1.0.0 -buildmode=plugin .
+
 build/_output/e2sm_rc.so.1.0.0: # @HELP build the e2sm_rc.so.1.0.1
 	cd servicemodels/e2sm_rc && CGO_ENABLED=1 go build -o build/_output/e2sm_rc.so.1.0.0 -buildmode=plugin .
 
@@ -96,6 +97,7 @@ sm-linters: golang-ci # @HELP examines Go source code and reports coding problem
 	cd servicemodels/e2sm_rc_pre_go && golangci-lint run --timeout 5m && cd ..
 	cd servicemodels/e2sm_mho && golangci-lint run --timeout 5m && cd ..
 	cd servicemodels/e2sm_rsm && golangci-lint run --timeout 5m && cd ..
+	cd servicemodels/e2sm_met && golangci-lint run --timeout 5m && cd ..
 	cd servicemodels/test_sm_aper_go_lib && golangci-lint run --timeout 5m && cd ..
 	cd protoc-gen-cgo/ && golangci-lint run --timeout 5m && cd ..
 	cd protoc-gen-choice/ && golangci-lint run --timeout 5m && cd ..
@@ -201,12 +203,13 @@ service-model-docker-e2sm_mho_go-1.0.0: # @HELP build e2sm_mho_go 1.0.0 plugin D
 
 PHONY: service-model-docker-e2sm_met-1.0.0
 service-model-docker-e2sm_met-1.0.0: # @HELP build e2sm_met 1.0.0 plugin Docker image
-	./build/bin/build-deps e2sm_met ${E2T_MOD} abdoutlili/service-model-docker-e2sm_met-1.0.0:latest
+	./build/bin/build-deps e2sm_met ${E2T_MOD} abdoutlili/service-model-docker-e2sm_met-1.0.0:${ONOS_E2_SM_VERSION}
 	docker build . -f build/plugins/Dockerfile \
 			--build-arg PLUGIN_MAKE_TARGET="e2sm_met" \
 			--build-arg PLUGIN_MAKE_VERSION="1.0.0" \
-			-t abdoutlili/service-model-docker-e2sm_met-1.0.0:latest
+			-t abdoutlili/service-model-docker-e2sm_met-1.0.0:${ONOS_E2_SM_VERSION}
 PHONY: service-model-docker-e2sm_rc-1.0.0
+
 service-model-docker-e2sm_rc-1.0.0: # @HELP build e2sm_rc_pre_go 1.0.0 plugin Docker image
 	./build/bin/build-deps e2sm_rc ${E2T_MOD} onosproject/service-model-docker-e2sm_rc-1.0.0:${ONOS_E2_SM_VERSION}
 	docker build . -f build/plugins/Dockerfile \
@@ -219,7 +222,8 @@ images: build service-model-docker-e2sm_kpm_v2_go-1.0.0 \
 	service-model-docker-e2sm_rsm-1.0.0 \
 	service-model-docker-e2sm_rc_pre_go-1.0.0 \
 	service-model-docker-e2sm_mho_go-1.0.0 \
-	service-model-docker-e2sm_rc-1.0.0
+	service-model-docker-e2sm_rc-1.0.0 \
+	service-model-docker-e2sm_met-1.0.0
 
 
 kind: # @HELP build Docker images and add them to the currently configured kind cluster
@@ -253,3 +257,5 @@ clean:: # @HELP remove all the build artifacts
 	rm -fr servicemodels/*/vendor
 	go clean -testcache github.com/onosproject/onos-e2-sm/...
 
+publish-met: 
+	docker push abdoutlili/service-model-docker-e2sm_met-1.0.0:${ONOS_E2_SM_VERSION}
