@@ -23,7 +23,7 @@ type MetServiceModel string
 const smName = "e2sm_met"
 const smVersion = "v1_go"
 const moduleName = "e2smmet.so.2.0"
-const smOIDMet = "1.3.6.1.4.1.53148.1.2.2.97"
+const smOIDMet = "1.3.6.1.4.1.53148"
 
 func (sm MetServiceModel) ServiceModelData() types.ServiceModelData {
 	smData := types.ServiceModelData{
