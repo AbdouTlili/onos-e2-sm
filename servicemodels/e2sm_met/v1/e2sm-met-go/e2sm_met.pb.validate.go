@@ -952,6 +952,117 @@ var _ interface {
 	ErrorName() string
 } = MaxnoofMeasurementValueValidationError{}
 
+// Validate checks the field values on MaxnoofRicstyles with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *MaxnoofRicstyles) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MaxnoofRicstyles with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// MaxnoofRicstylesMultiError, or nil if none found.
+func (m *MaxnoofRicstyles) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MaxnoofRicstyles) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetValue() != 63 {
+		err := MaxnoofRicstylesValidationError{
+			field:  "Value",
+			reason: "value must equal 63",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return MaxnoofRicstylesMultiError(errors)
+	}
+
+	return nil
+}
+
+// MaxnoofRicstylesMultiError is an error wrapping multiple validation errors
+// returned by MaxnoofRicstyles.ValidateAll() if the designated constraints
+// aren't met.
+type MaxnoofRicstylesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MaxnoofRicstylesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MaxnoofRicstylesMultiError) AllErrors() []error { return m }
+
+// MaxnoofRicstylesValidationError is the validation error returned by
+// MaxnoofRicstyles.Validate if the designated constraints aren't met.
+type MaxnoofRicstylesValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MaxnoofRicstylesValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MaxnoofRicstylesValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MaxnoofRicstylesValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MaxnoofRicstylesValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MaxnoofRicstylesValidationError) ErrorName() string { return "MaxnoofRicstylesValidationError" }
+
+// Error satisfies the builtin error interface
+func (e MaxnoofRicstylesValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMaxnoofRicstyles.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MaxnoofRicstylesValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MaxnoofRicstylesValidationError{}
+
 // Validate checks the field values on MaxofUe with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -2033,6 +2144,419 @@ var _ interface {
 	ErrorName() string
 } = MeasurementRecordItemValidationError{}
 
+// Validate checks the field values on MeasurementInfoActionList with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *MeasurementInfoActionList) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MeasurementInfoActionList with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// MeasurementInfoActionListMultiError, or nil if none found.
+func (m *MeasurementInfoActionList) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MeasurementInfoActionList) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetValue() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, MeasurementInfoActionListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, MeasurementInfoActionListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return MeasurementInfoActionListValidationError{
+					field:  fmt.Sprintf("Value[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return MeasurementInfoActionListMultiError(errors)
+	}
+
+	return nil
+}
+
+// MeasurementInfoActionListMultiError is an error wrapping multiple validation
+// errors returned by MeasurementInfoActionList.ValidateAll() if the
+// designated constraints aren't met.
+type MeasurementInfoActionListMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MeasurementInfoActionListMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MeasurementInfoActionListMultiError) AllErrors() []error { return m }
+
+// MeasurementInfoActionListValidationError is the validation error returned by
+// MeasurementInfoActionList.Validate if the designated constraints aren't met.
+type MeasurementInfoActionListValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MeasurementInfoActionListValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MeasurementInfoActionListValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MeasurementInfoActionListValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MeasurementInfoActionListValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MeasurementInfoActionListValidationError) ErrorName() string {
+	return "MeasurementInfoActionListValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MeasurementInfoActionListValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMeasurementInfoActionList.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MeasurementInfoActionListValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MeasurementInfoActionListValidationError{}
+
+// Validate checks the field values on MeasurementInfoActionItem with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *MeasurementInfoActionItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MeasurementInfoActionItem with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// MeasurementInfoActionItemMultiError, or nil if none found.
+func (m *MeasurementInfoActionItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MeasurementInfoActionItem) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetMeasName()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MeasurementInfoActionItemValidationError{
+					field:  "MeasName",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MeasurementInfoActionItemValidationError{
+					field:  "MeasName",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMeasName()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MeasurementInfoActionItemValidationError{
+				field:  "MeasName",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.MeasId != nil {
+
+		if all {
+			switch v := interface{}(m.GetMeasId()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, MeasurementInfoActionItemValidationError{
+						field:  "MeasId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, MeasurementInfoActionItemValidationError{
+						field:  "MeasId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetMeasId()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return MeasurementInfoActionItemValidationError{
+					field:  "MeasId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return MeasurementInfoActionItemMultiError(errors)
+	}
+
+	return nil
+}
+
+// MeasurementInfoActionItemMultiError is an error wrapping multiple validation
+// errors returned by MeasurementInfoActionItem.ValidateAll() if the
+// designated constraints aren't met.
+type MeasurementInfoActionItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MeasurementInfoActionItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MeasurementInfoActionItemMultiError) AllErrors() []error { return m }
+
+// MeasurementInfoActionItemValidationError is the validation error returned by
+// MeasurementInfoActionItem.Validate if the designated constraints aren't met.
+type MeasurementInfoActionItemValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MeasurementInfoActionItemValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MeasurementInfoActionItemValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MeasurementInfoActionItemValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MeasurementInfoActionItemValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MeasurementInfoActionItemValidationError) ErrorName() string {
+	return "MeasurementInfoActionItemValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MeasurementInfoActionItemValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMeasurementInfoActionItem.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MeasurementInfoActionItemValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MeasurementInfoActionItemValidationError{}
+
+// Validate checks the field values on MeasurementTypeId with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *MeasurementTypeId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MeasurementTypeId with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// MeasurementTypeIdMultiError, or nil if none found.
+func (m *MeasurementTypeId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MeasurementTypeId) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if val := m.GetValue(); val < 1 || val > 65536 {
+		err := MeasurementTypeIdValidationError{
+			field:  "Value",
+			reason: "value must be inside range [1, 65536]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return MeasurementTypeIdMultiError(errors)
+	}
+
+	return nil
+}
+
+// MeasurementTypeIdMultiError is an error wrapping multiple validation errors
+// returned by MeasurementTypeId.ValidateAll() if the designated constraints
+// aren't met.
+type MeasurementTypeIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MeasurementTypeIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MeasurementTypeIdMultiError) AllErrors() []error { return m }
+
+// MeasurementTypeIdValidationError is the validation error returned by
+// MeasurementTypeId.Validate if the designated constraints aren't met.
+type MeasurementTypeIdValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MeasurementTypeIdValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MeasurementTypeIdValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MeasurementTypeIdValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MeasurementTypeIdValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MeasurementTypeIdValidationError) ErrorName() string {
+	return "MeasurementTypeIdValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MeasurementTypeIdValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMeasurementTypeId.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MeasurementTypeIdValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MeasurementTypeIdValidationError{}
+
 // Validate checks the field values on E2SmMetEventTriggerDefinition with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -2303,23 +2827,23 @@ var _ interface {
 	ErrorName() string
 } = EventTriggerDefinitionFormatsValidationError{}
 
-// Validate checks the field values on E2SmMetEventTriggerDefinitionFormat1
+// Validate checks the field values on E2SmKpmEventTriggerDefinitionFormat1
 // with the rules defined in the proto definition for this message. If any
 // rules are violated, the first error encountered is returned, or nil if
 // there are no violations.
-func (m *E2SmMetEventTriggerDefinitionFormat1) Validate() error {
+func (m *E2SmKpmEventTriggerDefinitionFormat1) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on E2SmMetEventTriggerDefinitionFormat1
+// ValidateAll checks the field values on E2SmKpmEventTriggerDefinitionFormat1
 // with the rules defined in the proto definition for this message. If any
 // rules are violated, the result is a list of violation errors wrapped in
-// E2SmMetEventTriggerDefinitionFormat1MultiError, or nil if none found.
-func (m *E2SmMetEventTriggerDefinitionFormat1) ValidateAll() error {
+// E2SmKpmEventTriggerDefinitionFormat1MultiError, or nil if none found.
+func (m *E2SmKpmEventTriggerDefinitionFormat1) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *E2SmMetEventTriggerDefinitionFormat1) validate(all bool) error {
+func (m *E2SmKpmEventTriggerDefinitionFormat1) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -2329,20 +2853,20 @@ func (m *E2SmMetEventTriggerDefinitionFormat1) validate(all bool) error {
 	// no validation rules for ReportingPeriod
 
 	if len(errors) > 0 {
-		return E2SmMetEventTriggerDefinitionFormat1MultiError(errors)
+		return E2SmKpmEventTriggerDefinitionFormat1MultiError(errors)
 	}
 
 	return nil
 }
 
-// E2SmMetEventTriggerDefinitionFormat1MultiError is an error wrapping multiple
+// E2SmKpmEventTriggerDefinitionFormat1MultiError is an error wrapping multiple
 // validation errors returned by
-// E2SmMetEventTriggerDefinitionFormat1.ValidateAll() if the designated
+// E2SmKpmEventTriggerDefinitionFormat1.ValidateAll() if the designated
 // constraints aren't met.
-type E2SmMetEventTriggerDefinitionFormat1MultiError []error
+type E2SmKpmEventTriggerDefinitionFormat1MultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m E2SmMetEventTriggerDefinitionFormat1MultiError) Error() string {
+func (m E2SmKpmEventTriggerDefinitionFormat1MultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -2351,12 +2875,12 @@ func (m E2SmMetEventTriggerDefinitionFormat1MultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m E2SmMetEventTriggerDefinitionFormat1MultiError) AllErrors() []error { return m }
+func (m E2SmKpmEventTriggerDefinitionFormat1MultiError) AllErrors() []error { return m }
 
-// E2SmMetEventTriggerDefinitionFormat1ValidationError is the validation error
-// returned by E2SmMetEventTriggerDefinitionFormat1.Validate if the designated
+// E2SmKpmEventTriggerDefinitionFormat1ValidationError is the validation error
+// returned by E2SmKpmEventTriggerDefinitionFormat1.Validate if the designated
 // constraints aren't met.
-type E2SmMetEventTriggerDefinitionFormat1ValidationError struct {
+type E2SmKpmEventTriggerDefinitionFormat1ValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -2364,24 +2888,24 @@ type E2SmMetEventTriggerDefinitionFormat1ValidationError struct {
 }
 
 // Field function returns field value.
-func (e E2SmMetEventTriggerDefinitionFormat1ValidationError) Field() string { return e.field }
+func (e E2SmKpmEventTriggerDefinitionFormat1ValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e E2SmMetEventTriggerDefinitionFormat1ValidationError) Reason() string { return e.reason }
+func (e E2SmKpmEventTriggerDefinitionFormat1ValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e E2SmMetEventTriggerDefinitionFormat1ValidationError) Cause() error { return e.cause }
+func (e E2SmKpmEventTriggerDefinitionFormat1ValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e E2SmMetEventTriggerDefinitionFormat1ValidationError) Key() bool { return e.key }
+func (e E2SmKpmEventTriggerDefinitionFormat1ValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e E2SmMetEventTriggerDefinitionFormat1ValidationError) ErrorName() string {
-	return "E2SmMetEventTriggerDefinitionFormat1ValidationError"
+func (e E2SmKpmEventTriggerDefinitionFormat1ValidationError) ErrorName() string {
+	return "E2SmKpmEventTriggerDefinitionFormat1ValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e E2SmMetEventTriggerDefinitionFormat1ValidationError) Error() string {
+func (e E2SmKpmEventTriggerDefinitionFormat1ValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -2393,14 +2917,14 @@ func (e E2SmMetEventTriggerDefinitionFormat1ValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sE2SmMetEventTriggerDefinitionFormat1.%s: %s%s",
+		"invalid %sE2SmKpmEventTriggerDefinitionFormat1.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = E2SmMetEventTriggerDefinitionFormat1ValidationError{}
+var _ error = E2SmKpmEventTriggerDefinitionFormat1ValidationError{}
 
 var _ interface {
 	Field() string
@@ -2408,7 +2932,523 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = E2SmMetEventTriggerDefinitionFormat1ValidationError{}
+} = E2SmKpmEventTriggerDefinitionFormat1ValidationError{}
+
+// Validate checks the field values on E2SmMetActionDefinition with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *E2SmMetActionDefinition) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2SmMetActionDefinition with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// E2SmMetActionDefinitionMultiError, or nil if none found.
+func (m *E2SmMetActionDefinition) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2SmMetActionDefinition) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRicStyleType()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SmMetActionDefinitionValidationError{
+					field:  "RicStyleType",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SmMetActionDefinitionValidationError{
+					field:  "RicStyleType",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicStyleType()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return E2SmMetActionDefinitionValidationError{
+				field:  "RicStyleType",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetActionDefinitionFormats()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SmMetActionDefinitionValidationError{
+					field:  "ActionDefinitionFormats",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SmMetActionDefinitionValidationError{
+					field:  "ActionDefinitionFormats",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetActionDefinitionFormats()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return E2SmMetActionDefinitionValidationError{
+				field:  "ActionDefinitionFormats",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return E2SmMetActionDefinitionMultiError(errors)
+	}
+
+	return nil
+}
+
+// E2SmMetActionDefinitionMultiError is an error wrapping multiple validation
+// errors returned by E2SmMetActionDefinition.ValidateAll() if the designated
+// constraints aren't met.
+type E2SmMetActionDefinitionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SmMetActionDefinitionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SmMetActionDefinitionMultiError) AllErrors() []error { return m }
+
+// E2SmMetActionDefinitionValidationError is the validation error returned by
+// E2SmMetActionDefinition.Validate if the designated constraints aren't met.
+type E2SmMetActionDefinitionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e E2SmMetActionDefinitionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e E2SmMetActionDefinitionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e E2SmMetActionDefinitionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e E2SmMetActionDefinitionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e E2SmMetActionDefinitionValidationError) ErrorName() string {
+	return "E2SmMetActionDefinitionValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e E2SmMetActionDefinitionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sE2SmMetActionDefinition.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = E2SmMetActionDefinitionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = E2SmMetActionDefinitionValidationError{}
+
+// Validate checks the field values on ActionDefinitionFormats with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ActionDefinitionFormats) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ActionDefinitionFormats with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ActionDefinitionFormatsMultiError, or nil if none found.
+func (m *ActionDefinitionFormats) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ActionDefinitionFormats) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	switch m.E2SmMetActionDefinition.(type) {
+
+	case *ActionDefinitionFormats_ActionDefinitionFormat1:
+
+		if all {
+			switch v := interface{}(m.GetActionDefinitionFormat1()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ActionDefinitionFormatsValidationError{
+						field:  "ActionDefinitionFormat1",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ActionDefinitionFormatsValidationError{
+						field:  "ActionDefinitionFormat1",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetActionDefinitionFormat1()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ActionDefinitionFormatsValidationError{
+					field:  "ActionDefinitionFormat1",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ActionDefinitionFormatsMultiError(errors)
+	}
+
+	return nil
+}
+
+// ActionDefinitionFormatsMultiError is an error wrapping multiple validation
+// errors returned by ActionDefinitionFormats.ValidateAll() if the designated
+// constraints aren't met.
+type ActionDefinitionFormatsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ActionDefinitionFormatsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ActionDefinitionFormatsMultiError) AllErrors() []error { return m }
+
+// ActionDefinitionFormatsValidationError is the validation error returned by
+// ActionDefinitionFormats.Validate if the designated constraints aren't met.
+type ActionDefinitionFormatsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ActionDefinitionFormatsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ActionDefinitionFormatsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ActionDefinitionFormatsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ActionDefinitionFormatsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ActionDefinitionFormatsValidationError) ErrorName() string {
+	return "ActionDefinitionFormatsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ActionDefinitionFormatsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sActionDefinitionFormats.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ActionDefinitionFormatsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ActionDefinitionFormatsValidationError{}
+
+// Validate checks the field values on E2SmKpmActionDefinitionFormat1 with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *E2SmKpmActionDefinitionFormat1) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2SmKpmActionDefinitionFormat1 with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// E2SmKpmActionDefinitionFormat1MultiError, or nil if none found.
+func (m *E2SmKpmActionDefinitionFormat1) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2SmKpmActionDefinitionFormat1) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetCellObjId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SmKpmActionDefinitionFormat1ValidationError{
+					field:  "CellObjId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SmKpmActionDefinitionFormat1ValidationError{
+					field:  "CellObjId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCellObjId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return E2SmKpmActionDefinitionFormat1ValidationError{
+				field:  "CellObjId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetMeasInfoList()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SmKpmActionDefinitionFormat1ValidationError{
+					field:  "MeasInfoList",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SmKpmActionDefinitionFormat1ValidationError{
+					field:  "MeasInfoList",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMeasInfoList()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return E2SmKpmActionDefinitionFormat1ValidationError{
+				field:  "MeasInfoList",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetGranulPeriod()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SmKpmActionDefinitionFormat1ValidationError{
+					field:  "GranulPeriod",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SmKpmActionDefinitionFormat1ValidationError{
+					field:  "GranulPeriod",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetGranulPeriod()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return E2SmKpmActionDefinitionFormat1ValidationError{
+				field:  "GranulPeriod",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetSubscriptId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SmKpmActionDefinitionFormat1ValidationError{
+					field:  "SubscriptId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SmKpmActionDefinitionFormat1ValidationError{
+					field:  "SubscriptId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSubscriptId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return E2SmKpmActionDefinitionFormat1ValidationError{
+				field:  "SubscriptId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return E2SmKpmActionDefinitionFormat1MultiError(errors)
+	}
+
+	return nil
+}
+
+// E2SmKpmActionDefinitionFormat1MultiError is an error wrapping multiple
+// validation errors returned by E2SmKpmActionDefinitionFormat1.ValidateAll()
+// if the designated constraints aren't met.
+type E2SmKpmActionDefinitionFormat1MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SmKpmActionDefinitionFormat1MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SmKpmActionDefinitionFormat1MultiError) AllErrors() []error { return m }
+
+// E2SmKpmActionDefinitionFormat1ValidationError is the validation error
+// returned by E2SmKpmActionDefinitionFormat1.Validate if the designated
+// constraints aren't met.
+type E2SmKpmActionDefinitionFormat1ValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e E2SmKpmActionDefinitionFormat1ValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e E2SmKpmActionDefinitionFormat1ValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e E2SmKpmActionDefinitionFormat1ValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e E2SmKpmActionDefinitionFormat1ValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e E2SmKpmActionDefinitionFormat1ValidationError) ErrorName() string {
+	return "E2SmKpmActionDefinitionFormat1ValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e E2SmKpmActionDefinitionFormat1ValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sE2SmKpmActionDefinitionFormat1.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = E2SmKpmActionDefinitionFormat1ValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = E2SmKpmActionDefinitionFormat1ValidationError{}
 
 // Validate checks the field values on E2SmMetIndicationHeader with the rules
 // defined in the proto definition for this message. If any rules are
@@ -3401,22 +4441,22 @@ var _ interface {
 	ErrorName() string
 } = E2SmMetIndicationMessageFormat1ValidationError{}
 
-// Validate checks the field values on E2SmMetRanfunctionDescription with the
+// Validate checks the field values on E2SmKpmRanfunctionDescription with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *E2SmMetRanfunctionDescription) Validate() error {
+func (m *E2SmKpmRanfunctionDescription) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on E2SmMetRanfunctionDescription with
+// ValidateAll checks the field values on E2SmKpmRanfunctionDescription with
 // the rules defined in the proto definition for this message. If any rules
 // are violated, the result is a list of violation errors wrapped in
-// E2SmMetRanfunctionDescriptionMultiError, or nil if none found.
-func (m *E2SmMetRanfunctionDescription) ValidateAll() error {
+// E2SmKpmRanfunctionDescriptionMultiError, or nil if none found.
+func (m *E2SmKpmRanfunctionDescription) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *E2SmMetRanfunctionDescription) validate(all bool) error {
+func (m *E2SmKpmRanfunctionDescription) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -3427,7 +4467,7 @@ func (m *E2SmMetRanfunctionDescription) validate(all bool) error {
 		switch v := interface{}(m.GetRanFunctionName()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, E2SmMetRanfunctionDescriptionValidationError{
+				errors = append(errors, E2SmKpmRanfunctionDescriptionValidationError{
 					field:  "RanFunctionName",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -3435,7 +4475,7 @@ func (m *E2SmMetRanfunctionDescription) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, E2SmMetRanfunctionDescriptionValidationError{
+				errors = append(errors, E2SmKpmRanfunctionDescriptionValidationError{
 					field:  "RanFunctionName",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -3444,7 +4484,7 @@ func (m *E2SmMetRanfunctionDescription) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetRanFunctionName()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return E2SmMetRanfunctionDescriptionValidationError{
+			return E2SmKpmRanfunctionDescriptionValidationError{
 				field:  "RanFunctionName",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -3452,20 +4492,110 @@ func (m *E2SmMetRanfunctionDescription) validate(all bool) error {
 		}
 	}
 
+	if len(m.GetRicEventTriggerStyleList()) > 63 {
+		err := E2SmKpmRanfunctionDescriptionValidationError{
+			field:  "RicEventTriggerStyleList",
+			reason: "value must contain no more than 63 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetRicEventTriggerStyleList() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, E2SmKpmRanfunctionDescriptionValidationError{
+						field:  fmt.Sprintf("RicEventTriggerStyleList[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, E2SmKpmRanfunctionDescriptionValidationError{
+						field:  fmt.Sprintf("RicEventTriggerStyleList[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return E2SmKpmRanfunctionDescriptionValidationError{
+					field:  fmt.Sprintf("RicEventTriggerStyleList[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(m.GetRicReportStyleList()) > 63 {
+		err := E2SmKpmRanfunctionDescriptionValidationError{
+			field:  "RicReportStyleList",
+			reason: "value must contain no more than 63 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetRicReportStyleList() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, E2SmKpmRanfunctionDescriptionValidationError{
+						field:  fmt.Sprintf("RicReportStyleList[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, E2SmKpmRanfunctionDescriptionValidationError{
+						field:  fmt.Sprintf("RicReportStyleList[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return E2SmKpmRanfunctionDescriptionValidationError{
+					field:  fmt.Sprintf("RicReportStyleList[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if len(errors) > 0 {
-		return E2SmMetRanfunctionDescriptionMultiError(errors)
+		return E2SmKpmRanfunctionDescriptionMultiError(errors)
 	}
 
 	return nil
 }
 
-// E2SmMetRanfunctionDescriptionMultiError is an error wrapping multiple
-// validation errors returned by E2SmMetRanfunctionDescription.ValidateAll()
+// E2SmKpmRanfunctionDescriptionMultiError is an error wrapping multiple
+// validation errors returned by E2SmKpmRanfunctionDescription.ValidateAll()
 // if the designated constraints aren't met.
-type E2SmMetRanfunctionDescriptionMultiError []error
+type E2SmKpmRanfunctionDescriptionMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m E2SmMetRanfunctionDescriptionMultiError) Error() string {
+func (m E2SmKpmRanfunctionDescriptionMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -3474,12 +4604,12 @@ func (m E2SmMetRanfunctionDescriptionMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m E2SmMetRanfunctionDescriptionMultiError) AllErrors() []error { return m }
+func (m E2SmKpmRanfunctionDescriptionMultiError) AllErrors() []error { return m }
 
-// E2SmMetRanfunctionDescriptionValidationError is the validation error
-// returned by E2SmMetRanfunctionDescription.Validate if the designated
+// E2SmKpmRanfunctionDescriptionValidationError is the validation error
+// returned by E2SmKpmRanfunctionDescription.Validate if the designated
 // constraints aren't met.
-type E2SmMetRanfunctionDescriptionValidationError struct {
+type E2SmKpmRanfunctionDescriptionValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -3487,24 +4617,24 @@ type E2SmMetRanfunctionDescriptionValidationError struct {
 }
 
 // Field function returns field value.
-func (e E2SmMetRanfunctionDescriptionValidationError) Field() string { return e.field }
+func (e E2SmKpmRanfunctionDescriptionValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e E2SmMetRanfunctionDescriptionValidationError) Reason() string { return e.reason }
+func (e E2SmKpmRanfunctionDescriptionValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e E2SmMetRanfunctionDescriptionValidationError) Cause() error { return e.cause }
+func (e E2SmKpmRanfunctionDescriptionValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e E2SmMetRanfunctionDescriptionValidationError) Key() bool { return e.key }
+func (e E2SmKpmRanfunctionDescriptionValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e E2SmMetRanfunctionDescriptionValidationError) ErrorName() string {
-	return "E2SmMetRanfunctionDescriptionValidationError"
+func (e E2SmKpmRanfunctionDescriptionValidationError) ErrorName() string {
+	return "E2SmKpmRanfunctionDescriptionValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e E2SmMetRanfunctionDescriptionValidationError) Error() string {
+func (e E2SmKpmRanfunctionDescriptionValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -3516,14 +4646,14 @@ func (e E2SmMetRanfunctionDescriptionValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sE2SmMetRanfunctionDescription.%s: %s%s",
+		"invalid %sE2SmKpmRanfunctionDescription.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = E2SmMetRanfunctionDescriptionValidationError{}
+var _ error = E2SmKpmRanfunctionDescriptionValidationError{}
 
 var _ interface {
 	Field() string
@@ -3531,7 +4661,803 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = E2SmMetRanfunctionDescriptionValidationError{}
+} = E2SmKpmRanfunctionDescriptionValidationError{}
+
+// Validate checks the field values on RicStyleType with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *RicStyleType) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicStyleType with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in RicStyleTypeMultiError, or
+// nil if none found.
+func (m *RicStyleType) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicStyleType) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if val := m.GetValue(); val < 0 || val > 255 {
+		err := RicStyleTypeValidationError{
+			field:  "Value",
+			reason: "value must be inside range [0, 255]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return RicStyleTypeMultiError(errors)
+	}
+
+	return nil
+}
+
+// RicStyleTypeMultiError is an error wrapping multiple validation errors
+// returned by RicStyleType.ValidateAll() if the designated constraints aren't met.
+type RicStyleTypeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicStyleTypeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicStyleTypeMultiError) AllErrors() []error { return m }
+
+// RicStyleTypeValidationError is the validation error returned by
+// RicStyleType.Validate if the designated constraints aren't met.
+type RicStyleTypeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RicStyleTypeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RicStyleTypeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RicStyleTypeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RicStyleTypeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RicStyleTypeValidationError) ErrorName() string { return "RicStyleTypeValidationError" }
+
+// Error satisfies the builtin error interface
+func (e RicStyleTypeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRicStyleType.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RicStyleTypeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RicStyleTypeValidationError{}
+
+// Validate checks the field values on RicFormatType with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *RicFormatType) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicFormatType with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in RicFormatTypeMultiError, or
+// nil if none found.
+func (m *RicFormatType) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicFormatType) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if val := m.GetValue(); val < 0 || val > 255 {
+		err := RicFormatTypeValidationError{
+			field:  "Value",
+			reason: "value must be inside range [0, 255]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return RicFormatTypeMultiError(errors)
+	}
+
+	return nil
+}
+
+// RicFormatTypeMultiError is an error wrapping multiple validation errors
+// returned by RicFormatType.ValidateAll() if the designated constraints
+// aren't met.
+type RicFormatTypeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicFormatTypeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicFormatTypeMultiError) AllErrors() []error { return m }
+
+// RicFormatTypeValidationError is the validation error returned by
+// RicFormatType.Validate if the designated constraints aren't met.
+type RicFormatTypeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RicFormatTypeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RicFormatTypeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RicFormatTypeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RicFormatTypeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RicFormatTypeValidationError) ErrorName() string { return "RicFormatTypeValidationError" }
+
+// Error satisfies the builtin error interface
+func (e RicFormatTypeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRicFormatType.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RicFormatTypeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RicFormatTypeValidationError{}
+
+// Validate checks the field values on RicEventTriggerStyleItem with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RicEventTriggerStyleItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicEventTriggerStyleItem with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicEventTriggerStyleItemMultiError, or nil if none found.
+func (m *RicEventTriggerStyleItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicEventTriggerStyleItem) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRicEventTriggerStyleType()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicEventTriggerStyleItemValidationError{
+					field:  "RicEventTriggerStyleType",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicEventTriggerStyleItemValidationError{
+					field:  "RicEventTriggerStyleType",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicEventTriggerStyleType()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RicEventTriggerStyleItemValidationError{
+				field:  "RicEventTriggerStyleType",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetRicEventTriggerStyleName()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicEventTriggerStyleItemValidationError{
+					field:  "RicEventTriggerStyleName",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicEventTriggerStyleItemValidationError{
+					field:  "RicEventTriggerStyleName",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicEventTriggerStyleName()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RicEventTriggerStyleItemValidationError{
+				field:  "RicEventTriggerStyleName",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetRicEventTriggerFormatType()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicEventTriggerStyleItemValidationError{
+					field:  "RicEventTriggerFormatType",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicEventTriggerStyleItemValidationError{
+					field:  "RicEventTriggerFormatType",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicEventTriggerFormatType()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RicEventTriggerStyleItemValidationError{
+				field:  "RicEventTriggerFormatType",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return RicEventTriggerStyleItemMultiError(errors)
+	}
+
+	return nil
+}
+
+// RicEventTriggerStyleItemMultiError is an error wrapping multiple validation
+// errors returned by RicEventTriggerStyleItem.ValidateAll() if the designated
+// constraints aren't met.
+type RicEventTriggerStyleItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicEventTriggerStyleItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicEventTriggerStyleItemMultiError) AllErrors() []error { return m }
+
+// RicEventTriggerStyleItemValidationError is the validation error returned by
+// RicEventTriggerStyleItem.Validate if the designated constraints aren't met.
+type RicEventTriggerStyleItemValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RicEventTriggerStyleItemValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RicEventTriggerStyleItemValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RicEventTriggerStyleItemValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RicEventTriggerStyleItemValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RicEventTriggerStyleItemValidationError) ErrorName() string {
+	return "RicEventTriggerStyleItemValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RicEventTriggerStyleItemValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRicEventTriggerStyleItem.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RicEventTriggerStyleItemValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RicEventTriggerStyleItemValidationError{}
+
+// Validate checks the field values on RicReportStyleItem with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RicReportStyleItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicReportStyleItem with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicReportStyleItemMultiError, or nil if none found.
+func (m *RicReportStyleItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicReportStyleItem) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRicReportStyleType()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicReportStyleItemValidationError{
+					field:  "RicReportStyleType",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicReportStyleItemValidationError{
+					field:  "RicReportStyleType",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicReportStyleType()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RicReportStyleItemValidationError{
+				field:  "RicReportStyleType",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetRicReportStyleName()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicReportStyleItemValidationError{
+					field:  "RicReportStyleName",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicReportStyleItemValidationError{
+					field:  "RicReportStyleName",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicReportStyleName()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RicReportStyleItemValidationError{
+				field:  "RicReportStyleName",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetRicActionFormatType()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicReportStyleItemValidationError{
+					field:  "RicActionFormatType",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicReportStyleItemValidationError{
+					field:  "RicActionFormatType",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicActionFormatType()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RicReportStyleItemValidationError{
+				field:  "RicActionFormatType",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetMeasInfoActionList()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicReportStyleItemValidationError{
+					field:  "MeasInfoActionList",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicReportStyleItemValidationError{
+					field:  "MeasInfoActionList",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMeasInfoActionList()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RicReportStyleItemValidationError{
+				field:  "MeasInfoActionList",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetRicIndicationHeaderFormatType()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicReportStyleItemValidationError{
+					field:  "RicIndicationHeaderFormatType",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicReportStyleItemValidationError{
+					field:  "RicIndicationHeaderFormatType",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicIndicationHeaderFormatType()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RicReportStyleItemValidationError{
+				field:  "RicIndicationHeaderFormatType",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetRicIndicationMessageFormatType()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicReportStyleItemValidationError{
+					field:  "RicIndicationMessageFormatType",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicReportStyleItemValidationError{
+					field:  "RicIndicationMessageFormatType",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicIndicationMessageFormatType()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RicReportStyleItemValidationError{
+				field:  "RicIndicationMessageFormatType",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return RicReportStyleItemMultiError(errors)
+	}
+
+	return nil
+}
+
+// RicReportStyleItemMultiError is an error wrapping multiple validation errors
+// returned by RicReportStyleItem.ValidateAll() if the designated constraints
+// aren't met.
+type RicReportStyleItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicReportStyleItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicReportStyleItemMultiError) AllErrors() []error { return m }
+
+// RicReportStyleItemValidationError is the validation error returned by
+// RicReportStyleItem.Validate if the designated constraints aren't met.
+type RicReportStyleItemValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RicReportStyleItemValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RicReportStyleItemValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RicReportStyleItemValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RicReportStyleItemValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RicReportStyleItemValidationError) ErrorName() string {
+	return "RicReportStyleItemValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RicReportStyleItemValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRicReportStyleItem.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RicReportStyleItemValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RicReportStyleItemValidationError{}
+
+// Validate checks the field values on RicStyleName with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *RicStyleName) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicStyleName with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in RicStyleNameMultiError, or
+// nil if none found.
+func (m *RicStyleName) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicStyleName) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetValue()); l < 1 || l > 150 {
+		err := RicStyleNameValidationError{
+			field:  "Value",
+			reason: "value length must be between 1 and 150 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return RicStyleNameMultiError(errors)
+	}
+
+	return nil
+}
+
+// RicStyleNameMultiError is an error wrapping multiple validation errors
+// returned by RicStyleName.ValidateAll() if the designated constraints aren't met.
+type RicStyleNameMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicStyleNameMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicStyleNameMultiError) AllErrors() []error { return m }
+
+// RicStyleNameValidationError is the validation error returned by
+// RicStyleName.Validate if the designated constraints aren't met.
+type RicStyleNameValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RicStyleNameValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RicStyleNameValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RicStyleNameValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RicStyleNameValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RicStyleNameValidationError) ErrorName() string { return "RicStyleNameValidationError" }
+
+// Error satisfies the builtin error interface
+func (e RicStyleNameValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRicStyleName.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RicStyleNameValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RicStyleNameValidationError{}
 
 // Validate checks the field values on TimeStamp with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
@@ -3751,3 +5677,116 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UetagValidationError{}
+
+// Validate checks the field values on MeasurementTypeName with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *MeasurementTypeName) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MeasurementTypeName with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// MeasurementTypeNameMultiError, or nil if none found.
+func (m *MeasurementTypeName) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MeasurementTypeName) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetValue()); l < 1 || l > 150 {
+		err := MeasurementTypeNameValidationError{
+			field:  "Value",
+			reason: "value length must be between 1 and 150 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return MeasurementTypeNameMultiError(errors)
+	}
+
+	return nil
+}
+
+// MeasurementTypeNameMultiError is an error wrapping multiple validation
+// errors returned by MeasurementTypeName.ValidateAll() if the designated
+// constraints aren't met.
+type MeasurementTypeNameMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MeasurementTypeNameMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MeasurementTypeNameMultiError) AllErrors() []error { return m }
+
+// MeasurementTypeNameValidationError is the validation error returned by
+// MeasurementTypeName.Validate if the designated constraints aren't met.
+type MeasurementTypeNameValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MeasurementTypeNameValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MeasurementTypeNameValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MeasurementTypeNameValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MeasurementTypeNameValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MeasurementTypeNameValidationError) ErrorName() string {
+	return "MeasurementTypeNameValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MeasurementTypeNameValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMeasurementTypeName.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MeasurementTypeNameValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MeasurementTypeNameValidationError{}
