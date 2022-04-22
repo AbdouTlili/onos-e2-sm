@@ -160,9 +160,9 @@ protoc -I=$proto_imports:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
 
 cp -r github.com/onosproject/onos-e2-sm/* .
 cp -r github.com/AbdouTlili/onos-e2-sm/* .
-rm -rf github.com
+#rm -rf github.com
 
 cp -r servicemodels/github.com/onosproject/onos-e2-sm/* .
 cp -r servicemodels/github.com/AbdouTlili/onos-e2-sm/* .
-rm -rf servicemodels/github.com
+#rm -rf servicemodels/github.com
 

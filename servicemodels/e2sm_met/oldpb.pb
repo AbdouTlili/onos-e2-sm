@@ -48,7 +48,6 @@ message RanfunctionName {
     string ran_function_description = 3 [(validate.v1.rules).string = {min_len: 1, max_len: 150}, json_name="ranFunction-Description"];
 };
 
-
 // constant Integer from e2sm-met.asn1:39
 // {-}
 message MaxnoofMeasurementInfo {
@@ -157,26 +156,14 @@ message MeasurementInfoActionItem {
     optional MeasurementTypeId meas_id = 2 [json_name = "measID"];
 };
 
-// sequence from e2sm-met.asn1:93
-// {MeasurementType}
-message MeasurementType {
-    // choice from e2sm_met_v2.0.3-radisys.asn:66
-    oneof measurement_type {
-        // @inject_tag: aper:"choiceIdx:1"
-        MeasurementTypeName meas_name = 1 [json_name = "measName"];
-        // @inject_tag: aper:"choiceIdx:2"
-        MeasurementTypeId meas_id = 2 [json_name = "measID"];
-    }
-};
-
-// range of Integer from e2sm-met.asn1:100
+// range of Integer from e2sm-met.asn1:94
 // {MeasurementTypeID}
 message MeasurementTypeId {
     // @inject_tag: aper:"valueExt,valueLB:1,valueUB:65536"
     int32 value = 1 [(validate.v1.rules).int32 = {gte: 1, lte: 65536}, json_name = "value"];
 };
 
-// sequence from e2sm-met.asn1:114
+// sequence from e2sm-met.asn1:108
 // {E2SM-MET-EventTriggerDefinition}
 message E2SmMetEventTriggerDefinition {
     // choice from e2sm-met-ies_v2.asn1:337
@@ -198,7 +185,7 @@ message E2SmMetEventTriggerDefinitionFormat1 {
     int64 reporting_period = 1 [json_name = "reportingPeriod"];
 };
 
-// sequence from e2sm-met.asn1:128
+// sequence from e2sm-met.asn1:122
 // {E2SM-MET-ActionDefinition}
 message E2SmMetActionDefinition {
     RicStyleType ric_style_type = 1 [json_name = "ric-Style-Type"];
@@ -222,59 +209,60 @@ message E2SmMetActionDefinitionFormat1 {
     SubscriptionId subscript_id = 4 [json_name = "subscriptID"];
 };
 
-// sequence from e2sm-met.asn1:152
+// sequence from e2sm-met.asn1:146
 // {E2SM-MET-IndicationHeader}
 message E2SmMetIndicationHeader {
     // @inject_tag: aper:"choiceExt"
     IndicationHeaderFormats indication_header_formats = 1 [json_name = "indicationHeader-formats"];
-};
+  };
   
-message IndicationHeaderFormats {
-    oneof e2_sm_met_indication_header {
-        // @inject_tag: aper:"valueExt,choiceIdx:1"
-        E2SmMetIndicationHeaderFormat1 indication_header_format1 = 1 [json_name = "indicationHeader_Format1"];
-    }
-}
+  message IndicationHeaderFormats {
+      oneof e2_sm_met_indication_header {
+          // @inject_tag: aper:"valueExt,choiceIdx:1"
+          E2SmMetIndicationHeaderFormat1 indication_header_format1 = 1 [json_name = "indicationHeader_Format1"];
+      }
+  }
   
-// sequence from e2sm_met.asn1:120
-// {E2SM-MET-IndicationHeader-Format1}
-message E2SmMetIndicationHeaderFormat1 {
-    TimeStamp collet_start_time = 1 [ json_name="colletStartTime"];
-    // @inject_tag: aper:"optional,sizeExt,sizeLB:0,sizeUB:15"
-    optional string file_formatversion = 2 [(validate.v1.rules).string = {min_len: 0, max_len: 15}, json_name="fileFormatversion"];
-    // @inject_tag: aper:"optional,sizeExt,sizeLB:0,sizeUB:400"
-    optional string sender_name = 3 [(validate.v1.rules).string = {min_len: 0, max_len: 400}, json_name="senderName"];
-    // @inject_tag: aper:"optional"
-    optional GlobalMetnodeId met_node_id = 4 [ json_name="metNodeID"];
-};
+  // sequence from e2sm_met.asn1:120
+  // {E2SM-MET-IndicationHeader-Format1}
+  message E2SmMetIndicationHeaderFormat1 {
+      TimeStamp collet_start_time = 1 [ json_name="colletStartTime"];
+      // @inject_tag: aper:"optional,sizeExt,sizeLB:0,sizeUB:15"
+      optional string file_formatversion = 2 [(validate.v1.rules).string = {min_len: 0, max_len: 15}, json_name="fileFormatversion"];
+      // @inject_tag: aper:"optional,sizeExt,sizeLB:0,sizeUB:400"
+      optional string sender_name = 3 [(validate.v1.rules).string = {min_len: 0, max_len: 400}, json_name="senderName"];
+      // @inject_tag: aper:"optional"
+      optional GlobalMetnodeId met_node_id = 4 [ json_name="metNodeID"];
+  };
+  
 
-// sequence from e2sm-met.asn1:172
+// sequence from e2sm-met.asn1:166
 // {E2SM-MET-IndicationMessage}
 message E2SmMetIndicationMessage {
-// @inject_tag: aper:"choiceExt"
+    // @inject_tag: aper:"choiceExt"
     IndicationMessageFormats indication_message_formats = 1 [json_name = "indicationMessage-formats"];
-};
-
-message IndicationMessageFormats {
-    oneof e2_sm_met_indication_message {
-        // @inject_tag: aper:"valueExt,choiceIdx:1"
-        E2SmMetIndicationMessageFormat1 indication_message_format1 = 1 [json_name = "indicationMessage_Format1"];
-    }
-}
+ };
+ 
+ message IndicationMessageFormats {
+     oneof e2_sm_met_indication_message {
+         // @inject_tag: aper:"valueExt,choiceIdx:1"
+         E2SmMetIndicationMessageFormat1 indication_message_format1 = 1 [json_name = "indicationMessage_Format1"];
+     }
+ }
  // sequence from e2sm_met.asn1:140
  // {E2SM-MET-IndicationMessage-Format1}
-message E2SmMetIndicationMessageFormat1 {
-    SubscriptionId subscript_id = 1 [ json_name="subscriptID"];
-    // @inject_tag: aper:"optional"
-    optional CellObjectId cell_obj_id = 2 [ json_name="cellObjID"];
-    // @inject_tag: aper:"optional"
-    optional GranularityPeriod granul_period = 3 [ json_name="granulPeriod"];
-    // @inject_tag: aper:"optional"
-    optional MeasurementInfoList meas_info_list = 4 [ json_name="measInfoList"];
-    MeasurementData meas_data = 5 [ json_name="measData"];
-};
+ message E2SmMetIndicationMessageFormat1 {
+     SubscriptionId subscript_id = 1 [ json_name="subscriptID"];
+     // @inject_tag: aper:"optional"
+     optional CellObjectId cell_obj_id = 2 [ json_name="cellObjID"];
+     // @inject_tag: aper:"optional"
+     optional GranularityPeriod granul_period = 3 [ json_name="granulPeriod"];
+     // @inject_tag: aper:"optional"
+     optional MeasurementInfoList meas_info_list = 4 [ json_name="measInfoList"];
+     MeasurementData meas_data = 5 [ json_name="measData"];
+ };
 
-// sequence from e2sm-met.asn1:190
+// sequence from e2sm-met.asn1:184
 // {E2SM-MET-RANfunction-Description}
 message E2SmMetRanfunctionDescription {
     // @inject_tag: aper:"valueExt"
