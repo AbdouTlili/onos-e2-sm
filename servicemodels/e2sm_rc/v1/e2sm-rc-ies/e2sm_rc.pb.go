@@ -8941,6 +8941,7 @@ func (x *E2SmRcControlOutcomeFormat1Item) GetRanParameterValue() *RanparameterVa
 
 // sequence from e2sm_rc.asn1:794
 // {E2SM-RC-RANFunctionDefinition}
+// @inject_tag: aper:"valueExt"
 type E2SmRcRanfunctionDefinition struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
