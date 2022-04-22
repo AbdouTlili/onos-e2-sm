@@ -1599,15 +1599,33 @@ func (m *MeasurementInfoItem) validate(all bool) error {
 
 	var errors []error
 
-	if l := utf8.RuneCountInString(m.GetMeasType()); l < 0 || l > 15 {
-		err := MeasurementInfoItemValidationError{
-			field:  "MeasType",
-			reason: "value length must be between 0 and 15 runes, inclusive",
+	if all {
+		switch v := interface{}(m.GetMeasType()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MeasurementInfoItemValidationError{
+					field:  "MeasType",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MeasurementInfoItemValidationError{
+					field:  "MeasType",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
 		}
-		if !all {
-			return err
+	} else if v, ok := interface{}(m.GetMeasType()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MeasurementInfoItemValidationError{
+				field:  "MeasType",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
 		}
-		errors = append(errors, err)
 	}
 
 	if len(errors) > 0 {

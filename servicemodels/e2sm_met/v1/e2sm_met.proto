@@ -109,7 +109,8 @@ message MeasurementInfoList {
 // sequence from e2sm-met.asn1:64
 // {MeasurementInfoItem}
 message MeasurementInfoItem {
-    string meas_type = 1 [(validate.v1.rules).string = {min_len: 0, max_len: 15}, json_name="measType"];
+    // @inject_tag: aper:"choiceExt"
+    MeasurementType meas_type = 1 [json_name = "measType"];
 };
 
 // sequence from e2sm-met.asn1:70

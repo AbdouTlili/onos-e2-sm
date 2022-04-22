@@ -62,11 +62,18 @@ func TestE2SmMetIndicationMessageFormat1(t *testing.T) {
 	// the real MeasurmentInfoList object
 	measInfolist := make([]*e2smmet.MeasurementInfoItem, 0)
 
-	mii1, err := CreateMeasurementInfoItem("m1")
+	miii1, err := CreateMeasurementTypeMeasID(30)
 	assert.NilError(t, err)
-	mii2, err := CreateMeasurementInfoItem("m2")
+	miii2, err := CreateMeasurementTypeMeasID(31)
 	assert.NilError(t, err)
-	mii3, err := CreateMeasurementInfoItem("m2")
+	miii3, err := CreateMeasurementTypeMeasID(32)
+	assert.NilError(t, err)
+
+	mii1, err := CreateMeasurementInfoItem(miii1)
+	assert.NilError(t, err)
+	mii2, err := CreateMeasurementInfoItem(miii2)
+	assert.NilError(t, err)
+	mii3, err := CreateMeasurementInfoItem(miii3)
 	assert.NilError(t, err)
 
 	measInfolist = append(measInfolist, mii1, mii2, mii3)
