@@ -174,13 +174,13 @@ message E2SmMetEventTriggerDefinition {
 message EventTriggerDefinitionFormats {
     oneof e2_sm_met_event_trigger_definition {
         // @inject_tag: aper:"choiceIdx:1,valueExt"
-        E2SmKpmEventTriggerDefinitionFormat1 event_definition_format1 = 1 [json_name = "eventDefinition_Format1"];
+        E2SmMetEventTriggerDefinitionFormat1 event_definition_format1 = 1 [json_name = "eventDefinition_Format1"];
     }
 }
 
-// sequence from e2sm_kpm_v2.0.3-radisys.asn:342
-// {E2SM-KPM-EventTriggerDefinition-Format1}
-message E2SmKpmEventTriggerDefinitionFormat1 {
+// sequence from e2sm_met_v2.0.3-radisys.asn:342
+// {E2SM-MET-EventTriggerDefinition-Format1}
+message E2SmMetEventTriggerDefinitionFormat1 {
     // @inject_tag: aper:"valueLB:1,valueUB:4294967295"
     int64 reporting_period = 1 [json_name = "reportingPeriod"];
 };
@@ -196,13 +196,13 @@ message E2SmMetActionDefinition {
 message ActionDefinitionFormats {
     oneof e2_sm_met_action_definition {
         // @inject_tag: aper:"valueExt,choiceIdx:1"
-        E2SmKpmActionDefinitionFormat1 action_definition_format1 = 2 [json_name = "actionDefinition_Format1"];
+        E2SmMetActionDefinitionFormat1 action_definition_format1 = 2 [json_name = "actionDefinition_Format1"];
     }
 }
 
-// sequence from e2sm_kpm_v2.0.3-radisys.asn:362
-// {E2SM-KPM-ActionDefinition-Format1}
-message E2SmKpmActionDefinitionFormat1 {
+// sequence from e2sm_met_v2.0.3-radisys.asn:362
+// {E2SM-MET-ActionDefinition-Format1}
+message E2SmMetActionDefinitionFormat1 {
     CellObjectId cell_obj_id = 1 [json_name = "cellObjID"];
     MeasurementInfoList meas_info_list = 2 [json_name = "measInfoList"];
     GranularityPeriod granul_period = 3 [json_name = "granulPeriod"];
@@ -264,7 +264,7 @@ message E2SmMetIndicationMessage {
 
 // sequence from e2sm-met.asn1:184
 // {E2SM-MET-RANfunction-Description}
-message E2SmKpmRanfunctionDescription {
+message E2SmMetRanfunctionDescription {
     // @inject_tag: aper:"valueExt"
     RanfunctionName ran_function_name = 1 [json_name = "ranFunction-Name"];
     // @inject_tag: aper:"optional,valueExt,sizeLB:1,sizeUB:63"
