@@ -23,3 +23,51 @@ func CreateE2SmMetRanfunctionDescription(rfSn string, rfE2SMoid string, rfd stri
 	}
 	return &e2SmMetPdu, nil
 }
+
+func CreateRicEventTriggerStyleItem(ricStyleType int32, ricStyleName string, ricFormatType int32) *e2smmet.RicEventTriggerStyleItem {
+
+	return &e2smmet.RicEventTriggerStyleItem{
+		RicEventTriggerStyleType: &e2smmet.RicStyleType{
+			Value: ricStyleType,
+		},
+		RicEventTriggerStyleName: &e2smmet.RicStyleName{
+			Value: ricStyleName,
+		},
+		RicEventTriggerFormatType: &e2smmet.RicFormatType{
+			Value: ricFormatType,
+		},
+	}
+}
+
+func CreateRicReportStyleItem(ricStyleType int32, ricStyleName string, ricFormatType int32,
+	measInfoActionList *e2smmet.MeasurementInfoActionList, indHdrFormatType int32,
+	indMsgFormatType int32) *e2smmet.RicReportStyleItem {
+
+	return &e2smmet.RicReportStyleItem{
+		RicReportStyleType: &e2smmet.RicStyleType{
+			Value: ricStyleType,
+		},
+		RicReportStyleName: &e2smmet.RicStyleName{
+			Value: ricStyleName,
+		},
+		RicActionFormatType: &e2smmet.RicFormatType{
+			Value: ricFormatType,
+		},
+		MeasInfoActionList: measInfoActionList,
+		RicIndicationHeaderFormatType: &e2smmet.RicFormatType{
+			Value: indHdrFormatType,
+		},
+		RicIndicationMessageFormatType: &e2smmet.RicFormatType{
+			Value: indMsgFormatType,
+		},
+	}
+}
+
+func CreateMeasurementInfoActionItem(measTypeName string) *e2smmet.MeasurementInfoActionItem {
+
+	return &e2smmet.MeasurementInfoActionItem{
+		MeasName: &e2smmet.MeasurementTypeName{
+			Value: measTypeName,
+		},
+	}
+}

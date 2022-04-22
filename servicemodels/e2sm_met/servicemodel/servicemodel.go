@@ -23,7 +23,7 @@ type MetServiceModel string
 const smName = "e2sm_met"
 const smVersion = "v1_go"
 const moduleName = "e2smmet.so.2.0"
-const smOIDMet = "1.3.6.1.4.1.53148"
+const smOIDMet = "1.3.6.1.4.1.53148.1.2.2.98"
 
 func (sm MetServiceModel) ServiceModelData() types.ServiceModelData {
 	smData := types.ServiceModelData{
@@ -148,41 +148,32 @@ func (sm MetServiceModel) EventTriggerDefinitionProtoToASN1(protoBytes []byte) (
 
 	return perBytes, nil
 }
-
-// func (sm MetServiceModel) ActionDefinitionASN1toProto(asn1Bytes []byte) ([]byte, error) {
-// 	perBytes, err := encoder.PerDecodeE2SmMetActionDefinition(asn1Bytes)
-// 	if err != nil {
-// 		return nil, errors.NewInvalid("error decoding E2SmMetActionDefinitio to PER %s\n%v", err, hex.Dump(asn1Bytes))
-// 	}
-
-// 	protoBytes, err := proto.Marshal(perBytes)
-// 	if err != nil {
-// 		return nil, errors.NewInvalid("error marshalling asn1Bytes to E2SmMetActionDefinition %s", err)
-// 	}
-
-// 	return protoBytes, nil
-// }
-
-// func (sm MetServiceModel) ActionDefinitionProtoToASN1(protoBytes []byte) ([]byte, error) {
-// 	protoObj := new(e2smmet.E2SmMetActionDefinition)
-// 	if err := proto.Unmarshal(protoBytes, protoObj); err != nil {
-// 		return nil, errors.NewInvalid("error unmarshalling protoBytes to E2SmMetActionDefinition %s", err)
-// 	}
-
-// 	perBytes, err := encoder.PerEncodeE2SmMetActionDefinition(protoObj)
-// 	if err != nil {
-// 		return nil, errors.NewInvalid("error encoding E2SmMetActionDefinition to PER %s", err)
-// 	}
-
-// 	return perBytes, nil
-// }
-
 func (sm MetServiceModel) ActionDefinitionASN1toProto(asn1Bytes []byte) ([]byte, error) {
-	return nil, errors.NewInvalid("not implemented on MET")
+	perBytes, err := encoder.PerDecodeE2SmMetActionDefinition(asn1Bytes)
+	if err != nil {
+		return nil, errors.NewInvalid("error decoding E2SmMetActionDefinitio to PER %s\n%v", err, hex.Dump(asn1Bytes))
+	}
+
+	protoBytes, err := proto.Marshal(perBytes)
+	if err != nil {
+		return nil, errors.NewInvalid("error marshalling asn1Bytes to E2SmMetActionDefinition %s", err)
+	}
+
+	return protoBytes, nil
 }
 
 func (sm MetServiceModel) ActionDefinitionProtoToASN1(protoBytes []byte) ([]byte, error) {
-	return nil, errors.NewInvalid("not implemented on MET")
+	protoObj := new(e2smmet.E2SmMetActionDefinition)
+	if err := proto.Unmarshal(protoBytes, protoObj); err != nil {
+		return nil, errors.NewInvalid("error unmarshalling protoBytes to E2SmMetActionDefinition %s", err)
+	}
+
+	perBytes, err := encoder.PerEncodeE2SmMetActionDefinition(protoObj)
+	if err != nil {
+		return nil, errors.NewInvalid("error encoding E2SmMetActionDefinition to PER %s", err)
+	}
+
+	return perBytes, nil
 }
 
 func (sm MetServiceModel) ControlHeaderASN1toProto(asn1Bytes []byte) ([]byte, error) {
@@ -209,15 +200,6 @@ func (sm MetServiceModel) ControlOutcomeProtoToASN1(protoBytes []byte) ([]byte, 
 	return nil, errors.NewInvalid("not implemented on MET")
 }
 
-//TODO check for OnSetup function,
-// weather it is required to exist or the function def is optional
-// the diffrence would be that this def  with an error message would break
-
-func (sm MetServiceModel) OnSetup(request *types.OnSetupRequest) error {
-	fmt.Println("The OnSetup function is not defined yet for this SM")
-	return nil
-}
-
 // func (sm MetServiceModel) OnSetup(request *types.OnSetupRequest) error {
 // 	protoBytes, err := sm.RanFuncDescriptionASN1toProto(request.RANFunctionDescription)
 // 	if err != nil {
@@ -231,32 +213,18 @@ func (sm MetServiceModel) OnSetup(request *types.OnSetupRequest) error {
 // 	serviceModels := request.ServiceModels
 // 	serviceModel := serviceModels[smOIDMet]
 // 	serviceModel.Name = ranFunctionDescription.RanFunctionName.RanFunctionShortName
-// 	// reportStyleList := ranFunctionDescription.GetE2SmRcPreRanfunctionItem().GetRicReportStyleList()
+// 	reportStyleList := ranFunctionDescription.GetE2SmMetRanfunctionItem().GetRicReportStyleList()
 
-// 	ranFunction := &topoapi.RCRanFunction{}
+// 	ranFunction := &topoapi.MHORanFunction{}
 // 	for _, reportStyle := range reportStyleList {
-// 		rcReportStyle := &topoapi.RCReportStyle{
+// 		mhoReportStyle := &topoapi.MHOReportStyle{
 // 			Name: reportStyle.RicReportStyleName.Value,
 // 			Type: reportStyle.RicReportStyleType.Value,
 // 		}
-// 		ranFunction.ReportStyles = append(ranFunction.ReportStyles, rcReportStyle)
+// 		ranFunction.ReportStyles = append(ranFunction.ReportStyles, mhoReportStyle)
 // 	}
 
 // 	ranFunctionAny, err := prototypes.MarshalAny(ranFunction)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	serviceModel.RanFunctions = []*prototypes.Any{ranFunctionAny}
+// 	serviceModel.RanFunctions = append(serviceModel.RanFunctions, ranFunctionAny)
 // 	return nil
-// }
-
-// func bitStringToUint64(bitString []byte, bitCount int) uint64 {
-// 	var result uint64
-// 	for i, b := range bitString {
-// 		result += uint64(b) << ((len(bitString) - i - 1) * 8)
-// 	}
-// 	if bitCount%8 != 0 {
-// 		return result >> (8 - bitCount%8)
-// 	}
-// 	return result
 // }

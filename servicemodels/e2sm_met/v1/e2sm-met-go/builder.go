@@ -70,3 +70,13 @@ func (im *E2SmMetIndicationMessage) SetCellObjectID(cellObjID int32) *E2SmMetInd
 
 	return im
 }
+
+func (rfd *E2SmMetRanfunctionDescription) SetRicEventTriggerStyleList(retsl []*RicEventTriggerStyleItem) *E2SmMetRanfunctionDescription {
+	rfd.RicEventTriggerStyleList = retsl
+	return rfd
+}
+
+func (rfd *E2SmMetRanfunctionDescription) SetRicReportStyleList(rrsl []*RicReportStyleItem) *E2SmMetRanfunctionDescription {
+	rfd.RicReportStyleList = rrsl
+	return rfd
+}
