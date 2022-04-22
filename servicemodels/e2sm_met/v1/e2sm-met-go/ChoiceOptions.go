@@ -2,7 +2,7 @@ package e2sm_met_go
 
 import "reflect"
 
-var Choicemape2smKpm = map[string]map[int]reflect.Type{
+var E2smMetChoicemap = map[string]map[int]reflect.Type{
 	"measurement_record_item": {
 		1: reflect.TypeOf(MeasurementRecordItem_Integer{}),
 		2: reflect.TypeOf(MeasurementRecordItem_Real{}),

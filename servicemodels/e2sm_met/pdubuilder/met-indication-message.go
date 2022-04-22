@@ -93,15 +93,15 @@ func CreateMeasurementInfoList(measInfoItems []*e2smmet.MeasurementInfoItem) (*e
 	return &mil, nil
 }
 
-func CreateMeasurementInfoItem(measurementType string) (*e2smmet.MeasurementInfoItem, error) {
-	miItem := e2smmet.MeasurementInfoItem{
-		MeasType: measurementType,
-	}
+// func CreateMeasurementInfoItem(measurementType string) (*e2smmet.MeasurementInfoItem, error) {
+// 	miItem := e2smmet.MeasurementInfoItem{
+// 		MeasType: measurementType,
+// 	}
 
-	if err := miItem.Validate(); err != nil {
-		return nil, errors.NewInvalid("CreateMeasurementInfoItem(): error validating MeasurementInfoItem %s", err.Error())
-	}
-	return &miItem, nil
-}
+// 	if err := miItem.Validate(); err != nil {
+// 		return nil, errors.NewInvalid("CreateMeasurementInfoItem(): error validating MeasurementInfoItem %s", err.Error())
+// 	}
+// 	return &miItem, nil
+// }
 
 // some usefull code in the Test file

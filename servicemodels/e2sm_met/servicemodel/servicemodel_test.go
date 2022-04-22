@@ -115,11 +115,18 @@ func TestServicemodel_IndicationMessageProtoToASN1(t *testing.T) {
 	// the real MeasurmentInfoList object
 	measInfolist := make([]*e2smmet.MeasurementInfoItem, 0)
 
-	mii1, err := pdubuilder.CreateMeasurementInfoItem("m1")
+	miii1, err := CreateMeasurementTypeMeasID(30)
 	assert.NilError(t, err)
-	mii2, err := pdubuilder.CreateMeasurementInfoItem("m2")
+	miii2, err := CreateMeasurementTypeMeasID(31)
 	assert.NilError(t, err)
-	mii3, err := pdubuilder.CreateMeasurementInfoItem("m2")
+	miii3, err := CreateMeasurementTypeMeasID(32)
+	assert.NilError(t, err)
+
+	mii1, err := CreateMeasurementInfoItem(miii1)
+	assert.NilError(t, err)
+	mii2, err := CreateMeasurementInfoItem(miii2)
+	assert.NilError(t, err)
+	mii3, err := CreateMeasurementInfoItem(miii3)
 	assert.NilError(t, err)
 
 	measInfolist = append(measInfolist, mii1, mii2, mii3)
@@ -221,7 +228,7 @@ func TestServicemodel_RanFuncDescriptionProtoToASN1(t *testing.T) {
 
 	asn1Bytes, err := metTestSm.RanFuncDescriptionProtoToASN1(protoBytes)
 	//DONE the length is non the same ?
-	// the length of a message of the same nature is the same but the lenghth of proto and asn messsages is diffrent 
+	// the length of a message of the same nature is the same but the lenghth of proto and asn messsages is diffrent
 	// fmt.Printf("%#v --- %d", asn1Bytes, len(asn1Bytes))
 	assert.NilError(t, err, "unexpected error converting protoBytes to asnBytes")
 	assert.Assert(t, asn1Bytes != nil)
