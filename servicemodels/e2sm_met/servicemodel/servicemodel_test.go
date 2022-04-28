@@ -10,9 +10,8 @@ import (
 	// "fmt"
 	"testing"
 
-	e2smmet "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/v1/e2sm-met-go"
-
 	"github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/pdubuilder"
+	e2smmet "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/v1/e2sm-met-go"
 	"google.golang.org/protobuf/proto"
 	"gotest.tools/assert"
 )
