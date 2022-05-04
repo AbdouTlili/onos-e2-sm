@@ -1,16 +1,11 @@
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 package met
 
 import (
-	"testing"
-
 	"github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/encoder"
 	"github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/pdubuilder"
 	e2smmet "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/v1/e2sm-met-go"
 	"gotest.tools/assert"
+	"testing"
 )
 
 var refPerE2SmMetIndicationHeader = "00000000  1f 21 22 23 24 18 74 78  74 00 00 03 4f 4e 46 40  |.!\"#$.txt...ONF@|\n" +
