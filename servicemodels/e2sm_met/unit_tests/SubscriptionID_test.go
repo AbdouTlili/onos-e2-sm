@@ -2,13 +2,12 @@ package met
 
 import (
 	"encoding/hex"
-	"fmt"
+
+	"testing"
 
 	e2smmet "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/v1/e2sm-met-go"
 	"github.com/onosproject/onos-lib-go/pkg/asn1/aper"
-	// hexlib "github.com/onosproject/onos-lib-go/pkg/hex"
 	"gotest.tools/assert"
-	"testing"
 )
 
 var refPerSubID = "0x00,0x09"
@@ -20,7 +19,7 @@ func Test_perEncodingSubscriptionID(t *testing.T) {
 	}
 
 	per, err := aper.Marshal(subID, nil, nil)
-	fmt.Printf("%#v--", per)
+	// fmt.Printf("%#v--", per)
 	assert.NilError(t, err)
 	t.Logf("SubscriptionID PER\n%v", hex.Dump(per))
 
