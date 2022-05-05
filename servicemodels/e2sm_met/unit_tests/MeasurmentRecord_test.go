@@ -16,6 +16,7 @@ import (
 )
 
 //var refPerMeasRecord = "00000000  03 00 15 20 03 80 01 0b  40                       |... ....@|"
+var perRefBytesMeasRec = []byte{0x00, 0x09, 0x01, 0x00, 0x41, 0x42, 0x43, 0x02, 0x00, 0x0a, 0x00, 0x14}
 var refPerMeasRecordNoReal = "00000000  02 00 15 40                                       |...@|"
 
 func createMeasurementRecord() (*e2smmet.MeasurementRecord, error) {
@@ -57,6 +58,7 @@ func Test_perEncodingMeasurementRecord(t *testing.T) {
 
 	//aper.ChoiceMap = e2smmet.E2smMetChoicemap
 	per, err := aper.MarshalWithParams(mr, "", e2smmet.E2smMetChoicemap, nil)
+	fmt.Printf("bytes len %d \n bytes : %#v", len(per), per)
 	assert.NilError(t, err)
 	t.Logf("MeasurementRecord PER\n%v", hex.Dump(per))
 
