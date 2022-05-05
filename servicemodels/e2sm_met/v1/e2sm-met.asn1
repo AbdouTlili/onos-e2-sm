@@ -61,7 +61,7 @@ E2SM-MET-IEs {
     MeasurementInfoList ::= SEQUENCE (SIZE(1..maxnoofMeasurementInfo)) OF MeasurementInfoItem
     
     MeasurementInfoItem ::= SEQUENCE {
-        measType				MeasurementType,
+        measType				PrintableString (SIZE (0..15), ...),
         ...
     }
     
@@ -75,7 +75,7 @@ E2SM-MET-IEs {
     }
     
     MeasurementRecordItem ::= CHOICE {
-        integer					INTEGER,
+        integer					INTEGER (0..4294967295),
         real					REAL,
         noValue					NULL,
         ...
@@ -86,12 +86,6 @@ E2SM-MET-IEs {
     MeasurementInfo-Action-Item ::= SEQUENCE {
         measName				MeasurementTypeName,
         measID					MeasurementTypeID				OPTIONAL,
-        ...
-    }
-    
-    MeasurementType ::= CHOICE {
-        measName				MeasurementTypeName,
-        measID					MeasurementTypeID,
         ...
     }
     

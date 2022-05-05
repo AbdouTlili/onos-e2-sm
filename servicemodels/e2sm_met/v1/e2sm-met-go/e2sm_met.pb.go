@@ -33,7 +33,8 @@ type CellObjectId struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:255"
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:255"`
 }
 
 func (x *CellObjectId) Reset() {
@@ -132,8 +133,8 @@ type SubscriptionId struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueLB:1,valueUB:4294967295"
-	Value int64 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:1,valueUB:4294967295"`
+	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:4294967295"
+	Value int64 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:4294967295"`
 }
 
 func (x *SubscriptionId) Reset() {
@@ -550,8 +551,8 @@ type Ueid struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueLB:1,valueUB:4294967295"
-	Value int64 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:1,valueUB:4294967295"`
+	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:4294967295"
+	Value int64 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:4294967295"`
 }
 
 func (x *Ueid) Reset() {
@@ -2401,8 +2402,8 @@ type Uetag struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeExt,sizeLB:0,sizeUB:400"
-	Value string `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeExt,sizeLB:0,sizeUB:400"`
+	// @inject_tag: aper:"sizeExt,sizeLB:0,sizeUB:150"
+	Value string `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeExt,sizeLB:0,sizeUB:150"`
 }
 
 func (x *Uetag) Reset() {
