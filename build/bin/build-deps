@@ -9,5 +9,10 @@ export GOPRIVATE=github.com/onosproject/*
 mkdir -p build/_input
 rm -rf build/_input/$1
 cp -r servicemodels/$1 build/_input/$1
+<<<<<<< HEAD
 go run github.com/AbdouTlili/onos-e2-sm/cmd/onos-e2-sm gen-deps $1 --target $2 > build/_input/$1/go.mod
 cd build/_input/$1 && go mod vendor && cd ../..
+=======
+go run github.com/onosproject/onos-e2-sm/cmd/onos-e2-sm gen-deps $1 --target $2 > build/_input/$1/go.mod
+cd build/_input/$1 && go mod tidy && go mod vendor && cd ../..
+>>>>>>> 8f2b8758f52dbebac458cd8ce2901b6b2e3e9cf5
