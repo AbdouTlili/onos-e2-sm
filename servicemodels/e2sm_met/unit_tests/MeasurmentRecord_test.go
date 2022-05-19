@@ -7,7 +7,7 @@ package met
 import (
 	"encoding/hex"
 	"fmt"
-	"github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/pdubuilder"
+	// "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/pdubuilder"
 	e2smmet "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/v1/e2sm-met-go"
 	"github.com/onosproject/onos-lib-go/pkg/asn1/aper"
 	// hexlib "github.com/onosproject/onos-lib-go/pkg/hex"
@@ -16,14 +16,13 @@ import (
 )
 
 //var refPerMeasRecord = "00000000  03 00 15 20 03 80 01 0b  40                       |... ....@|"
-var perRefBytesMeasRec = []byte{0x00, 0x09, 0x01, 0x00, 0x41, 0x42, 0x43, 0x02, 0x00, 0x0a, 0x00, 0x14}
-var refPerMeasRecordNoReal = "00000000  02 00 15 40                                       |...@|"
+var perRefBytesMeasRec = []byte{0x40,0x0b,0x01,0x80,0x41,0x41,0x41,0x41,0x08,0x00,0x15,0x00,0x0a,0x00,0x0a,0x00,0x0a,0x00,0x0a}
 
 func createMeasurementRecord() (*e2smmet.MeasurementRecord, error) {
 	res := &e2smmet.MeasurementRecord{
 		MeasRecordItem: make([]*e2smmet.MeasurementRecordItem, 0),
 		UeId: &e2smmet.Ueid{
-			Value: 10,
+			Value: 11,
 		},
 		UeTag: &e2smmet.Uetag{
 			Value: "AAAA",
@@ -35,7 +34,7 @@ func createMeasurementRecord() (*e2smmet.MeasurementRecord, error) {
 			Integer: 10,
 		},
 	}
-	res.MeasRecordItem = append(res.MeasRecordItem, item1, pdubuilder.CreateMeasurementRecordItemInteger(20))
+	res.MeasRecordItem = append(res.MeasRecordItem, item1)
 
 	//ToDo - bring back once handling of REAL types is implemented
 	//item2 := &e2smmet.MeasurementRecordItem{
@@ -58,13 +57,13 @@ func Test_perEncodingMeasurementRecord(t *testing.T) {
 	assert.NilError(t, err)
 
 	//aper.ChoiceMap = e2smmet.E2smMetChoicemap
-	per, err := aper.MarshalWithParams(mr, "valueExt", e2smmet.E2smMetChoicemap, nil)
+	per, err := aper.MarshalWithParams(mr, "", e2smmet.E2smMetChoicemap, nil)
 	fmt.Printf("bytes len %d \n --bytes : %#v", len(per), per)
 	assert.NilError(t, err)
 	t.Logf("MeasurementRecord PER\n%v", hex.Dump(per))
 
 	result := e2smmet.MeasurementRecord{}
-	err = aper.UnmarshalWithParams(per, &result, "valueExt", e2smmet.E2smMetChoicemap, nil)
+	err = aper.UnmarshalWithParams(perRefBytesMeasRec, &result, "", e2smmet.E2smMetChoicemap, nil)
 	assert.NilError(t, err)
 	// //assert.Assert(t, &result != nil)
 	t.Logf("MeasurementRecord PER - decoded\n%v", &result)
@@ -76,18 +75,18 @@ func Test_perEncodingMeasurementRecord(t *testing.T) {
 	assert.Equal(t, mr.GetMeasRecordItem()[1].GetInteger(), result.GetMeasRecordItem()[1].GetInteger())
 }
 
-// func Test_perMeasurementRecordCompareBytes(t *testing.T) {
+func Test_perMeasurementRecordCompareBytes(t *testing.T) {
 
-// 	mr, err := createMeasurementRecord()
-// 	assert.NilError(t, err)
+	mr, err := createMeasurementRecord()
+	assert.NilError(t, err)
 
-// 	//aper.ChoiceMap = e2smmet.E2smMetChoicemap
-// 	per, err := aper.MarshalWithParams(mr, "", e2smmet.E2smMetChoicemap, nil)
-// 	assert.NilError(t, err)
-// 	t.Logf("MeasurementRecord PER\n%v", hex.Dump(per))
+	//aper.ChoiceMap = e2smmet.E2smMetChoicemap
+	per, err := aper.MarshalWithParams(mr, "", e2smmet.E2smMetChoicemap, nil)
+	assert.NilError(t, err)
+	t.Logf("MeasurementRecord PER\n%v", hex.Dump(per))
 
-// 	//Comparing with reference bytes
-// 	// perRefBytes, err := hexlib.DumpToByte(refPerMeasRecordNoReal)
-// 	// assert.NilError(t, err)
-// 	assert.DeepEqual(t, per, perRefBytesMeasRec)
-// }
+	//Comparing with reference bytes
+	// perRefBytes, err := hexlib.DumpToByte(refPerMeasRecordNoReal)
+	// assert.NilError(t, err)
+	// assert.DeepEqual(t, per, perRefBytesMeasRec)
+}

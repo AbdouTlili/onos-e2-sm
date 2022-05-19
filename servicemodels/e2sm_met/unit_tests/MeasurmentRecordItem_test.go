@@ -6,7 +6,7 @@ package met
 
 import (
 	"encoding/hex"
-	"fmt"
+	// "fmt"
 	e2smmet "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/v1/e2sm-met-go"
 	"github.com/onosproject/onos-lib-go/pkg/asn1/aper"
 	// hexlib "github.com/onosproject/onos-lib-go/pkg/hex"
@@ -50,7 +50,7 @@ func Test_perEncodingMeasurementRecordItemInteger(t *testing.T) {
 
 	//aper.ChoiceMap = e2smmet.Choicemape2smKpm
 	per, err := aper.MarshalWithParams(mri, "valueExt", e2smmet.E2smMetChoicemap, nil)
-	fmt.Printf("%#v--", per)
+	// fmt.Printf("%#v--", per)
 	assert.NilError(t, err)
 	t.Logf("MeasurementRecordItem (Integer) PER\n%v", hex.Dump(per))
 

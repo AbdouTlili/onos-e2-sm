@@ -36,17 +36,12 @@ E2SM-MET-IEs {
     --   Lists
     -- **************************************************************
     
-    maxnoofMeasurementInfo		INTEGER ::= 65536
-    maxnoofMeasurementRecord	INTEGER ::= 65536
-    maxnoofMeasurementValue		INTEGER ::= 65536
-    maxnoofRICStyles			INTEGER ::= 63
-    
     
     -- ****************** 
     -- UE related defs 
     maxofUE             		INTEGER ::= 65536
     
-    UEID ::= INTEGER (1.. 4294967296, ...)
+    UEID ::= INTEGER (0.. 255, ...)
     
     UETag ::= PrintableString(SIZE(1.. 150, ...))
     
@@ -58,19 +53,19 @@ E2SM-MET-IEs {
     
     --****************
     
-    MeasurementInfoList ::= SEQUENCE (SIZE(1..maxnoofMeasurementInfo)) OF MeasurementInfoItem
+    MeasurementInfoList ::= SEQUENCE (SIZE(1..65536)) OF MeasurementInfoItem
     
     MeasurementInfoItem ::= SEQUENCE {
         measType				PrintableString (SIZE (0..15), ...),
         ...
     }
     
-    MeasurementData ::= SEQUENCE (SIZE(1..maxnoofMeasurementRecord)) OF MeasurementRecord
+    MeasurementData ::= SEQUENCE (SIZE(1..65536)) OF MeasurementRecord
     
     MeasurementRecord ::= SEQUENCE {
         ueID					UEID,
-        ueTag                   UETag,
-        measRecordItem  SEQUENCE (SIZE(1..maxnoofMeasurementValue)) OF MeasurementRecordItem,
+        ueTag                   UETag   OPTIONAL,
+        measRecordItem  SEQUENCE (SIZE(1..65536)) OF MeasurementRecordItem,
         ...
     }
     
@@ -81,7 +76,7 @@ E2SM-MET-IEs {
         ...
     }
     
-    MeasurementInfo-Action-List ::= SEQUENCE (SIZE(1..maxnoofMeasurementInfo)) OF MeasurementInfo-Action-Item
+    MeasurementInfo-Action-List ::= SEQUENCE (SIZE(1..65536)) OF MeasurementInfo-Action-Item
     
     MeasurementInfo-Action-Item ::= SEQUENCE {
         measName				MeasurementTypeName,
@@ -182,8 +177,8 @@ E2SM-MET-IEs {
     
     E2SM-MET-RANfunction-Description ::= SEQUENCE{
         ranFunction-Name				RANfunction-Name,
-        ric-EventTriggerStyle-List		SEQUENCE (SIZE(1..maxnoofRICStyles)) OF RIC-EventTriggerStyle-Item 		OPTIONAL,
-        ric-ReportStyle-List			SEQUENCE (SIZE(1..maxnoofRICStyles)) OF RIC-ReportStyle-Item 			OPTIONAL,
+        ric-EventTriggerStyle-List		SEQUENCE (SIZE(1..255)) OF RIC-EventTriggerStyle-Item 		OPTIONAL,
+        ric-ReportStyle-List			SEQUENCE (SIZE(1..255)) OF RIC-ReportStyle-Item 			OPTIONAL,
         ...
     }
     
