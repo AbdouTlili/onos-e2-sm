@@ -13,15 +13,15 @@ E2SM-MET-IEs {
     
     -- **************************************************************
     
-    CellObjectID ::= INTEGER (0.. 255, ...)
+    CellObjectID ::= INTEGER (0.. 255)
     
     GranularityPeriod ::= INTEGER (1.. 4294967295)
     
-    SubscriptionID ::= INTEGER (1.. 4294967296, ...)
+    SubscriptionID ::= INTEGER (1.. 4294967296)
     
     -- **************************************************************
     
-    GlobalMETnode-ID ::= INTEGER (1.. 4294967296, ...)
+    GlobalMETnode-ID ::= INTEGER (1.. 4294967296)
     
     -- **************************************************************
     
@@ -39,7 +39,7 @@ E2SM-MET-IEs {
     
     -- ****************** 
     -- UE related defs 
-    maxofUE             		INTEGER ::= 65536
+    maxofUE             		INTEGER ::= 65535
     
     UEID ::= INTEGER (0.. 255, ...)
     
@@ -53,19 +53,19 @@ E2SM-MET-IEs {
     
     --****************
     
-    MeasurementInfoList ::= SEQUENCE (SIZE(1..65536)) OF MeasurementInfoItem
+    MeasurementInfoList ::= SEQUENCE (SIZE(1..65535)) OF MeasurementInfoItem
     
     MeasurementInfoItem ::= SEQUENCE {
         measType				PrintableString (SIZE (0..15), ...),
         ...
     }
     
-    MeasurementData ::= SEQUENCE (SIZE(1..65536)) OF MeasurementRecord
+    MeasurementData ::= SEQUENCE (SIZE(1..65535)) OF MeasurementRecord
     
     MeasurementRecord ::= SEQUENCE {
         ueID					UEID,
         ueTag                   UETag   OPTIONAL,
-        measRecordItem  SEQUENCE (SIZE(1..65536)) OF MeasurementRecordItem,
+        measRecordItem  SEQUENCE (SIZE(1..65535)) OF MeasurementRecordItem,
         ...
     }
     
@@ -76,7 +76,7 @@ E2SM-MET-IEs {
         ...
     }
     
-    MeasurementInfo-Action-List ::= SEQUENCE (SIZE(1..65536)) OF MeasurementInfo-Action-Item
+    MeasurementInfo-Action-List ::= SEQUENCE (SIZE(1..65535)) OF MeasurementInfo-Action-Item
     
     MeasurementInfo-Action-Item ::= SEQUENCE {
         measName				MeasurementTypeName,
@@ -86,7 +86,7 @@ E2SM-MET-IEs {
     
     MeasurementTypeName ::= PrintableString(SIZE(1.. 150, ...))
     
-    MeasurementTypeID ::= INTEGER (1.. 65536, ...)
+    MeasurementTypeID ::= INTEGER (1.. 65535, ...)
     
     -- **************************************************************
     -- E2SM-MET Service Model IEs
@@ -105,7 +105,7 @@ E2SM-MET-IEs {
     }
     
     E2SM-MET-EventTriggerDefinition-Format1 ::= SEQUENCE{
-        reportingPeriod					INTEGER,
+        reportingPeriod					INTEGER (1.. 4294967295),
         ...
     }
     
@@ -182,11 +182,11 @@ E2SM-MET-IEs {
         ...
     }
     
-    RIC-Style-Type ::= INTEGER
-    
+    RIC-Style-Type ::= INTEGER (0.. 255, ...)
+
     RIC-Style-Name ::= PrintableString(SIZE(1.. 150, ...))
     
-    RIC-Format-Type ::= INTEGER
+    RIC-Format-Type ::= INTEGER (0.. 255, ...)
     
     RIC-EventTriggerStyle-Item ::= SEQUENCE{
         ric-EventTriggerStyle-Type			RIC-Style-Type,
