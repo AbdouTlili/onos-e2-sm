@@ -613,456 +613,6 @@ var _ interface {
 	ErrorName() string
 } = RanfunctionNameValidationError{}
 
-// Validate checks the field values on MaxnoofMeasurementInfo with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *MaxnoofMeasurementInfo) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on MaxnoofMeasurementInfo with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// MaxnoofMeasurementInfoMultiError, or nil if none found.
-func (m *MaxnoofMeasurementInfo) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *MaxnoofMeasurementInfo) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if m.GetValue() != 65536 {
-		err := MaxnoofMeasurementInfoValidationError{
-			field:  "Value",
-			reason: "value must equal 65536",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(errors) > 0 {
-		return MaxnoofMeasurementInfoMultiError(errors)
-	}
-
-	return nil
-}
-
-// MaxnoofMeasurementInfoMultiError is an error wrapping multiple validation
-// errors returned by MaxnoofMeasurementInfo.ValidateAll() if the designated
-// constraints aren't met.
-type MaxnoofMeasurementInfoMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m MaxnoofMeasurementInfoMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m MaxnoofMeasurementInfoMultiError) AllErrors() []error { return m }
-
-// MaxnoofMeasurementInfoValidationError is the validation error returned by
-// MaxnoofMeasurementInfo.Validate if the designated constraints aren't met.
-type MaxnoofMeasurementInfoValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e MaxnoofMeasurementInfoValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e MaxnoofMeasurementInfoValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e MaxnoofMeasurementInfoValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e MaxnoofMeasurementInfoValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e MaxnoofMeasurementInfoValidationError) ErrorName() string {
-	return "MaxnoofMeasurementInfoValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e MaxnoofMeasurementInfoValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sMaxnoofMeasurementInfo.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = MaxnoofMeasurementInfoValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = MaxnoofMeasurementInfoValidationError{}
-
-// Validate checks the field values on MaxnoofMeasurementRecord with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *MaxnoofMeasurementRecord) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on MaxnoofMeasurementRecord with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// MaxnoofMeasurementRecordMultiError, or nil if none found.
-func (m *MaxnoofMeasurementRecord) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *MaxnoofMeasurementRecord) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if m.GetValue() != 65536 {
-		err := MaxnoofMeasurementRecordValidationError{
-			field:  "Value",
-			reason: "value must equal 65536",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(errors) > 0 {
-		return MaxnoofMeasurementRecordMultiError(errors)
-	}
-
-	return nil
-}
-
-// MaxnoofMeasurementRecordMultiError is an error wrapping multiple validation
-// errors returned by MaxnoofMeasurementRecord.ValidateAll() if the designated
-// constraints aren't met.
-type MaxnoofMeasurementRecordMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m MaxnoofMeasurementRecordMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m MaxnoofMeasurementRecordMultiError) AllErrors() []error { return m }
-
-// MaxnoofMeasurementRecordValidationError is the validation error returned by
-// MaxnoofMeasurementRecord.Validate if the designated constraints aren't met.
-type MaxnoofMeasurementRecordValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e MaxnoofMeasurementRecordValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e MaxnoofMeasurementRecordValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e MaxnoofMeasurementRecordValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e MaxnoofMeasurementRecordValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e MaxnoofMeasurementRecordValidationError) ErrorName() string {
-	return "MaxnoofMeasurementRecordValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e MaxnoofMeasurementRecordValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sMaxnoofMeasurementRecord.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = MaxnoofMeasurementRecordValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = MaxnoofMeasurementRecordValidationError{}
-
-// Validate checks the field values on MaxnoofMeasurementValue with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *MaxnoofMeasurementValue) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on MaxnoofMeasurementValue with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// MaxnoofMeasurementValueMultiError, or nil if none found.
-func (m *MaxnoofMeasurementValue) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *MaxnoofMeasurementValue) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if m.GetValue() != 65536 {
-		err := MaxnoofMeasurementValueValidationError{
-			field:  "Value",
-			reason: "value must equal 65536",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(errors) > 0 {
-		return MaxnoofMeasurementValueMultiError(errors)
-	}
-
-	return nil
-}
-
-// MaxnoofMeasurementValueMultiError is an error wrapping multiple validation
-// errors returned by MaxnoofMeasurementValue.ValidateAll() if the designated
-// constraints aren't met.
-type MaxnoofMeasurementValueMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m MaxnoofMeasurementValueMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m MaxnoofMeasurementValueMultiError) AllErrors() []error { return m }
-
-// MaxnoofMeasurementValueValidationError is the validation error returned by
-// MaxnoofMeasurementValue.Validate if the designated constraints aren't met.
-type MaxnoofMeasurementValueValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e MaxnoofMeasurementValueValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e MaxnoofMeasurementValueValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e MaxnoofMeasurementValueValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e MaxnoofMeasurementValueValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e MaxnoofMeasurementValueValidationError) ErrorName() string {
-	return "MaxnoofMeasurementValueValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e MaxnoofMeasurementValueValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sMaxnoofMeasurementValue.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = MaxnoofMeasurementValueValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = MaxnoofMeasurementValueValidationError{}
-
-// Validate checks the field values on MaxnoofRicstyles with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *MaxnoofRicstyles) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on MaxnoofRicstyles with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// MaxnoofRicstylesMultiError, or nil if none found.
-func (m *MaxnoofRicstyles) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *MaxnoofRicstyles) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if m.GetValue() != 63 {
-		err := MaxnoofRicstylesValidationError{
-			field:  "Value",
-			reason: "value must equal 63",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(errors) > 0 {
-		return MaxnoofRicstylesMultiError(errors)
-	}
-
-	return nil
-}
-
-// MaxnoofRicstylesMultiError is an error wrapping multiple validation errors
-// returned by MaxnoofRicstyles.ValidateAll() if the designated constraints
-// aren't met.
-type MaxnoofRicstylesMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m MaxnoofRicstylesMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m MaxnoofRicstylesMultiError) AllErrors() []error { return m }
-
-// MaxnoofRicstylesValidationError is the validation error returned by
-// MaxnoofRicstyles.Validate if the designated constraints aren't met.
-type MaxnoofRicstylesValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e MaxnoofRicstylesValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e MaxnoofRicstylesValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e MaxnoofRicstylesValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e MaxnoofRicstylesValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e MaxnoofRicstylesValidationError) ErrorName() string { return "MaxnoofRicstylesValidationError" }
-
-// Error satisfies the builtin error interface
-func (e MaxnoofRicstylesValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sMaxnoofRicstyles.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = MaxnoofRicstylesValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = MaxnoofRicstylesValidationError{}
-
 // Validate checks the field values on MaxofUe with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -1893,39 +1443,10 @@ func (m *MeasurementRecord) validate(all bool) error {
 		}
 	}
 
-	if all {
-		switch v := interface{}(m.GetUeTag()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, MeasurementRecordValidationError{
-					field:  "UeTag",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, MeasurementRecordValidationError{
-					field:  "UeTag",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetUeTag()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return MeasurementRecordValidationError{
-				field:  "UeTag",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if len(m.GetMeasRecordItem()) > 65536 {
+	if l := len(m.GetMeasRecordItem()); l < 1 || l > 65535 {
 		err := MeasurementRecordValidationError{
 			field:  "MeasRecordItem",
-			reason: "value must contain no more than 65536 item(s)",
+			reason: "value must contain between 1 and 65535 items, inclusive",
 		}
 		if !all {
 			return err
@@ -1959,6 +1480,39 @@ func (m *MeasurementRecord) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return MeasurementRecordValidationError{
 					field:  fmt.Sprintf("MeasRecordItem[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.UeTag != nil {
+
+		if all {
+			switch v := interface{}(m.GetUeTag()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, MeasurementRecordValidationError{
+						field:  "UeTag",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, MeasurementRecordValidationError{
+						field:  "UeTag",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetUeTag()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return MeasurementRecordValidationError{
+					field:  "UeTag",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

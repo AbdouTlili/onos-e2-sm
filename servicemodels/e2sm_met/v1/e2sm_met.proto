@@ -27,7 +27,7 @@ message GranularityPeriod {
 // range of Integer from e2sm-met.asn1:20
 // {SubscriptionID}
 message SubscriptionId {
-    // @inject_tag: aper:"valueExt,valueLB:1,valueUB:4294967295"
+    // @inject_tag: aper:"valueLB:1,valueUB:4294967295"
     int64 value = 1 [(validate.v1.rules).int64 = {gte: 1, lte: 4294967295}, json_name = "value"];
 };
 
@@ -59,7 +59,7 @@ message MaxofUe {
 // range of Integer from e2sm-met.asn1:44
 // {UEID}
 message Ueid {
-    // @inject_tag: aper:"valueExt,valueLB:1,valueUB:4294967295"
+    // @inject_tag: aper:"valueLB:1,valueUB:4294967295"
     int64 value = 1 [(validate.v1.rules).int64 = {gte: 1, lte: 4294967295}, json_name = "value"];
 };
 
