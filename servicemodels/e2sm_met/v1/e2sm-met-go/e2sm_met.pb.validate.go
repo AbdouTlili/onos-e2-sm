@@ -634,10 +634,10 @@ func (m *MaxofUe) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetValue() != 65536 {
+	if m.GetValue() != 65535 {
 		err := MaxofUeValidationError{
 			field:  "Value",
-			reason: "value must equal 65536",
+			reason: "value must equal 65535",
 		}
 		if !all {
 			return err
@@ -743,10 +743,10 @@ func (m *Ueid) validate(all bool) error {
 
 	var errors []error
 
-	if val := m.GetValue(); val < 1 || val > 4294967295 {
+	if val := m.GetValue(); val < 1 || val > 255 {
 		err := UeidValidationError{
 			field:  "Value",
-			reason: "value must be inside range [1, 4294967295]",
+			reason: "value must be inside range [1, 255]",
 		}
 		if !all {
 			return err
@@ -1258,6 +1258,172 @@ var _ interface {
 	ErrorName() string
 } = MeasurementInfoItemValidationError{}
 
+// Validate checks the field values on MeasurementType with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *MeasurementType) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MeasurementType with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// MeasurementTypeMultiError, or nil if none found.
+func (m *MeasurementType) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MeasurementType) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	switch m.MeasurementType.(type) {
+
+	case *MeasurementType_MeasName:
+
+		if all {
+			switch v := interface{}(m.GetMeasName()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, MeasurementTypeValidationError{
+						field:  "MeasName",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, MeasurementTypeValidationError{
+						field:  "MeasName",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetMeasName()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return MeasurementTypeValidationError{
+					field:  "MeasName",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *MeasurementType_MeasId:
+
+		if all {
+			switch v := interface{}(m.GetMeasId()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, MeasurementTypeValidationError{
+						field:  "MeasId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, MeasurementTypeValidationError{
+						field:  "MeasId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetMeasId()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return MeasurementTypeValidationError{
+					field:  "MeasId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return MeasurementTypeMultiError(errors)
+	}
+
+	return nil
+}
+
+// MeasurementTypeMultiError is an error wrapping multiple validation errors
+// returned by MeasurementType.ValidateAll() if the designated constraints
+// aren't met.
+type MeasurementTypeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MeasurementTypeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MeasurementTypeMultiError) AllErrors() []error { return m }
+
+// MeasurementTypeValidationError is the validation error returned by
+// MeasurementType.Validate if the designated constraints aren't met.
+type MeasurementTypeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MeasurementTypeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MeasurementTypeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MeasurementTypeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MeasurementTypeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MeasurementTypeValidationError) ErrorName() string { return "MeasurementTypeValidationError" }
+
+// Error satisfies the builtin error interface
+func (e MeasurementTypeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMeasurementType.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MeasurementTypeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MeasurementTypeValidationError{}
+
 // Validate checks the field values on MeasurementData with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -1443,6 +1609,35 @@ func (m *MeasurementRecord) validate(all bool) error {
 		}
 	}
 
+	if all {
+		switch v := interface{}(m.GetUeTag()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MeasurementRecordValidationError{
+					field:  "UeTag",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MeasurementRecordValidationError{
+					field:  "UeTag",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUeTag()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MeasurementRecordValidationError{
+				field:  "UeTag",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if l := len(m.GetMeasRecordItem()); l < 1 || l > 65535 {
 		err := MeasurementRecordValidationError{
 			field:  "MeasRecordItem",
@@ -1480,39 +1675,6 @@ func (m *MeasurementRecord) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return MeasurementRecordValidationError{
 					field:  fmt.Sprintf("MeasRecordItem[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	if m.UeTag != nil {
-
-		if all {
-			switch v := interface{}(m.GetUeTag()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, MeasurementRecordValidationError{
-						field:  "UeTag",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, MeasurementRecordValidationError{
-						field:  "UeTag",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetUeTag()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return MeasurementRecordValidationError{
-					field:  "UeTag",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -1627,9 +1789,6 @@ func (m *MeasurementRecordItem) validate(all bool) error {
 
 	case *MeasurementRecordItem_Integer:
 		// no validation rules for Integer
-
-	case *MeasurementRecordItem_Real:
-		// no validation rules for Real
 
 	case *MeasurementRecordItem_NoValue:
 		// no validation rules for NoValue
@@ -2015,172 +2174,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = MeasurementInfoActionItemValidationError{}
-
-// Validate checks the field values on MeasurementType with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *MeasurementType) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on MeasurementType with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// MeasurementTypeMultiError, or nil if none found.
-func (m *MeasurementType) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *MeasurementType) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	switch m.MeasurementType.(type) {
-
-	case *MeasurementType_MeasName:
-
-		if all {
-			switch v := interface{}(m.GetMeasName()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, MeasurementTypeValidationError{
-						field:  "MeasName",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, MeasurementTypeValidationError{
-						field:  "MeasName",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetMeasName()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return MeasurementTypeValidationError{
-					field:  "MeasName",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	case *MeasurementType_MeasId:
-
-		if all {
-			switch v := interface{}(m.GetMeasId()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, MeasurementTypeValidationError{
-						field:  "MeasId",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, MeasurementTypeValidationError{
-						field:  "MeasId",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetMeasId()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return MeasurementTypeValidationError{
-					field:  "MeasId",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	if len(errors) > 0 {
-		return MeasurementTypeMultiError(errors)
-	}
-
-	return nil
-}
-
-// MeasurementTypeMultiError is an error wrapping multiple validation errors
-// returned by MeasurementType.ValidateAll() if the designated constraints
-// aren't met.
-type MeasurementTypeMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m MeasurementTypeMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m MeasurementTypeMultiError) AllErrors() []error { return m }
-
-// MeasurementTypeValidationError is the validation error returned by
-// MeasurementType.Validate if the designated constraints aren't met.
-type MeasurementTypeValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e MeasurementTypeValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e MeasurementTypeValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e MeasurementTypeValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e MeasurementTypeValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e MeasurementTypeValidationError) ErrorName() string { return "MeasurementTypeValidationError" }
-
-// Error satisfies the builtin error interface
-func (e MeasurementTypeValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sMeasurementType.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = MeasurementTypeValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = MeasurementTypeValidationError{}
 
 // Validate checks the field values on MeasurementTypeId with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -5197,116 +5190,6 @@ var _ interface {
 	ErrorName() string
 } = RicStyleNameValidationError{}
 
-// Validate checks the field values on TimeStamp with the rules defined in the
-// proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *TimeStamp) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on TimeStamp with the rules defined in
-// the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in TimeStampMultiError, or nil
-// if none found.
-func (m *TimeStamp) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *TimeStamp) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if len(m.GetValue()) != 4 {
-		err := TimeStampValidationError{
-			field:  "Value",
-			reason: "value length must be 4 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(errors) > 0 {
-		return TimeStampMultiError(errors)
-	}
-
-	return nil
-}
-
-// TimeStampMultiError is an error wrapping multiple validation errors returned
-// by TimeStamp.ValidateAll() if the designated constraints aren't met.
-type TimeStampMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m TimeStampMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m TimeStampMultiError) AllErrors() []error { return m }
-
-// TimeStampValidationError is the validation error returned by
-// TimeStamp.Validate if the designated constraints aren't met.
-type TimeStampValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e TimeStampValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e TimeStampValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e TimeStampValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e TimeStampValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e TimeStampValidationError) ErrorName() string { return "TimeStampValidationError" }
-
-// Error satisfies the builtin error interface
-func (e TimeStampValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sTimeStamp.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = TimeStampValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = TimeStampValidationError{}
-
 // Validate checks the field values on Uetag with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -5528,3 +5411,113 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = MeasurementTypeNameValidationError{}
+
+// Validate checks the field values on TimeStamp with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *TimeStamp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TimeStamp with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in TimeStampMultiError, or nil
+// if none found.
+func (m *TimeStamp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TimeStamp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(m.GetValue()) != 4 {
+		err := TimeStampValidationError{
+			field:  "Value",
+			reason: "value length must be 4 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return TimeStampMultiError(errors)
+	}
+
+	return nil
+}
+
+// TimeStampMultiError is an error wrapping multiple validation errors returned
+// by TimeStamp.ValidateAll() if the designated constraints aren't met.
+type TimeStampMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TimeStampMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TimeStampMultiError) AllErrors() []error { return m }
+
+// TimeStampValidationError is the validation error returned by
+// TimeStamp.Validate if the designated constraints aren't met.
+type TimeStampValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TimeStampValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TimeStampValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TimeStampValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TimeStampValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TimeStampValidationError) ErrorName() string { return "TimeStampValidationError" }
+
+// Error satisfies the builtin error interface
+func (e TimeStampValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTimeStamp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TimeStampValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TimeStampValidationError{}
