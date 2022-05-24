@@ -743,10 +743,10 @@ func (m *Ueid) validate(all bool) error {
 
 	var errors []error
 
-	if val := m.GetValue(); val < 1 || val > 255 {
+	if val := m.GetValue(); val < 0 || val > 255 {
 		err := UeidValidationError{
 			field:  "Value",
-			reason: "value must be inside range [1, 255]",
+			reason: "value must be inside range [0, 255]",
 		}
 		if !all {
 			return err
@@ -5211,10 +5211,10 @@ func (m *Uetag) validate(all bool) error {
 
 	var errors []error
 
-	if l := utf8.RuneCountInString(m.GetValue()); l < 0 || l > 150 {
+	if l := utf8.RuneCountInString(m.GetValue()); l < 1 || l > 150 {
 		err := UetagValidationError{
 			field:  "Value",
-			reason: "value length must be between 0 and 150 runes, inclusive",
+			reason: "value length must be between 1 and 150 runes, inclusive",
 		}
 		if !all {
 			return err
