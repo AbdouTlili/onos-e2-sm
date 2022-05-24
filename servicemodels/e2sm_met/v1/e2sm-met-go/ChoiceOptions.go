@@ -5,8 +5,7 @@ import "reflect"
 var E2smMetChoicemap = map[string]map[int]reflect.Type{
 	"measurement_record_item": {
 		1: reflect.TypeOf(MeasurementRecordItem_Integer{}),
-		2: reflect.TypeOf(MeasurementRecordItem_Real{}),
-		3: reflect.TypeOf(MeasurementRecordItem_NoValue{}),
+		2: reflect.TypeOf(MeasurementRecordItem_NoValue{}),
 	},
 	"measurement_type": {
 		1: reflect.TypeOf(MeasurementType_MeasName{}),

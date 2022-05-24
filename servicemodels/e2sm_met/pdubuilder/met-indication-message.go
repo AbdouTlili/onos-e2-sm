@@ -38,14 +38,14 @@ func CreateMeasurementRecordItemInteger(integer int64) *e2smmet.MeasurementRecor
 	}
 }
 
-func CreateMeasurementRecordItemReal(real float64) *e2smmet.MeasurementRecordItem {
+// func CreateMeasurementRecordItemReal(real float64) *e2smmet.MeasurementRecordItem {
 
-	return &e2smmet.MeasurementRecordItem{
-		MeasurementRecordItem: &e2smmet.MeasurementRecordItem_Real{
-			Real: real,
-		},
-	}
-}
+// 	return &e2smmet.MeasurementRecordItem{
+// 		MeasurementRecordItem: &e2smmet.MeasurementRecordItem_Real{
+// 			Real: real,
+// 		},
+// 	}
+// }
 
 func CreateMeasurementRecordItemNoValue() *e2smmet.MeasurementRecordItem {
 
