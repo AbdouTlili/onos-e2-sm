@@ -1280,70 +1280,15 @@ func (m *MeasurementType) validate(all bool) error {
 
 	var errors []error
 
-	switch m.MeasurementType.(type) {
-
-	case *MeasurementType_MeasName:
-
-		if all {
-			switch v := interface{}(m.GetMeasName()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, MeasurementTypeValidationError{
-						field:  "MeasName",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, MeasurementTypeValidationError{
-						field:  "MeasName",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetMeasName()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return MeasurementTypeValidationError{
-					field:  "MeasName",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
+	if l := utf8.RuneCountInString(m.GetValue()); l < 0 || l > 15 {
+		err := MeasurementTypeValidationError{
+			field:  "Value",
+			reason: "value length must be between 0 and 15 runes, inclusive",
 		}
-
-	case *MeasurementType_MeasId:
-
-		if all {
-			switch v := interface{}(m.GetMeasId()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, MeasurementTypeValidationError{
-						field:  "MeasId",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, MeasurementTypeValidationError{
-						field:  "MeasId",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetMeasId()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return MeasurementTypeValidationError{
-					field:  "MeasId",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
+		if !all {
+			return err
 		}
-
+		errors = append(errors, err)
 	}
 
 	if len(errors) > 0 {

@@ -88,13 +88,8 @@ message MeasurementInfoItem {
 // sequence from met2.asn1:64
 // {MeasurementType}
 message MeasurementType {
-    // choice from met2.asn1:64
-    oneof measurement_type {
-        // @inject_tag: aper:"choiceIdx:1"
-        MeasurementTypeName meas_name = 1 [json_name = "measName"];
-        // @inject_tag: aper:"choiceIdx:2"
-        MeasurementTypeId meas_id = 2 [json_name = "measID"];
-    }
+    // @inject_tag: aper:"sizeLB:0,sizeUB:15"
+    string value = 1 [(validate.v1.rules).string = {min_len: 0, max_len: 15}, json_name = "value"];
 };
 
 // sequence from met2.asn1:71

@@ -559,12 +559,8 @@ type MeasurementType struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// choice from met2.asn1:64
-	//
-	// Types that are assignable to MeasurementType:
-	//	*MeasurementType_MeasName
-	//	*MeasurementType_MeasId
-	MeasurementType isMeasurementType_MeasurementType `protobuf_oneof:"measurement_type"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:15"
+	Value string `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:0,sizeUB:15"`
 }
 
 func (x *MeasurementType) Reset() {
@@ -599,44 +595,12 @@ func (*MeasurementType) Descriptor() ([]byte, []int) {
 	return file_e2sm_met_v1_e2sm_met_proto_rawDescGZIP(), []int{10}
 }
 
-func (m *MeasurementType) GetMeasurementType() isMeasurementType_MeasurementType {
-	if m != nil {
-		return m.MeasurementType
+func (x *MeasurementType) GetValue() string {
+	if x != nil {
+		return x.Value
 	}
-	return nil
+	return ""
 }
-
-func (x *MeasurementType) GetMeasName() *MeasurementTypeName {
-	if x, ok := x.GetMeasurementType().(*MeasurementType_MeasName); ok {
-		return x.MeasName
-	}
-	return nil
-}
-
-func (x *MeasurementType) GetMeasId() *MeasurementTypeId {
-	if x, ok := x.GetMeasurementType().(*MeasurementType_MeasId); ok {
-		return x.MeasId
-	}
-	return nil
-}
-
-type isMeasurementType_MeasurementType interface {
-	isMeasurementType_MeasurementType()
-}
-
-type MeasurementType_MeasName struct {
-	// @inject_tag: aper:"choiceIdx:1"
-	MeasName *MeasurementTypeName `protobuf:"bytes,1,opt,name=meas_name,json=measName,proto3,oneof" aper:"choiceIdx:1"`
-}
-
-type MeasurementType_MeasId struct {
-	// @inject_tag: aper:"choiceIdx:2"
-	MeasId *MeasurementTypeId `protobuf:"bytes,2,opt,name=meas_id,json=measID,proto3,oneof" aper:"choiceIdx:2"`
-}
-
-func (*MeasurementType_MeasName) isMeasurementType_MeasurementType() {}
-
-func (*MeasurementType_MeasId) isMeasurementType_MeasurementType() {}
 
 // sequence from met2.asn1:71
 // {MeasurementData}
@@ -2334,17 +2298,10 @@ var file_e2sm_met_v1_e2sm_met_proto_rawDesc = []byte{
 	0x0a, 0x09, 0x6d, 0x65, 0x61, 0x73, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28,
 	0x0b, 0x32, 0x1c, 0x2e, 0x65, 0x32, 0x73, 0x6d, 0x5f, 0x6d, 0x65, 0x74, 0x2e, 0x76, 0x31, 0x2e,
 	0x4d, 0x65, 0x61, 0x73, 0x75, 0x72, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x54, 0x79, 0x70, 0x65, 0x52,
-	0x08, 0x6d, 0x65, 0x61, 0x73, 0x54, 0x79, 0x70, 0x65, 0x22, 0xa1, 0x01, 0x0a, 0x0f, 0x4d, 0x65,
-	0x61, 0x73, 0x75, 0x72, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x54, 0x79, 0x70, 0x65, 0x12, 0x3f, 0x0a,
-	0x09, 0x6d, 0x65, 0x61, 0x73, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x20, 0x2e, 0x65, 0x32, 0x73, 0x6d, 0x5f, 0x6d, 0x65, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4d,
-	0x65, 0x61, 0x73, 0x75, 0x72, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x54, 0x79, 0x70, 0x65, 0x4e, 0x61,
-	0x6d, 0x65, 0x48, 0x00, 0x52, 0x08, 0x6d, 0x65, 0x61, 0x73, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x39,
-	0x0a, 0x07, 0x6d, 0x65, 0x61, 0x73, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x1e, 0x2e, 0x65, 0x32, 0x73, 0x6d, 0x5f, 0x6d, 0x65, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65,
-	0x61, 0x73, 0x75, 0x72, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x54, 0x79, 0x70, 0x65, 0x49, 0x64, 0x48,
-	0x00, 0x52, 0x06, 0x6d, 0x65, 0x61, 0x73, 0x49, 0x44, 0x42, 0x12, 0x0a, 0x10, 0x6d, 0x65, 0x61,
-	0x73, 0x75, 0x72, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x22, 0x47, 0x0a,
+	0x08, 0x6d, 0x65, 0x61, 0x73, 0x54, 0x79, 0x70, 0x65, 0x22, 0x32, 0x0a, 0x0f, 0x4d, 0x65, 0x61,
+	0x73, 0x75, 0x72, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x54, 0x79, 0x70, 0x65, 0x12, 0x1f, 0x0a, 0x05,
+	0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x09, 0xfa, 0x42, 0x06,
+	0x72, 0x04, 0x10, 0x00, 0x18, 0x0f, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x22, 0x47, 0x0a,
 	0x0f, 0x4d, 0x65, 0x61, 0x73, 0x75, 0x72, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x44, 0x61, 0x74, 0x61,
 	0x12, 0x34, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32,
 	0x1e, 0x2e, 0x65, 0x32, 0x73, 0x6d, 0x5f, 0x6d, 0x65, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65,
@@ -2699,52 +2656,50 @@ var file_e2sm_met_v1_e2sm_met_proto_depIdxs = []int32{
 	35, // 1: e2sm_met.v1.Ueitem.ue_tag:type_name -> e2sm_met.v1.Uetag
 	9,  // 2: e2sm_met.v1.MeasurementInfoList.value:type_name -> e2sm_met.v1.MeasurementInfoItem
 	10, // 3: e2sm_met.v1.MeasurementInfoItem.meas_type:type_name -> e2sm_met.v1.MeasurementType
-	36, // 4: e2sm_met.v1.MeasurementType.meas_name:type_name -> e2sm_met.v1.MeasurementTypeName
-	16, // 5: e2sm_met.v1.MeasurementType.meas_id:type_name -> e2sm_met.v1.MeasurementTypeId
-	12, // 6: e2sm_met.v1.MeasurementData.value:type_name -> e2sm_met.v1.MeasurementRecord
-	6,  // 7: e2sm_met.v1.MeasurementRecord.ue_id:type_name -> e2sm_met.v1.Ueid
-	35, // 8: e2sm_met.v1.MeasurementRecord.ue_tag:type_name -> e2sm_met.v1.Uetag
-	13, // 9: e2sm_met.v1.MeasurementRecord.meas_record_item:type_name -> e2sm_met.v1.MeasurementRecordItem
-	15, // 10: e2sm_met.v1.MeasurementInfoActionList.value:type_name -> e2sm_met.v1.MeasurementInfoActionItem
-	36, // 11: e2sm_met.v1.MeasurementInfoActionItem.meas_name:type_name -> e2sm_met.v1.MeasurementTypeName
-	16, // 12: e2sm_met.v1.MeasurementInfoActionItem.meas_id:type_name -> e2sm_met.v1.MeasurementTypeId
-	18, // 13: e2sm_met.v1.E2SmMetEventTriggerDefinition.event_definition_formats:type_name -> e2sm_met.v1.EventTriggerDefinitionFormats
-	19, // 14: e2sm_met.v1.EventTriggerDefinitionFormats.event_definition_format1:type_name -> e2sm_met.v1.E2SmMetEventTriggerDefinitionFormat1
-	30, // 15: e2sm_met.v1.E2SmMetActionDefinition.ric_style_type:type_name -> e2sm_met.v1.RicStyleType
-	21, // 16: e2sm_met.v1.E2SmMetActionDefinition.action_definition_formats:type_name -> e2sm_met.v1.ActionDefinitionFormats
-	22, // 17: e2sm_met.v1.ActionDefinitionFormats.action_definition_format1:type_name -> e2sm_met.v1.E2SmMetActionDefinitionFormat1
-	0,  // 18: e2sm_met.v1.E2SmMetActionDefinitionFormat1.cell_obj_id:type_name -> e2sm_met.v1.CellObjectId
-	8,  // 19: e2sm_met.v1.E2SmMetActionDefinitionFormat1.meas_info_list:type_name -> e2sm_met.v1.MeasurementInfoList
-	1,  // 20: e2sm_met.v1.E2SmMetActionDefinitionFormat1.granul_period:type_name -> e2sm_met.v1.GranularityPeriod
-	2,  // 21: e2sm_met.v1.E2SmMetActionDefinitionFormat1.subscript_id:type_name -> e2sm_met.v1.SubscriptionId
-	24, // 22: e2sm_met.v1.E2SmMetIndicationHeader.indication_header_formats:type_name -> e2sm_met.v1.IndicationHeaderFormats
-	25, // 23: e2sm_met.v1.IndicationHeaderFormats.indication_header_format1:type_name -> e2sm_met.v1.E2SmMetIndicationHeaderFormat1
-	37, // 24: e2sm_met.v1.E2SmMetIndicationHeaderFormat1.collet_start_time:type_name -> e2sm_met.v1.TimeStamp
-	3,  // 25: e2sm_met.v1.E2SmMetIndicationHeaderFormat1.met_node_id:type_name -> e2sm_met.v1.GlobalMetnodeId
-	27, // 26: e2sm_met.v1.E2SmMetIndicationMessage.indication_message_formats:type_name -> e2sm_met.v1.IndicationMessageFormats
-	28, // 27: e2sm_met.v1.IndicationMessageFormats.indication_message_format1:type_name -> e2sm_met.v1.E2SmMetIndicationMessageFormat1
-	2,  // 28: e2sm_met.v1.E2SmMetIndicationMessageFormat1.subscript_id:type_name -> e2sm_met.v1.SubscriptionId
-	0,  // 29: e2sm_met.v1.E2SmMetIndicationMessageFormat1.cell_obj_id:type_name -> e2sm_met.v1.CellObjectId
-	1,  // 30: e2sm_met.v1.E2SmMetIndicationMessageFormat1.granul_period:type_name -> e2sm_met.v1.GranularityPeriod
-	8,  // 31: e2sm_met.v1.E2SmMetIndicationMessageFormat1.meas_info_list:type_name -> e2sm_met.v1.MeasurementInfoList
-	11, // 32: e2sm_met.v1.E2SmMetIndicationMessageFormat1.meas_data:type_name -> e2sm_met.v1.MeasurementData
-	4,  // 33: e2sm_met.v1.E2SmMetRanfunctionDescription.ran_function_name:type_name -> e2sm_met.v1.RanfunctionName
-	32, // 34: e2sm_met.v1.E2SmMetRanfunctionDescription.ric_event_trigger_style_list:type_name -> e2sm_met.v1.RicEventTriggerStyleItem
-	33, // 35: e2sm_met.v1.E2SmMetRanfunctionDescription.ric_report_style_list:type_name -> e2sm_met.v1.RicReportStyleItem
-	30, // 36: e2sm_met.v1.RicEventTriggerStyleItem.ric_event_trigger_style_type:type_name -> e2sm_met.v1.RicStyleType
-	34, // 37: e2sm_met.v1.RicEventTriggerStyleItem.ric_event_trigger_style_name:type_name -> e2sm_met.v1.RicStyleName
-	31, // 38: e2sm_met.v1.RicEventTriggerStyleItem.ric_event_trigger_format_type:type_name -> e2sm_met.v1.RicFormatType
-	30, // 39: e2sm_met.v1.RicReportStyleItem.ric_report_style_type:type_name -> e2sm_met.v1.RicStyleType
-	34, // 40: e2sm_met.v1.RicReportStyleItem.ric_report_style_name:type_name -> e2sm_met.v1.RicStyleName
-	31, // 41: e2sm_met.v1.RicReportStyleItem.ric_action_format_type:type_name -> e2sm_met.v1.RicFormatType
-	14, // 42: e2sm_met.v1.RicReportStyleItem.meas_info_action_list:type_name -> e2sm_met.v1.MeasurementInfoActionList
-	31, // 43: e2sm_met.v1.RicReportStyleItem.ric_indication_header_format_type:type_name -> e2sm_met.v1.RicFormatType
-	31, // 44: e2sm_met.v1.RicReportStyleItem.ric_indication_message_format_type:type_name -> e2sm_met.v1.RicFormatType
-	45, // [45:45] is the sub-list for method output_type
-	45, // [45:45] is the sub-list for method input_type
-	45, // [45:45] is the sub-list for extension type_name
-	45, // [45:45] is the sub-list for extension extendee
-	0,  // [0:45] is the sub-list for field type_name
+	12, // 4: e2sm_met.v1.MeasurementData.value:type_name -> e2sm_met.v1.MeasurementRecord
+	6,  // 5: e2sm_met.v1.MeasurementRecord.ue_id:type_name -> e2sm_met.v1.Ueid
+	35, // 6: e2sm_met.v1.MeasurementRecord.ue_tag:type_name -> e2sm_met.v1.Uetag
+	13, // 7: e2sm_met.v1.MeasurementRecord.meas_record_item:type_name -> e2sm_met.v1.MeasurementRecordItem
+	15, // 8: e2sm_met.v1.MeasurementInfoActionList.value:type_name -> e2sm_met.v1.MeasurementInfoActionItem
+	36, // 9: e2sm_met.v1.MeasurementInfoActionItem.meas_name:type_name -> e2sm_met.v1.MeasurementTypeName
+	16, // 10: e2sm_met.v1.MeasurementInfoActionItem.meas_id:type_name -> e2sm_met.v1.MeasurementTypeId
+	18, // 11: e2sm_met.v1.E2SmMetEventTriggerDefinition.event_definition_formats:type_name -> e2sm_met.v1.EventTriggerDefinitionFormats
+	19, // 12: e2sm_met.v1.EventTriggerDefinitionFormats.event_definition_format1:type_name -> e2sm_met.v1.E2SmMetEventTriggerDefinitionFormat1
+	30, // 13: e2sm_met.v1.E2SmMetActionDefinition.ric_style_type:type_name -> e2sm_met.v1.RicStyleType
+	21, // 14: e2sm_met.v1.E2SmMetActionDefinition.action_definition_formats:type_name -> e2sm_met.v1.ActionDefinitionFormats
+	22, // 15: e2sm_met.v1.ActionDefinitionFormats.action_definition_format1:type_name -> e2sm_met.v1.E2SmMetActionDefinitionFormat1
+	0,  // 16: e2sm_met.v1.E2SmMetActionDefinitionFormat1.cell_obj_id:type_name -> e2sm_met.v1.CellObjectId
+	8,  // 17: e2sm_met.v1.E2SmMetActionDefinitionFormat1.meas_info_list:type_name -> e2sm_met.v1.MeasurementInfoList
+	1,  // 18: e2sm_met.v1.E2SmMetActionDefinitionFormat1.granul_period:type_name -> e2sm_met.v1.GranularityPeriod
+	2,  // 19: e2sm_met.v1.E2SmMetActionDefinitionFormat1.subscript_id:type_name -> e2sm_met.v1.SubscriptionId
+	24, // 20: e2sm_met.v1.E2SmMetIndicationHeader.indication_header_formats:type_name -> e2sm_met.v1.IndicationHeaderFormats
+	25, // 21: e2sm_met.v1.IndicationHeaderFormats.indication_header_format1:type_name -> e2sm_met.v1.E2SmMetIndicationHeaderFormat1
+	37, // 22: e2sm_met.v1.E2SmMetIndicationHeaderFormat1.collet_start_time:type_name -> e2sm_met.v1.TimeStamp
+	3,  // 23: e2sm_met.v1.E2SmMetIndicationHeaderFormat1.met_node_id:type_name -> e2sm_met.v1.GlobalMetnodeId
+	27, // 24: e2sm_met.v1.E2SmMetIndicationMessage.indication_message_formats:type_name -> e2sm_met.v1.IndicationMessageFormats
+	28, // 25: e2sm_met.v1.IndicationMessageFormats.indication_message_format1:type_name -> e2sm_met.v1.E2SmMetIndicationMessageFormat1
+	2,  // 26: e2sm_met.v1.E2SmMetIndicationMessageFormat1.subscript_id:type_name -> e2sm_met.v1.SubscriptionId
+	0,  // 27: e2sm_met.v1.E2SmMetIndicationMessageFormat1.cell_obj_id:type_name -> e2sm_met.v1.CellObjectId
+	1,  // 28: e2sm_met.v1.E2SmMetIndicationMessageFormat1.granul_period:type_name -> e2sm_met.v1.GranularityPeriod
+	8,  // 29: e2sm_met.v1.E2SmMetIndicationMessageFormat1.meas_info_list:type_name -> e2sm_met.v1.MeasurementInfoList
+	11, // 30: e2sm_met.v1.E2SmMetIndicationMessageFormat1.meas_data:type_name -> e2sm_met.v1.MeasurementData
+	4,  // 31: e2sm_met.v1.E2SmMetRanfunctionDescription.ran_function_name:type_name -> e2sm_met.v1.RanfunctionName
+	32, // 32: e2sm_met.v1.E2SmMetRanfunctionDescription.ric_event_trigger_style_list:type_name -> e2sm_met.v1.RicEventTriggerStyleItem
+	33, // 33: e2sm_met.v1.E2SmMetRanfunctionDescription.ric_report_style_list:type_name -> e2sm_met.v1.RicReportStyleItem
+	30, // 34: e2sm_met.v1.RicEventTriggerStyleItem.ric_event_trigger_style_type:type_name -> e2sm_met.v1.RicStyleType
+	34, // 35: e2sm_met.v1.RicEventTriggerStyleItem.ric_event_trigger_style_name:type_name -> e2sm_met.v1.RicStyleName
+	31, // 36: e2sm_met.v1.RicEventTriggerStyleItem.ric_event_trigger_format_type:type_name -> e2sm_met.v1.RicFormatType
+	30, // 37: e2sm_met.v1.RicReportStyleItem.ric_report_style_type:type_name -> e2sm_met.v1.RicStyleType
+	34, // 38: e2sm_met.v1.RicReportStyleItem.ric_report_style_name:type_name -> e2sm_met.v1.RicStyleName
+	31, // 39: e2sm_met.v1.RicReportStyleItem.ric_action_format_type:type_name -> e2sm_met.v1.RicFormatType
+	14, // 40: e2sm_met.v1.RicReportStyleItem.meas_info_action_list:type_name -> e2sm_met.v1.MeasurementInfoActionList
+	31, // 41: e2sm_met.v1.RicReportStyleItem.ric_indication_header_format_type:type_name -> e2sm_met.v1.RicFormatType
+	31, // 42: e2sm_met.v1.RicReportStyleItem.ric_indication_message_format_type:type_name -> e2sm_met.v1.RicFormatType
+	43, // [43:43] is the sub-list for method output_type
+	43, // [43:43] is the sub-list for method input_type
+	43, // [43:43] is the sub-list for extension type_name
+	43, // [43:43] is the sub-list for extension extendee
+	0,  // [0:43] is the sub-list for field type_name
 }
 
 func init() { file_e2sm_met_v1_e2sm_met_proto_init() }
@@ -3211,10 +3166,6 @@ func file_e2sm_met_v1_e2sm_met_proto_init() {
 		}
 	}
 	file_e2sm_met_v1_e2sm_met_proto_msgTypes[7].OneofWrappers = []interface{}{}
-	file_e2sm_met_v1_e2sm_met_proto_msgTypes[10].OneofWrappers = []interface{}{
-		(*MeasurementType_MeasName)(nil),
-		(*MeasurementType_MeasId)(nil),
-	}
 	file_e2sm_met_v1_e2sm_met_proto_msgTypes[13].OneofWrappers = []interface{}{
 		(*MeasurementRecordItem_Integer)(nil),
 		(*MeasurementRecordItem_NoValue)(nil),
