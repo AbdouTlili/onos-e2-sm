@@ -27,7 +27,10 @@ func TestServicemodel_IndicationHeaderProtoToASN1(t *testing.T) {
 	globalMetNodeID, err := pdubuilder.CreateGlobalMetnodeID(5)
 	assert.NilError(t, err)
 
-	newE2SmMetPdu, err := pdubuilder.CreateE2SmMetIndicationHeader(timeStamp)
+	mil, err := pdubuilder.CreateMeasurementInfoListTest()
+	assert.NilError(t, err)
+
+	newE2SmMetPdu, err := pdubuilder.CreateE2SmMetIndicationHeader(timeStamp, mil)
 	assert.NilError(t, err)
 	// newE2SmMetPdu.SetFileFormatVersion(fileFormatVersion).SetSenderName(senderName).SetGlobalMETnodeID(globalMetNodeID)
 

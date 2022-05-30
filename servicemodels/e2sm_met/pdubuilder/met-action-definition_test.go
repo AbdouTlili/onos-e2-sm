@@ -16,11 +16,11 @@ func TestE2SmKpmActionDefinitionFormat1(t *testing.T) {
 	var cellObjID int32 = 32
 	var granularity int64 = 21
 	var subscriptionID int64 = 12345
-	var measurementName = "trial"
+	// var measurementName = "trial"
 
-	measName, err := CreateMeasurementTypeMeasName(measurementName)
-	assert.NilError(t, err)
-	measInfoItem, err := CreateMeasurementInfoItem(measName)
+	// measName, err := CreateMeasurementTypeMeasName(measurementName)
+	// assert.NilError(t, err)
+	measInfoItem, err := CreateMeasurementInfoItem("measName")
 	assert.NilError(t, err)
 
 	measInfoList := e2smmet.MeasurementInfoList{

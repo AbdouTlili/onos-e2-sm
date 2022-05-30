@@ -15,7 +15,7 @@ import (
 	"testing"
 )
 
-var perRefBytesMeasRec = []byte{0x00,0x0b,0x02,0x41,0x41,0x41,0x00,0x00,0x00,0x0a}
+var perRefBytesMeasRec = []byte{0x00, 0x0b, 0x02, 0x41, 0x41, 0x41, 0x00, 0x00, 0x00, 0x0a}
 
 func createMeasurementRecord() (*e2smmet.MeasurementRecord, error) {
 	res := &e2smmet.MeasurementRecord{
@@ -49,15 +49,15 @@ func Test_perEncodingMeasurementRecord(t *testing.T) {
 	assert.NilError(t, err)
 
 	//aper.ChoiceMap = e2smmet.E2smMetChoicemap
-	per, err := aper.MarshalWithParams(mr, "valueExt",e2smmet.E2smMetChoicemap, nil)
+	per, err := aper.MarshalWithParams(mr, "valueExt", e2smmet.E2smMetChoicemap, nil)
 
-	fmt.Printf("bytes len %d \n --Perbytes  : %#v", len(per), per)
+	// fmt.Printf("bytes len %d \n --Perbytes  : %#v", len(per), per)
 	assert.NilError(t, err)
 
 	t.Logf("MeasurementRecord PER\n%v", hex.Dump(per))
 
 	result := e2smmet.MeasurementRecord{}
-	err = aper.UnmarshalWithParams(per, &result,"valueExt", e2smmet.E2smMetChoicemap, nil)
+	err = aper.UnmarshalWithParams(per, &result, "valueExt", e2smmet.E2smMetChoicemap, nil)
 	assert.NilError(t, err)
 	// //assert.Assert(t, &result != nil)
 	t.Logf("MeasurementRecord PER - decoded\n%v", &result)
