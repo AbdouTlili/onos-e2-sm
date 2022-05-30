@@ -13,8 +13,10 @@ import (
 
 func TestE2SmMetIndicationMessageFormat1(t *testing.T) {
 
-	var integer int64 = 12345
-	var rl float64 = 6789
+	var integer64 int64 = 12345
+	var integer32 int32 = 12345
+
+	// var rl float64 = 6789
 	var cellObjID int32 = 15
 	var granularity int64 = 21
 	var subscriptionID int64 = 12345
@@ -23,12 +25,12 @@ func TestE2SmMetIndicationMessageFormat1(t *testing.T) {
 
 	/* the first ue measRecord */
 
-	measRecItemList = append(measRecItemList, CreateMeasurementRecordItemInteger(integer))
+	measRecItemList = append(measRecItemList, CreateMeasurementRecordItemInteger(integer64))
 	measRecItemList = append(measRecItemList, CreateMeasurementRecordItemNoValue())
-	measRecItemList = append(measRecItemList, CreateMeasurementRecordItemReal(rl))
+	// measRecItemList = append(measRecItemList, CreateMeasurementRecordItemReal(rl))
 
 	measRec1, err := CreateMeasurementRecord(&e2smmet.Ueid{
-		Value: integer,
+		Value: integer32,
 	}, &e2smmet.Uetag{
 		Value: "eurecom",
 	}, measRecItemList)
@@ -39,12 +41,12 @@ func TestE2SmMetIndicationMessageFormat1(t *testing.T) {
 	/* the second ue measRecord */
 	measRecItemList2 := make([]*e2smmet.MeasurementRecordItem, 0)
 
-	measRecItemList2 = append(measRecItemList2, CreateMeasurementRecordItemInteger(integer))
+	measRecItemList2 = append(measRecItemList2, CreateMeasurementRecordItemInteger(integer64))
 	measRecItemList2 = append(measRecItemList2, CreateMeasurementRecordItemNoValue())
-	measRecItemList2 = append(measRecItemList2, CreateMeasurementRecordItemReal(rl))
+	// measRecItemList2 = append(measRecItemList2, CreateMeasurementRecordItemReal(rl))
 
 	measRec2, err := CreateMeasurementRecord(&e2smmet.Ueid{
-		Value: integer,
+		Value: integer32,
 	}, &e2smmet.Uetag{
 		Value: "eurecom2",
 	}, measRecItemList2)
@@ -62,18 +64,18 @@ func TestE2SmMetIndicationMessageFormat1(t *testing.T) {
 	// the real MeasurmentInfoList object
 	measInfolist := make([]*e2smmet.MeasurementInfoItem, 0)
 
-	miii1, err := CreateMeasurementTypeMeasID(30)
-	assert.NilError(t, err)
-	miii2, err := CreateMeasurementTypeMeasID(31)
-	assert.NilError(t, err)
-	miii3, err := CreateMeasurementTypeMeasID(32)
-	assert.NilError(t, err)
+	// miii1, err := CreateMeasurementTypeMeasID(30)
+	// assert.NilError(t, err)
+	// miii2, err := CreateMeasurementTypeMeasID(31)
+	// assert.NilError(t, err)
+	// miii3, err := CreateMeasurementTypeMeasID(32)
+	// assert.NilError(t, err)
 
-	mii1, err := CreateMeasurementInfoItem(miii1)
+	mii1, err := CreateMeasurementInfoItem("miii1")
 	assert.NilError(t, err)
-	mii2, err := CreateMeasurementInfoItem(miii2)
+	mii2, err := CreateMeasurementInfoItem("miii2")
 	assert.NilError(t, err)
-	mii3, err := CreateMeasurementInfoItem(miii3)
+	mii3, err := CreateMeasurementInfoItem("miii3")
 	assert.NilError(t, err)
 
 	measInfolist = append(measInfolist, mii1, mii2, mii3)

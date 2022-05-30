@@ -50,10 +50,10 @@ func CreateActionDefinitionFormat1(cellObjID int32, measInfoList *e2smmet.Measur
 	return &actionDefinitionFormat1, nil
 }
 
-func CreateMeasurementInfoItem(measType *e2smmet.MeasurementType) (*e2smmet.MeasurementInfoItem, error) {
+func CreateMeasurementInfoItem(mii string) (*e2smmet.MeasurementInfoItem, error) {
 
 	item := e2smmet.MeasurementInfoItem{
-		MeasType: measType,
+		Value: mii,
 	}
 
 	if err := item.Validate(); err != nil {
@@ -62,32 +62,32 @@ func CreateMeasurementInfoItem(measType *e2smmet.MeasurementType) (*e2smmet.Meas
 	return &item, nil
 }
 
-func CreateMeasurementTypeMeasID(measTypeID int32) (*e2smmet.MeasurementType, error) {
-	measType := e2smmet.MeasurementType{
-		MeasurementType: &e2smmet.MeasurementType_MeasId{
-			MeasId: &e2smmet.MeasurementTypeId{
-				Value: measTypeID,
-			},
-		},
-	}
+// func CreateMeasurementTypeMeasID(measTypeID int32) (*e2smmet.MeasurementType, error) {
+// 	measType := e2smmet.MeasurementType{
+// 		MeasurementType: &e2smmet.MeasurementType_MeasId{
+// 			MeasId: &e2smmet.MeasurementTypeId{
+// 				Value: measTypeID,
+// 			},
+// 		},
+// 	}
 
-	if err := measType.Validate(); err != nil {
-		return nil, errors.NewInvalid("CreateMeasurementTypeMeasID(): error validating MeasurementType %s", err.Error())
-	}
-	return &measType, nil
-}
+// 	if err := measType.Validate(); err != nil {
+// 		return nil, errors.NewInvalid("CreateMeasurementTypeMeasID(): error validating MeasurementType %s", err.Error())
+// 	}
+// 	return &measType, nil
+// }
 
-func CreateMeasurementTypeMeasName(measName string) (*e2smmet.MeasurementType, error) {
-	measType := e2smmet.MeasurementType{
-		MeasurementType: &e2smmet.MeasurementType_MeasName{
-			MeasName: &e2smmet.MeasurementTypeName{
-				Value: measName,
-			},
-		},
-	}
+// func CreateMeasurementTypeMeasName(measName string) (*e2smmet.MeasurementType, error) {
+// 	measType := e2smmet.MeasurementType{
+// 		MeasurementType: &e2smmet.MeasurementType_MeasName{
+// 			MeasName: &e2smmet.MeasurementTypeName{
+// 				Value: measName,
+// 			},
+// 		},
+// 	}
 
-	if err := measType.Validate(); err != nil {
-		return nil, errors.NewInvalid("CreateMeasurementTypeMeasName(): error validating MeasurementType %s", err.Error())
-	}
-	return &measType, nil
-}
+// 	if err := measType.Validate(); err != nil {
+// 		return nil, errors.NewInvalid("CreateMeasurementTypeMeasName(): error validating MeasurementType %s", err.Error())
+// 	}
+// 	return &measType, nil
+// }
