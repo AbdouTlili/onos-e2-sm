@@ -27,7 +27,7 @@ func TestServicemodel_IndicationHeaderProtoToASN1(t *testing.T) {
 	globalMetNodeID, err := pdubuilder.CreateGlobalMetnodeID(5)
 	assert.NilError(t, err)
 
-	mil, err := pdubuilder.CreateMeasurementInfoListTest()
+	mil, err := createMeasurementInfoList()
 	assert.NilError(t, err)
 
 	newE2SmMetPdu, err := pdubuilder.CreateE2SmMetIndicationHeader(timeStamp, mil)
@@ -67,6 +67,42 @@ func TestServicemodel_IndicationHeaderASN1toProto(t *testing.T) {
 	t.Logf("Decoded message is \n%v", testIH)
 	// assert.DeepEqual(t, []byte{0x21, 0x22, 0x23, 0x24}, testIH.GetIndicationHeaderFormats().GetIndicationHeaderFormat1().GetColletStartTime().GetValue())
 	assert.Equal(t, int64(10), testIH.GetIndicationHeaderFormats().GetIndicationHeaderFormat1().GetMetNodeId().GetValue())
+}
+
+func createMeasurementInfoList() (*e2smmet.MeasurementInfoList, error) {
+
+	res := &e2smmet.MeasurementInfoList{
+		Value: make([]*e2smmet.MeasurementInfoItem, 0),
+	}
+	mii, err := createMeasurementInfoItem("mcs")
+	if err != nil {
+		return nil, err
+	}
+	res.Value = append(res.Value, mii)
+
+	mii2, err := createMeasurementInfoItem("phr")
+	if err != nil {
+		return nil, err
+	}
+	res.Value = append(res.Value, mii2)
+
+	if err := res.Validate(); err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}
+
+func createMeasurementInfoItem(name string) (*e2smmet.MeasurementInfoItem, error) {
+
+	res := &e2smmet.MeasurementInfoItem{
+		Value: name,
+	}
+	if err := res.Validate(); err != nil {
+		return nil, err
+	}
+
+	return res, nil
 }
 
 // func TestServicemodel_IndicationMessageProtoToASN1(t *testing.T) {
