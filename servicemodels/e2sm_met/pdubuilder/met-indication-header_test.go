@@ -11,7 +11,7 @@ import (
 	"gotest.tools/assert"
 )
 
-func createMeasurementInfoList() (*e2smmet.MeasurementInfoList, error) {
+func CreateMeasurementInfoListTest() (*e2smmet.MeasurementInfoList, error) {
 
 	res := &e2smmet.MeasurementInfoList{
 		Value: make([]*e2smmet.MeasurementInfoItem, 0),
@@ -57,7 +57,7 @@ func TestE2SmMetIndicationHeader(t *testing.T) {
 	globalMetNodeID, err := CreateGlobalMetnodeID(15)
 	assert.NilError(t, err)
 
-	mil, err := createMeasurementInfoList()
+	mil, err := CreateMeasurementInfoListTest()
 	assert.NilError(t, err)
 
 	newE2SmMetPdu, err := CreateE2SmMetIndicationHeader(timeStamp, mil)

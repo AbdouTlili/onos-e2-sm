@@ -2,7 +2,6 @@ package met
 
 import (
 	"encoding/hex"
-	"fmt"
 
 	// "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/pdubuilder"
 	e2smmet "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/v1/e2sm-met-go"
@@ -36,7 +35,7 @@ func Test_perEncodeMeasurementInfoItem(t *testing.T) {
 	//aper.ChoiceMap = e2smmet.Choicemape2smKpm
 	per, err := aper.MarshalWithParams(mii, "", e2smmet.E2smMetChoicemap, nil)
 
-	fmt.Printf("bydfgggggtes len %d \n --Perbytes  : %#v", len(per), per)
+	// fmt.Printf("bydfgggggtes len %d \n --Perbytes  : %#v", len(per), per)
 
 	assert.NilError(t, err)
 	t.Logf("MeasurementInfo-Item PER\n%v", hex.Dump(per))
