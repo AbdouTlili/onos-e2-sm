@@ -30,7 +30,7 @@ func createMeasurementInfoItem(name string) (*e2smmet.MeasurementInfoItem, error
 
 func Test_perEncodeMeasurementInfoItem(t *testing.T) {
 
-	mii, err := createMeasurementInfoItem("test")
+	mii, err := createMeasurementInfoItem("mcs")
 	assert.NilError(t, err)
 
 	//aper.ChoiceMap = e2smmet.Choicemape2smKpm

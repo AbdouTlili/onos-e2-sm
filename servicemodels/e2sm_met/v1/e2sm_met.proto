@@ -199,12 +199,13 @@ message IndicationHeaderFormats {
 // {E2SM-MET-IndicationHeader-Format1}
 message E2SmMetIndicationHeaderFormat1 {
     TimeStamp collet_start_time = 1 [ json_name="colletStartTime"];
+    MeasurementInfoList meas_info_list = 2 [ json_name="measInfoList"];
     // @inject_tag: aper:"optional,sizeExt,sizeLB:0,sizeUB:15"
-    optional string file_formatversion = 2 [(validate.v1.rules).string = {min_len: 0, max_len: 15}, json_name="fileFormatversion"];
+    optional string file_formatversion = 3 [(validate.v1.rules).string = {min_len: 0, max_len: 15}, json_name="fileFormatversion"];
     // @inject_tag: aper:"optional,sizeExt,sizeLB:0,sizeUB:400"
-    optional string sender_name = 3 [(validate.v1.rules).string = {min_len: 0, max_len: 400}, json_name="senderName"];
+    optional string sender_name = 4 [(validate.v1.rules).string = {min_len: 0, max_len: 400}, json_name="senderName"];
     // @inject_tag: aper:"optional"
-    optional GlobalMetnodeId met_node_id = 4 [ json_name="metNodeID"];
+    optional GlobalMetnodeId met_node_id = 5 [ json_name="metNodeID"];
 };
 
 // sequence from met2.asn1:166

@@ -3316,6 +3316,35 @@ func (m *E2SmMetIndicationHeaderFormat1) validate(all bool) error {
 		}
 	}
 
+	if all {
+		switch v := interface{}(m.GetMeasInfoList()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SmMetIndicationHeaderFormat1ValidationError{
+					field:  "MeasInfoList",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SmMetIndicationHeaderFormat1ValidationError{
+					field:  "MeasInfoList",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMeasInfoList()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return E2SmMetIndicationHeaderFormat1ValidationError{
+				field:  "MeasInfoList",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if m.FileFormatversion != nil {
 
 		if l := utf8.RuneCountInString(m.GetFileFormatversion()); l < 0 || l > 15 {

@@ -14,7 +14,7 @@ import (
 func TestE2SmMetIndicationMessageFormat1(t *testing.T) {
 
 	var integer64 int64 = 12345
-	var integer32 int32 = 12345
+	var integer32 int32 = 150
 
 	// var rl float64 = 6789
 	var cellObjID int32 = 15

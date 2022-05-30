@@ -2,7 +2,6 @@ package met
 
 import (
 	"encoding/hex"
-	"fmt"
 
 	// "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/pdubuilder"
 	e2smmet "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/v1/e2sm-met-go"
@@ -14,18 +13,24 @@ import (
 	"gotest.tools/assert"
 )
 
-var perRefBytesMIL = []byte{0x00, 0x00, 0x03, 0x74, 0x65, 0x73, 0x74}
+var perRefBytesMIL = []byte{0x00, 0x01, 0x02, 0x6d, 0x63, 0x73, 0x02, 0x70, 0x68, 0x72}
 
 func createMeasurementInfoList() (*e2smmet.MeasurementInfoList, error) {
 
 	res := &e2smmet.MeasurementInfoList{
 		Value: make([]*e2smmet.MeasurementInfoItem, 0),
 	}
-	mii, err := createMeasurementInfoItem("test")
+	mii, err := createMeasurementInfoItem("mcs")
 	if err != nil {
 		return nil, err
 	}
 	res.Value = append(res.Value, mii)
+
+	mii2, err := createMeasurementInfoItem("phr")
+	if err != nil {
+		return nil, err
+	}
+	res.Value = append(res.Value, mii2)
 
 	if err := res.Validate(); err != nil {
 		return nil, err
@@ -42,7 +47,7 @@ func Test_perEncodeMeasurementInfoList(t *testing.T) {
 	//aper.ChoiceMap = e2smmet.Choicemape2smKpm
 	per, err := aper.MarshalWithParams(mii, "", e2smmet.E2smMetChoicemap, nil)
 
-	fmt.Printf("bydfgggggtes len %d \n --Perbytes  : %#v", len(per), per)
+	// fmt.Printf("bydfgggggtes len %d \n --Perbytes  : %#v", len(per), per)
 
 	assert.NilError(t, err)
 	t.Logf("MeasurementInfo-List PER\n%v", hex.Dump(per))

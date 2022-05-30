@@ -8,7 +8,7 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
-func CreateE2SmMetIndicationHeader(timeStamp []byte) (*e2smmet.E2SmMetIndicationHeader, error) {
+func CreateE2SmMetIndicationHeader(timeStamp []byte, mil *e2smmet.MeasurementInfoList) (*e2smmet.E2SmMetIndicationHeader, error) {
 
 	if len(timeStamp) != 4 {
 		return nil, errors.NewInvalid("TimeStamp should be 4 chars")
@@ -21,6 +21,7 @@ func CreateE2SmMetIndicationHeader(timeStamp []byte) (*e2smmet.E2SmMetIndication
 					ColletStartTime: &e2smmet.TimeStamp{
 						Value: timeStamp,
 					},
+					MeasInfoList: mil,
 				},
 			},
 		},
