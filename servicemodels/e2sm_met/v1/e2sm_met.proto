@@ -60,7 +60,7 @@ message MaxofUe {
 // {UEID}
 message Ueid {
     // @inject_tag: aper:"valueLB:0,valueUB:255"
-    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 255}, json_name = "value"];
+    int64 value = 1 [(validate.v1.rules).int64 = {gte: 0, lte: 255}, json_name = "value"];
 };
 
 // sequence from met2.asn1:49
@@ -98,20 +98,21 @@ message MeasurementData {
 message MeasurementRecord {
     Ueid ue_id = 1 [ json_name="ueID"];
     Uetag ue_tag = 2 [ json_name="ueTag"];
-    // @inject_tag: aper:"choiceExt,sizeLB:1,sizeUB:65535"
-    repeated MeasurementRecordItem meas_record_item = 3 [(validate.v1.rules).repeated = {min_items: 1, max_items: 65535}, json_name="measRecordItem"];
+    // @inject_tag: aper:"sizeLB:1,sizeUB:65535"
+    MeasurementRecordItemList meas_record_item_list = 3 [ json_name="measRecordItemList"];};
+
+
+message MeasurementRecordItemList {
+    // @inject_tag: aper:"sizeLB:1,sizeUB:65535"
+    repeated MeasurementRecordItem value = 1 [ json_name="value"];
 };
 
 // sequence from met2.asn1:79
 // {MeasurementRecordItem}
 message MeasurementRecordItem {
     // choice from met2.asn1:79
-    oneof measurement_record_item {
-        // @inject_tag: aper:"choiceIdx:1,valueLB:0,valueUB:4294967295"
-        int64 integer = 1 [json_name = "integer"];
-        // @inject_tag: aper:"choiceIdx:2,valueLB:0,valueUB:0"
-        int32 no_value = 2 [json_name = "noValue"];
-    }
+    // @inject_tag: aper:"sizeLB:1,sizeUB:150"
+    string value = 1 [(validate.v1.rules).string = {min_len: 1, max_len: 150}, json_name = "value"];
 };
 
 // sequence from met2.asn1:86

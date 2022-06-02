@@ -2,7 +2,7 @@ package met
 
 import (
 	"encoding/hex"
-	"fmt"
+	// "fmt"
 
 	// "fmt"
 	"testing"
@@ -73,13 +73,13 @@ func Test_perE2SmMetIndicationHeaderCompareBytes(t *testing.T) {
 
 	per, err := encoder.PerEncodeE2SmMetIndicationHeader(ih)
 	assert.NilError(t, err)
-	fmt.Printf("bydfgggggtes len %d \n --Perbytes  : %#v", len(per), per)
+	// fmt.Printf("bydfgggggtes len %d \n --Perbytes  : %#v", len(per), per)
 	t.Logf("E2SM-MET-IndicationHeader PER\n%v", hex.Dump(per))
 
-	indH, err := encoder.PerDecodeE2SmMetIndicationHeader(refPerE2SmMetIndicationHeader)
+	_, err = encoder.PerDecodeE2SmMetIndicationHeader(refPerE2SmMetIndicationHeader)
 	assert.NilError(t, err)
 
-	fmt.Println(indH.GetIndicationHeaderFormats().GetIndicationHeaderFormat1().MeasInfoList.Value[0].Value)
+	// fmt.Println(indH.GetIndicationHeaderFormats().GetIndicationHeaderFormat1().MeasInfoList.Value[0].Value)
 
 	//Comparing with reference bytes
 	// perRefBytes, err := hexlib.DumpToByte(refPerE2SmMetIndicationHeader)

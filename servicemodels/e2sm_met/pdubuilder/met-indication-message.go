@@ -4,6 +4,8 @@
 package pdubuilder
 
 import (
+	"strconv"
+
 	e2smmet "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_met/v1/e2sm-met-go"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
@@ -32,9 +34,7 @@ func CreateE2SmMetIndicationMessageFormat1(subscriptionID int64, measData *e2smm
 func CreateMeasurementRecordItemInteger(integer int64) *e2smmet.MeasurementRecordItem {
 
 	return &e2smmet.MeasurementRecordItem{
-		MeasurementRecordItem: &e2smmet.MeasurementRecordItem_Integer{
-			Integer: integer,
-		},
+		Value: strconv.FormatInt(integer, 10),
 	}
 }
 
@@ -50,9 +50,7 @@ func CreateMeasurementRecordItemInteger(integer int64) *e2smmet.MeasurementRecor
 func CreateMeasurementRecordItemNoValue() *e2smmet.MeasurementRecordItem {
 
 	return &e2smmet.MeasurementRecordItem{
-		MeasurementRecordItem: &e2smmet.MeasurementRecordItem_NoValue{
-			NoValue: 0,
-		},
+		Value: strconv.Itoa(0),
 	}
 }
 
@@ -68,12 +66,12 @@ func CreateMeasurementData(mrList []*e2smmet.MeasurementRecord) (*e2smmet.Measur
 	return &mdi, nil
 }
 
-func CreateMeasurementRecord(ueid *e2smmet.Ueid, uetag *e2smmet.Uetag, mrItems []*e2smmet.MeasurementRecordItem) (*e2smmet.MeasurementRecord, error) {
+func CreateMeasurementRecord(ueid *e2smmet.Ueid, uetag *e2smmet.Uetag, mrItems *e2smmet.MeasurementRecordItemList) (*e2smmet.MeasurementRecord, error) {
 
 	mdi := e2smmet.MeasurementRecord{
-		MeasRecordItem: mrItems,
-		UeId:           ueid,
-		UeTag:          uetag,
+		MeasRecordItemList: mrItems,
+		UeId:               ueid,
+		UeTag:              uetag,
 	}
 
 	if err := mdi.Validate(); err != nil {

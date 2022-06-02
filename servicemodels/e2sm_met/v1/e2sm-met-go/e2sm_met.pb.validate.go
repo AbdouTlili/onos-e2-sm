@@ -1454,49 +1454,33 @@ func (m *MeasurementRecord) validate(all bool) error {
 		}
 	}
 
-	if l := len(m.GetMeasRecordItem()); l < 1 || l > 65535 {
-		err := MeasurementRecordValidationError{
-			field:  "MeasRecordItem",
-			reason: "value must contain between 1 and 65535 items, inclusive",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	for idx, item := range m.GetMeasRecordItem() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, MeasurementRecordValidationError{
-						field:  fmt.Sprintf("MeasRecordItem[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, MeasurementRecordValidationError{
-						field:  fmt.Sprintf("MeasRecordItem[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return MeasurementRecordValidationError{
-					field:  fmt.Sprintf("MeasRecordItem[%v]", idx),
+	if all {
+		switch v := interface{}(m.GetMeasRecordItemList()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MeasurementRecordValidationError{
+					field:  "MeasRecordItemList",
 					reason: "embedded message failed validation",
 					cause:  err,
-				}
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MeasurementRecordValidationError{
+					field:  "MeasRecordItemList",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
 			}
 		}
-
+	} else if v, ok := interface{}(m.GetMeasRecordItemList()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MeasurementRecordValidationError{
+				field:  "MeasRecordItemList",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	if len(errors) > 0 {
@@ -1579,6 +1563,142 @@ var _ interface {
 	ErrorName() string
 } = MeasurementRecordValidationError{}
 
+// Validate checks the field values on MeasurementRecordItemList with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *MeasurementRecordItemList) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MeasurementRecordItemList with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// MeasurementRecordItemListMultiError, or nil if none found.
+func (m *MeasurementRecordItemList) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MeasurementRecordItemList) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetValue() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, MeasurementRecordItemListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, MeasurementRecordItemListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return MeasurementRecordItemListValidationError{
+					field:  fmt.Sprintf("Value[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return MeasurementRecordItemListMultiError(errors)
+	}
+
+	return nil
+}
+
+// MeasurementRecordItemListMultiError is an error wrapping multiple validation
+// errors returned by MeasurementRecordItemList.ValidateAll() if the
+// designated constraints aren't met.
+type MeasurementRecordItemListMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MeasurementRecordItemListMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MeasurementRecordItemListMultiError) AllErrors() []error { return m }
+
+// MeasurementRecordItemListValidationError is the validation error returned by
+// MeasurementRecordItemList.Validate if the designated constraints aren't met.
+type MeasurementRecordItemListValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MeasurementRecordItemListValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MeasurementRecordItemListValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MeasurementRecordItemListValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MeasurementRecordItemListValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MeasurementRecordItemListValidationError) ErrorName() string {
+	return "MeasurementRecordItemListValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MeasurementRecordItemListValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMeasurementRecordItemList.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MeasurementRecordItemListValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MeasurementRecordItemListValidationError{}
+
 // Validate checks the field values on MeasurementRecordItem with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -1601,14 +1721,15 @@ func (m *MeasurementRecordItem) validate(all bool) error {
 
 	var errors []error
 
-	switch m.MeasurementRecordItem.(type) {
-
-	case *MeasurementRecordItem_Integer:
-		// no validation rules for Integer
-
-	case *MeasurementRecordItem_NoValue:
-		// no validation rules for NoValue
-
+	if l := utf8.RuneCountInString(m.GetValue()); l < 1 || l > 150 {
+		err := MeasurementRecordItemValidationError{
+			field:  "Value",
+			reason: "value length must be between 1 and 150 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if len(errors) > 0 {

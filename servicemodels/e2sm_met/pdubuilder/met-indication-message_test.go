@@ -14,42 +14,42 @@ import (
 func TestE2SmMetIndicationMessageFormat1(t *testing.T) {
 
 	var integer64 int64 = 12345
-	var integer32 int32 = 150
+	// var integer32 int32 = 150
 
 	// var rl float64 = 6789
 	var cellObjID int32 = 15
 	var granularity int64 = 21
 	var subscriptionID int64 = 12345
 
-	measRecItemList := make([]*e2smmet.MeasurementRecordItem, 0)
+	measRecItemList := e2smmet.MeasurementRecordItemList{}
 
 	/* the first ue measRecord */
 
-	measRecItemList = append(measRecItemList, CreateMeasurementRecordItemInteger(integer64))
-	measRecItemList = append(measRecItemList, CreateMeasurementRecordItemNoValue())
+	measRecItemList.Value = append(measRecItemList.Value, CreateMeasurementRecordItemInteger(integer64))
+	measRecItemList.Value = append(measRecItemList.Value, CreateMeasurementRecordItemNoValue())
 	// measRecItemList = append(measRecItemList, CreateMeasurementRecordItemReal(rl))
 
 	measRec1, err := CreateMeasurementRecord(&e2smmet.Ueid{
-		Value: integer32,
+		Value: integer64,
 	}, &e2smmet.Uetag{
 		Value: "eurecom",
-	}, measRecItemList)
+	}, &measRecItemList)
 	assert.NilError(t, err)
 
 	/* end of the first ue measRecord */
 
 	/* the second ue measRecord */
-	measRecItemList2 := make([]*e2smmet.MeasurementRecordItem, 0)
+	measRecItemList2 := e2smmet.MeasurementRecordItemList{}
 
-	measRecItemList2 = append(measRecItemList2, CreateMeasurementRecordItemInteger(integer64))
-	measRecItemList2 = append(measRecItemList2, CreateMeasurementRecordItemNoValue())
+	measRecItemList2.Value = append(measRecItemList2.Value, CreateMeasurementRecordItemInteger(integer64))
+	measRecItemList2.Value = append(measRecItemList2.Value, CreateMeasurementRecordItemNoValue())
 	// measRecItemList2 = append(measRecItemList2, CreateMeasurementRecordItemReal(rl))
 
 	measRec2, err := CreateMeasurementRecord(&e2smmet.Ueid{
-		Value: integer32,
+		Value: integer64,
 	}, &e2smmet.Uetag{
 		Value: "eurecom2",
-	}, measRecItemList2)
+	}, &measRecItemList2)
 	assert.NilError(t, err)
 	/* end of the second  ue measRecord */
 
