@@ -351,8 +351,8 @@ type Ueid struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueLB:0,valueUB:255"
-	Value int64 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:255"`
+	// @inject_tag: aper:"valueLB:1,valueUB:4294967295"
+	Value int64 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:1,valueUB:4294967295"`
 }
 
 func (x *Ueid) Reset() {
