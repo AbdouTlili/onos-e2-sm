@@ -116,7 +116,7 @@ protos: buflint
 		-v `pwd`:/go/src/github.com/onosproject/onos-e2-sm \
 		-v `pwd`/../onos-lib-go:/go/src/github.com/onosproject/onos-lib-go \
 		-w /go/src/github.com/onosproject/onos-e2-sm \
-		--entrypoint  /bin/bash \
+		--entrypoint  /go/src/github.com/onosproject/onos-e2-sm/build/bin/compile-protos.sh \
 		onosproject/protoc-go:${ONOS_PROTOC_VERSION}
 
 protos-py: # @HELP compile the protobuf files for python (using protoc-go Docker)

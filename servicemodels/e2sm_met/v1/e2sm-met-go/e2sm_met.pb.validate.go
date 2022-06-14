@@ -743,10 +743,10 @@ func (m *Ueid) validate(all bool) error {
 
 	var errors []error
 
-	if val := m.GetValue(); val < 0 || val > 255 {
+	if val := m.GetValue(); val < 0 || val > 4294967295 {
 		err := UeidValidationError{
 			field:  "Value",
-			reason: "value must be inside range [0, 255]",
+			reason: "value must be inside range [0, 4294967295]",
 		}
 		if !all {
 			return err
