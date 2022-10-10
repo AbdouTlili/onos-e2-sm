@@ -158,6 +158,22 @@ protoc -I=$proto_imports:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
 
 
 
+### MET SM 
+protoc -I=$proto_imports:${GOPATH}/src/github.com/onosproject/onos-lib-go/api:${GOPATH}/src/github.com/onosproject/onos-e2-sm/servicemodels \
+  --proto_path=servicemodels \
+  --go_out=./servicemodels/ \
+  e2sm_xtdd/v1/e2sm_xtdd.proto
+
+protoc-go-inject-tag -input=servicemodels/e2sm_xtdd/v1/e2sm-xtdd-go/e2sm_xtdd.pb.go
+
+protoc -I=$proto_imports:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
+  --validate_out=lang=go:. --proto_path=servicemodels \
+  --go_out=. \
+  e2sm_xtdd/v1/e2sm_xtdd.proto
+
+
+
+
 cp -r github.com/onosproject/onos-e2-sm/* .
 cp -r github.com/AbdouTlili/onos-e2-sm/* .
 # rm -rf github.com

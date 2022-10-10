@@ -214,7 +214,7 @@ E2SM-XTDD-IEs {
     -- E2SM-XTDD-ControlHeader Format 1
     E2SM-XTDD-ControlHeader-Format1 ::= SEQUENCE{
         rc-command                   XTDD-Command,
-        ric-Control-Message-Priority    RIC-Control-Message-Priority    OPTIONAL,
+        -- ric-Control-Message-Priority    RIC-Control-Message-Priority    OPTIONAL,
         ...
     }
 

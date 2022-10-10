@@ -208,8 +208,18 @@ service-model-docker-e2sm_met-1.0.0: # @HELP build e2sm_met 1.0.0 plugin Docker 
 			--build-arg PLUGIN_MAKE_TARGET="e2sm_met" \
 			--build-arg PLUGIN_MAKE_VERSION="1.0.0" \
 			-t abdoutlili/service-model-docker-e2sm_met-1.0.0:${ONOS_E2_SM_VERSION}
-PHONY: service-model-docker-e2sm_rc-1.0.0
 
+# xtdd service model
+PHONY: service-model-docker-e2sm_met-1.0.0
+service-model-docker-e2sm_xtdd-1.0.0: # @HELP build e2sm_xtdd 1.0.0 plugin Docker image
+	./build/bin/build-deps e2sm_xtdd ${E2T_MOD} abdoutlili/service-model-docker-e2sm_xtdd-1.0.0:${ONOS_E2_SM_VERSION}
+	docker build . -f build/plugins/Dockerfile \
+			--build-arg PLUGIN_MAKE_TARGET="e2sm_xtdd" \
+			--build-arg PLUGIN_MAKE_VERSION="1.0.0" \
+			-t abdoutlili/service-model-docker-e2sm_xtdd-1.0.0:${ONOS_E2_SM_VERSION}
+
+
+PHONY: service-model-docker-e2sm_rc-1.0.0
 service-model-docker-e2sm_rc-1.0.0: # @HELP build e2sm_rc_pre_go 1.0.0 plugin Docker image
 	./build/bin/build-deps e2sm_rc ${E2T_MOD} onosproject/service-model-docker-e2sm_rc-1.0.0:${ONOS_E2_SM_VERSION}
 	docker build . -f build/plugins/Dockerfile \
