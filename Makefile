@@ -51,6 +51,10 @@ build/_output/e2sm_mho.so.1.0.0: # @HELP build the e2sm_mho.so.1.0.1
 build/_output/e2sm_met.so.1.0.0: # @HELP build the e2sm_kpm.so.1.0.0
 	cd servicemodels/met && CGO_ENABLED=1 go build -o build/_output/e2sm_met.so.1.0.0 -buildmode=plugin .
 
+#xtdd SM build 
+build/_output/e2sm_xtdd.so.1.0.0: # @HELP build the e2sm_kpm.so.1.0.0
+	cd servicemodels/met && CGO_ENABLED=1 go build -o build/_output/e2sm_xtdd.so.1.0.0 -buildmode=plugin .
+
 build/_output/e2sm_rc.so.1.0.0: # @HELP build the e2sm_rc.so.1.0.1
 	cd servicemodels/e2sm_rc && CGO_ENABLED=1 go build -o build/_output/e2sm_rc.so.1.0.0 -buildmode=plugin .
 
@@ -98,6 +102,7 @@ sm-linters: golang-ci # @HELP examines Go source code and reports coding problem
 	cd servicemodels/e2sm_mho && golangci-lint run --timeout 5m && cd ..
 	cd servicemodels/e2sm_rsm && golangci-lint run --timeout 5m && cd ..
 	cd servicemodels/e2sm_met && golangci-lint run --timeout 5m && cd ..
+	cd servicemodels/e2sm_xtdd && golangci-lint run --timeout 5m && cd ..
 	cd servicemodels/test_sm_aper_go_lib && golangci-lint run --timeout 5m && cd ..
 	cd protoc-gen-cgo/ && golangci-lint run --timeout 5m && cd ..
 	cd protoc-gen-choice/ && golangci-lint run --timeout 5m && cd ..
@@ -110,13 +115,13 @@ buflint: #@HELP run the "buf check lint" command on the proto files in 'api'
 		-w /go/src/github.com/onosproject/onos-e2-sm/servicemodels \
 		bufbuild/buf:${BUF_VERSION} lint
 
-protos: # @HELP compile the protobuf files (using protoc-go Docker)  
+protos: # @HELP compile the protobuf files (using protoc-go Docker)   /go/src/github.com/onosproject/onos-e2-sm/build/bin/compile-protos.sh
 protos: buflint
 	docker run -it \
 		-v `pwd`:/go/src/github.com/onosproject/onos-e2-sm \
 		-v `pwd`/../onos-lib-go:/go/src/github.com/onosproject/onos-lib-go \
 		-w /go/src/github.com/onosproject/onos-e2-sm \
-		--entrypoint  /go/src/github.com/onosproject/onos-e2-sm/build/bin/compile-protos.sh \
+		--entrypoint  /bin/bash  \
 		onosproject/protoc-go:${ONOS_PROTOC_VERSION}
 
 protos-py: # @HELP compile the protobuf files for python (using protoc-go Docker)
@@ -269,3 +274,6 @@ clean:: # @HELP remove all the build artifacts
 
 publish-met: 
 	docker push abdoutlili/service-model-docker-e2sm_met-1.0.0:${ONOS_E2_SM_VERSION}
+
+publish-xtdd: 
+	docker push abdoutlili/service-model-docker-e2sm_xtdd-1.0.0:${ONOS_E2_SM_VERSION}

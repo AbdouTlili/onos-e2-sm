@@ -163,8 +163,8 @@ message MeasurementTypeName {
 // range of Integer from e2sm-xtdd.asn1:83
 // {MeasurementTypeID}
 message MeasurementTypeId {
-    // @inject_tag: aper:"valueExt,valueLB:1,valueUB:65535,"
-    int32 value = 1 [(validate.v1.rules).int32 = {gte: 1, lte: 65535}, json_name="value"];
+    // @inject_tag: aper:"valueExt,valueLB:1,valueUB:65536,"
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 1, lte: 65536}, json_name="value"];
 };
 
 // choice from e2sm-xtdd.asn1:95
@@ -191,7 +191,7 @@ message E2SmXTddEventTriggerDefinition {
 // {E2SM-XTDD-EventTriggerDefinition-Format1}
 message E2SmXTddEventTriggerDefinitionFormat1 {
     // @inject_tag: aper:"valueLB:1,valueUB:4294967295,"
-    int32 reporting_period = 1 [ json_name="reportingPeriod"];
+    int64 reporting_period = 1 [ json_name="reportingPeriod"];
 };
 
 // choice from e2sm-xtdd.asn1:113
