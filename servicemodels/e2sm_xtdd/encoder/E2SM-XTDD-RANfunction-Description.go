@@ -6,7 +6,6 @@ import (
 	e2smxtdd "github.com/AbdouTlili/onos-e2-sm/servicemodels/e2sm_xtdd/v1/e2sm-xtdd-go"
 	"github.com/onosproject/onos-lib-go/pkg/asn1/aper"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
-	"google.golang.org/appengine/log"
 )
 
 func PerEncodeE2SmXtddRanFunctionDescription(rfd *e2smxtdd.E2SmXTddRAnfunctionDescription) ([]byte, error) {

@@ -9,36 +9,36 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
-func PerEncodeE2SmMetIndicationMessage(im *e2smxtdd.E2SmXTddIndicationMessage) ([]byte, error) {
+func PerEncodeE2SmXtddControlMessage(cm *e2smxtdd.E2SmXTddControlMessage) ([]byte, error) {
 
-	log.Debugf("Obtained E2SM-XTDD-IndicationMessage message is\n%v", im)
-	if err := im.Validate(); err != nil {
-		return nil, errors.NewInvalid("error validating E2SM-XTDD-IndicationMessage PDU %s", err.Error())
+	log.Debugf("Obtained E2SM-XTDD-IndicationMessage message is\n%v", cm)
+	if err := cm.Validate(); err != nil {
+		return nil, errors.NewInvalid("error validating E2SM-XTDD-ControlMessage PDU %s", err.Error())
 	}
 
-	per, err := aper.MarshalWithParams(im, "valueExt", e2smxtdd.E2smXtddChoicemap, nil)
+	per, err := aper.MarshalWithParams(cm, "valueExt", e2smxtdd.E2smXtddChoicemap, nil)
 	if err != nil {
-		fmt.Println("error aper.MarshalWithParams(im, \"valueExt\", e2smxtdd.E2smMetChoicemap, nil)")
+		fmt.Println("error aper.MarshalWithParams(cm, \"valueExt\", e2smxtdd.E2smXtddChoicemap, nil)")
 		return nil, err
 	}
-	log.Debugf("Encoded E2SM-XTDD-IndicationMessage PER bytes are\n%v", hex.Dump(per))
+	log.Debugf("Encoded E2SM-XTDD-ControlMessage PER bytes are\n%v", hex.Dump(per))
 
 	return per, nil
 }
 
-func PerDecodeE2SmMetIndicationMessage(per []byte) (*e2smxtdd.E2SmXTddIndicationMessage, error) {
+func PerDecodeE2SmXtddControlMessage(per []byte) (*e2smxtdd.E2SmXTddControlMessage, error) {
 
-	log.Debugf("Obtained E2SM-XTDD-IndicationMessage PER bytes are\n%v", hex.Dump(per))
+	log.Debugf("Obtained E2SM-XTDD-ControlMessage PER bytes are\n%v", hex.Dump(per))
 
-	result := e2smxtdd.E2SmXTddIndicationMessage{}
+	result := e2smxtdd.E2SmXTddControlMessage{}
 	err := aper.UnmarshalWithParams(per, &result, "valueExt", e2smxtdd.E2smXtddChoicemap, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	log.Debugf("Decoded E2SM-XTDD-IndicationMessage from PER is\n%v", &result)
+	log.Debugf("Decoded E2SM-XTDD-ControlMessage from PER is\n%v", &result)
 	if err = result.Validate(); err != nil {
-		return nil, errors.NewInvalid("error validating E2SM-XTDD-IndicationMessage PDU %s", err.Error())
+		return nil, errors.NewInvalid("error validating E2SM-XTDD-ControlMessage PDU %s", err.Error())
 	}
 
 	return &result, nil

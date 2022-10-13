@@ -9,7 +9,7 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
-func PerEncodeE2SmMetIndicationMessage(im *e2smxtdd.E2SmXTddIndicationMessage) ([]byte, error) {
+func PerEncodeE2SmXtddIndicationMessage(im *e2smxtdd.E2SmXTddIndicationMessage) ([]byte, error) {
 
 	log.Debugf("Obtained E2SM-XTDD-IndicationMessage message is\n%v", im)
 	if err := im.Validate(); err != nil {
@@ -18,7 +18,7 @@ func PerEncodeE2SmMetIndicationMessage(im *e2smxtdd.E2SmXTddIndicationMessage) (
 
 	per, err := aper.MarshalWithParams(im, "valueExt", e2smxtdd.E2smXtddChoicemap, nil)
 	if err != nil {
-		fmt.Println("error aper.MarshalWithParams(im, \"valueExt\", e2smxtdd.E2smMetChoicemap, nil)")
+		fmt.Println("error aper.MarshalWithParams(im, \"valueExt\", e2smxtdd.E2smXtddChoicemap, nil)")
 		return nil, err
 	}
 	log.Debugf("Encoded E2SM-XTDD-IndicationMessage PER bytes are\n%v", hex.Dump(per))
@@ -26,7 +26,7 @@ func PerEncodeE2SmMetIndicationMessage(im *e2smxtdd.E2SmXTddIndicationMessage) (
 	return per, nil
 }
 
-func PerDecodeE2SmMetIndicationMessage(per []byte) (*e2smxtdd.E2SmXTddIndicationMessage, error) {
+func PerDecodeE2SmXtddIndicationMessage(per []byte) (*e2smxtdd.E2SmXTddIndicationMessage, error) {
 
 	log.Debugf("Obtained E2SM-XTDD-IndicationMessage PER bytes are\n%v", hex.Dump(per))
 

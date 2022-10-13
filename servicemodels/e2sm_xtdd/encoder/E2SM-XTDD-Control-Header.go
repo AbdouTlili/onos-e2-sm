@@ -9,16 +9,16 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
-func PerEncodeE2SmXtddControlMessage(im *e2smxtdd.E2SmXTddIndicationMessage) ([]byte, error) {
+func PerEncodeE2SmXtddControlHeader(ch *e2smxtdd.E2SmXTddControlHeader) ([]byte, error) {
 
-	log.Debugf("Obtained E2SM-XTDD-IndicationMessage message is\n%v", im)
-	if err := im.Validate(); err != nil {
-		return nil, errors.NewInvalid("error validating E2SM-XTDD-IndicationMessage PDU %s", err.Error())
+	log.Debugf("Obtained E2SM-XTDD-ControlHeader message is\n%v", ch)
+	if err := ch.Validate(); err != nil {
+		return nil, errors.NewInvalid("error validating E2SM-XTDD-ControlHeader PDU %s", err.Error())
 	}
 
-	per, err := aper.MarshalWithParams(im, "valueExt", e2smxtdd.E2smXtddChoicemap, nil)
+	per, err := aper.MarshalWithParams(ch, "valueExt", e2smxtdd.E2smXtddChoicemap, nil)
 	if err != nil {
-		fmt.Println("error aper.MarshalWithParams(im, \"valueExt\", e2smxtdd.E2smXtddChoicemap, nil)")
+		fmt.Println("error aper.MarshalWithParams(ch, \"valueExt\", e2smxtdd.E2smXtddChoicemap, nil)")
 		return nil, err
 	}
 	log.Debugf("Encoded E2SM-XTDD-IndicationMessage PER bytes are\n%v", hex.Dump(per))
@@ -26,9 +26,9 @@ func PerEncodeE2SmXtddControlMessage(im *e2smxtdd.E2SmXTddIndicationMessage) ([]
 	return per, nil
 }
 
-func PerDecodeE2SmXtddControlMessage(per []byte) (*e2smxtdd.E2SmXTddIndicationMessage, error) {
+func PerDecodeE2SmXtddControlHeader(per []byte) (*e2smxtdd.E2SmXTddControlHeader, error) {
 
-	log.Debugf("Obtained E2SM-XTDD-IndicationMessage PER bytes are\n%v", hex.Dump(per))
+	log.Debugf("Obtained E2SM-XTDD-ControlHeader PER bytes are\n%v", hex.Dump(per))
 
 	result := e2smxtdd.E2SmXTddIndicationMessage{}
 	err := aper.UnmarshalWithParams(per, &result, "valueExt", e2smxtdd.E2smXtddChoicemap, nil)
