@@ -30,7 +30,7 @@ func PerDecodeE2SmXtddControlHeader(per []byte) (*e2smxtdd.E2SmXTddControlHeader
 
 	log.Debugf("Obtained E2SM-XTDD-ControlHeader PER bytes are\n%v", hex.Dump(per))
 
-	result := e2smxtdd.E2SmXTddIndicationMessage{}
+	result := e2smxtdd.E2SmXTddControlHeader{}
 	err := aper.UnmarshalWithParams(per, &result, "valueExt", e2smxtdd.E2smXtddChoicemap, nil)
 	if err != nil {
 		return nil, err
