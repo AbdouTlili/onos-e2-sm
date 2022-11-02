@@ -1,4 +1,4 @@
-package e2sm_met_go
+package e2smmet
 
 import "reflect"
 

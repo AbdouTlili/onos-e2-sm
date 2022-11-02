@@ -1,4 +1,4 @@
-package e2sm_met_go
+package e2smmet
 
 func (ih *E2SmMetIndicationHeader) SetFileFormatVersion(ffv string) *E2SmMetIndicationHeader {
 	switch ih.GetIndicationHeaderFormats().E2SmMetIndicationHeader.(type) {
