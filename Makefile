@@ -208,6 +208,18 @@ service-model-docker-e2sm_met-1.0.0: # @HELP build e2sm_met 1.0.0 plugin Docker 
 			--build-arg PLUGIN_MAKE_TARGET="e2sm_met" \
 			--build-arg PLUGIN_MAKE_VERSION="1.0.0" \
 			-t abdoutlili/service-model-docker-e2sm_met-1.0.0:${ONOS_E2_SM_VERSION}
+
+
+
+service-model-docker-e2sm_met-1.0.0-short: # @HELP build e2sm_met 1.0.0 plugin Docker image
+#CGO_ENABLED=1 go build -o ./servicemodels/e2sm_met/build/_output/e2sm_met.so.1.0.0 -buildmode=plugin ./servicemodels/e2sm_met
+	docker build ./servicemodels/e2sm_met -f build/plugins/custom.Dockerfile \
+			--build-arg PLUGIN_MAKE_TARGET="e2sm_met" \
+			--build-arg PLUGIN_MAKE_VERSION="1.0.0" \
+			-t abdoutlili/service-model-docker-e2sm_met-1.0.0:${ONOS_E2_SM_VERSION}
+
+
+
 PHONY: service-model-docker-e2sm_rc-1.0.0
 
 service-model-docker-e2sm_rc-1.0.0: # @HELP build e2sm_rc_pre_go 1.0.0 plugin Docker image
