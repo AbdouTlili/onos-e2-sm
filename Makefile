@@ -5,7 +5,7 @@
 export CGO_ENABLED=1
 export GO111MODULE=on
 
-E2T_MOD ?= github.com/abdoutlili/onos-e2t@met-sm
+E2T_MOD ?= github.com/abdoutlili/onos-e2t@master
 
 ONOS_E2_SM_VERSION := latest
 ONOS_BUILD_VERSION := v1.0
@@ -233,7 +233,7 @@ service-model-docker-e2sm_met-1.0.0-short: # @HELP build e2sm_met 1.0.0 plugin D
 # xtdd service model
 PHONY: service-model-docker-e2sm_xtdd-1.0.0
 service-model-docker-e2sm_xtdd-1.0.0: # @HELP build e2sm_xtdd 1.0.0 plugin Docker image
-	./build/bin/build-deps e2sm_xtdd ${E2T_MOD} abdoutlili/service-model-docker-e2sm_xtdd-1.0.0:${ONOS_E2_SM_VERSION}
+#./build/bin/build-deps e2sm_xtdd ${E2T_MOD} abdoutlili/service-model-docker-e2sm_xtdd-1.0.0:${ONOS_E2_SM_VERSION}
 	docker build . -f build/plugins/Dockerfile \
 			--build-arg PLUGIN_MAKE_TARGET="e2sm_xtdd" \
 			--build-arg PLUGIN_MAKE_VERSION="1.0.0" \
