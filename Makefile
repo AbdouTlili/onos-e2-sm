@@ -218,6 +218,22 @@ service-model-docker-e2sm_met-1.0.0: # @HELP build e2sm_met 1.0.0 plugin Docker 
 PHONY: service-model-docker-e2sm_met-1.0.0
 service-model-docker-e2sm_xtdd-1.0.0: # @HELP build e2sm_xtdd 1.0.0 plugin Docker image
 	./build/bin/build-deps e2sm_xtdd ${E2T_MOD} abdoutlili/service-model-docker-e2sm_xtdd-1.0.0:${ONOS_E2_SM_VERSION}
+
+
+PHONY: service-model-docker-e2sm_met-1.0.0-short
+service-model-docker-e2sm_met-1.0.0-short: # @HELP build e2sm_met 1.0.0 plugin Docker image
+#CGO_ENABLED=1 go build -o ./servicemodels/e2sm_met/build/_output/e2sm_met.so.1.0.0 -buildmode=plugin ./servicemodels/e2sm_met
+	docker build ./servicemodels/e2sm_met -f build/plugins/custom.Dockerfile \
+			--build-arg PLUGIN_MAKE_TARGET="e2sm_met" \
+			--build-arg PLUGIN_MAKE_VERSION="1.0.0" \
+			-t abdoutlili/service-model-docker-e2sm_met-1.0.0:${ONOS_E2_SM_VERSION}
+
+
+
+# xtdd service model
+PHONY: service-model-docker-e2sm_xtdd-1.0.0
+service-model-docker-e2sm_xtdd-1.0.0: # @HELP build e2sm_xtdd 1.0.0 plugin Docker image
+	./build/bin/build-deps e2sm_xtdd ${E2T_MOD} abdoutlili/service-model-docker-e2sm_xtdd-1.0.0:${ONOS_E2_SM_VERSION}
 	docker build . -f build/plugins/Dockerfile \
 			--build-arg PLUGIN_MAKE_TARGET="e2sm_xtdd" \
 			--build-arg PLUGIN_MAKE_VERSION="1.0.0" \

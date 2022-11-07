@@ -8,7 +8,7 @@
 // 	protoc        v3.19.4
 // source: e2sm_met/v1/e2sm_met.proto
 
-package e2sm_met_go
+package e2smmet
 
 import (
 	_ "github.com/envoyproxy/protoc-gen-validate/validate"

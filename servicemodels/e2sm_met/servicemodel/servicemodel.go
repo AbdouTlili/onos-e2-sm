@@ -176,6 +176,14 @@ func (sm MetServiceModel) ActionDefinitionProtoToASN1(protoBytes []byte) ([]byte
 	return perBytes, nil
 }
 
+func (sm MetServiceModel) CallProcessIDASN1toProto(asn1Bytes []byte) ([]byte, error) {
+	return nil, errors.NewInvalid("not implemented on MsET")
+}
+
+func (sm MetServiceModel) CallProcessIDProtoToASN1(protoBytes []byte) ([]byte, error) {
+	return nil, errors.NewInvalid("not implemented on MET")
+}
+
 func (sm MetServiceModel) ControlHeaderASN1toProto(asn1Bytes []byte) ([]byte, error) {
 	return nil, errors.NewInvalid("not implemented on MET")
 }
@@ -198,6 +206,10 @@ func (sm MetServiceModel) ControlOutcomeASN1toProto(asn1Bytes []byte) ([]byte, e
 
 func (sm MetServiceModel) ControlOutcomeProtoToASN1(protoBytes []byte) ([]byte, error) {
 	return nil, errors.NewInvalid("not implemented on MET")
+}
+
+func (sm MetServiceModel) OnSetup(request *types.OnSetupRequest) error {
+	return errors.NewInvalid("not implemented on KPM")
 }
 
 // func (sm MetServiceModel) OnSetup(request *types.OnSetupRequest) error {
