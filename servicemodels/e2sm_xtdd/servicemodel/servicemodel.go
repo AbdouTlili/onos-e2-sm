@@ -234,3 +234,11 @@ func (sm XtddServiceModel) ControlOutcomeASN1toProto(asn1Bytes []byte) ([]byte, 
 func (sm XtddServiceModel) ControlOutcomeProtoToASN1(protoBytes []byte) ([]byte, error) {
 	return nil, errors.NewInvalid("not implemented on MET")
 }
+
+func (sm XtddServiceModel) CallProcessIDASN1toProto(asn1Bytes []byte) ([]byte, error) {
+	return nil, errors.NewInvalid("not implemented on MsET")
+}
+
+func (sm XtddServiceModel) CallProcessIDProtoToASN1(protoBytes []byte) ([]byte, error) {
+	return nil, errors.NewInvalid("not implemented on MET")
+}
